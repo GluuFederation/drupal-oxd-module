@@ -1,0 +1,99 @@
+<?php
+/**
+ * @file
+ * Installation file for miniOrange sso Module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function gluu_sso_uninstall() {
+  variable_del("gluu_custom_scripts");
+  variable_del("gluu_scops");
+  variable_del("gluu_config");
+  variable_del("gluu_oxd_id");
+}
+
+/**
+ * Implements hook_install().
+ */
+function gluu_sso_install() {
+
+  global $base_url;
+    $authorization_redirect_uri = $base_url.'?option=gluuSsoType';
+    $logout_redirect_uri = $base_url.'/user/logout';
+    $img_path = drupal_get_path('module', 'gluu_sso');
+    variable_set('gluu_scops',array('openid','profile','email'));
+    $custom_scripts = array(
+        array('name'=>'Google','image'=>url( $img_path.'/files/images/icons/google.png'),'value'=>'gplus'),
+        array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/Basic.png'),'value'=>'basic'),
+        array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/Duo.png'),'value'=>'duo'),
+        array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/U2F.png'),'value'=>'u2f')
+    );
+    variable_set('gluu_custom_scripts',$custom_scripts);
+    $config_option = array(
+        "oxd_host_ip" => '127.0.0.1',
+        "oxd_host_port" =>8099,
+        "authorization_redirect_uri" => $authorization_redirect_uri,
+        "logout_redirect_uri" => $logout_redirect_uri,
+        "scope" => [ "openid", "profile","email"],
+        "application_type" => "web",
+        "redirect_uris" => [ $authorization_redirect_uri ],
+        "response_types" => ["code"],
+        "gluu_url" => '',
+        "grant_types" =>["authorization_code"],
+        "acr_values" => [],
+        "am_host" =>""
+    );
+    variable_set('gluu_config', $config_option);
+}
+
+/**
+ * Implements hook_disable().
+ *
+ * Stash a list of blocks enabled on the gluu_sso, so they can be re-enabled
+ * if the dashboard is re-enabled. Then disable those blocks, since the
+ * dashboard regions will no longer be defined.
+ */
+function gluu_sso_disable() {
+    variable_del("gluu_custom_scripts");
+    variable_del("gluu_scops");
+    variable_del("gluu_config");
+    variable_del("gluu_oxd_id");
+}
+
+/**
+ * Implements hook_enable().
+ *
+ * Restores blocks to the dashboard that were there when the gluu_sso module
+ * was disabled.
+ */
+function gluu_sso_enable() {
+  global $base_url;
+      $authorization_redirect_uri = $base_url.'?option=gluuSsoType';
+      $logout_redirect_uri = $base_url.'/user/logout';
+      $img_path = drupal_get_path('module', 'gluu_sso');
+      variable_set('gluu_scops',array('openid','profile','email'));
+      $custom_scripts = array(
+          array('name'=>'Google','image'=>url( $img_path.'/files/images/icons/google.png'),'value'=>'gplus'),
+          array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/Basic.png'),'value'=>'basic'),
+          array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/Duo.png'),'value'=>'duo'),
+          array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/U2F.png'),'value'=>'u2f')
+      );
+      variable_set('gluu_custom_scripts',$custom_scripts);
+      $config_option = array(
+          "oxd_host_ip" => '127.0.0.1',
+          "oxd_host_port" =>8099,
+          "authorization_redirect_uri" => $authorization_redirect_uri,
+          "logout_redirect_uri" => $logout_redirect_uri,
+          "scope" => [ "openid", "profile","email"],
+          "application_type" => "web",
+          "redirect_uris" => [ $authorization_redirect_uri ],
+          "response_types" => ["code"],
+          "gluu_url" => '',
+          "grant_types" =>["authorization_code"],
+          "acr_values" => [],
+          "am_host" =>""
+      );
+      variable_set('gluu_config', $config_option);
+}
