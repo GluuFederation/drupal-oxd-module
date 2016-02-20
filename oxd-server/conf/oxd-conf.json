@@ -1,1 +1,0 @@
-{"port":8099,"localhost_only":true,"time_out_in_seconds":0,"jetty_port":8098,"start_jetty":false,"use_client_authentication_for_pat":true,"trust_all_certs":true,"trust_store_path":"","license_server_endpoint":"","license_id":"","license_check_period_in_hours":24,"public_key":"","public_password":"","license_password":"","op_host":"https:\/\/cms.gluu.new"}
