@@ -5,7 +5,7 @@ sites/*/*settings*.php
 files/
 sites/*/files
 sites/*/private
-
+.idea/
 # Ignore default text files
 robots.txt
 /CHANGELOG.txt
@@ -18,7 +18,8 @@ robots.txt
 sites/all/README.txt
 sites/all/modules/README.txt
 sites/all/themes/README.txt
-
+file/images/Thumbs.db
+file/images/icons/Thumbs.db
 # Ignore everything but the "sites" folder ( for non core developer )
 .htaccess
 web.config
