@@ -2,7 +2,6 @@
 sites/*/*settings*.php
 
 # Ignore paths that contain generated content.
-files/
 sites/*/files
 sites/*/private
 .idea/
@@ -29,7 +28,6 @@ index.php
 install.php
 update.php
 xmlrpc.php
-/includes
 /misc
 /modules
 /profiles
