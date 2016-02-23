@@ -1,7 +1,8 @@
 name = Gluu SSO/Gluu and Social Login module
-description = Gluu and social login via gluu server. Allow your users to login with Gluu server via Google, Duo, Basic, U2F Token etc using customizable buttons.
+description = Use OpenID Connect to login by leveraging the oxd client service demon..
 core = 7.x
 configure = admin/config/people/gluu_sso
+package = "Gluu SSO"
 
 files[] = includes/oxd-rp/Client_OXD_RP.php
 files[] = includes/oxd-rp/Get_authorization_url.php
@@ -10,9 +11,8 @@ files[] = includes/oxd-rp/Get_user_info.php
 files[] = includes/oxd-rp/Logout.php
 files[] = includes/oxd-rp/Register_site.php
 
-; Information added by Drupal.org packaging script on 2016-01-08
-version = "7.x-1.x-stabel"
+; Information added by Drupal.org packaging script on 2016-03-01
+version = "7.x-3.0.7"
 core = "7.x"
 project = "gluu_sso"
 datestamp = "1452243841"
-
