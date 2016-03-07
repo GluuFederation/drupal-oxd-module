@@ -3,51 +3,16 @@
  * @file
  * Module file for miniOrange sso Module.
  */
-?>
-  <style>
-    .mess_red{
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
-      color: red;
-      background-color: rgba(251, 232, 0, 0.15);
-      padding: 5px;
-      border: solid 1px rgba(255, 0, 9, 0.36);
-    }
-    #edit-gluu-sso-customer-setup-button{
-      background: #00d300 !important;
-      color: black !important;
-    }
-    th {
-      text-align: center !important;
-    }
-    /*td{
-      border: 1px solid #00d300 !important;
-    }*/
-    .tabs li a{
-      background-color:#00d300 !important;
-    }
-    ul.primary li.active a, ul.primary li.active a.active, ul.primary li.active a:active, ul.primary li.active a:visited{
-      background-color:white !important;
-    }
-    #gluu-sso-general-setup, #gluu-sso-scopes-scripts-setup, #gluu-sso-gateway-form,#gluu-sso-testauthentication, #gluu-sso-workflow,#gluu-sso-config-form{
-      border: 2px solid #00d300 !important;
-      padding: 20px !important;
-      border-radius: 5px !important;
-    }
-  </style>
-<?php
 
 function add_js_css_fonts() {
+  drupal_add_css( drupal_get_path('module', 'gluu_sso') . '/files/css/gluu_oxd_scripts.css' );
   drupal_add_js('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js', 'external');
   drupal_add_js(drupal_get_path('module', 'gluu_sso') . '/files/js/scope-custom-script.js' );
   drupal_add_js( drupal_get_path('module', 'gluu_sso') . '/files/js/gluu_oxd_scripts.js' );
+
 }
 add_js_css_fonts() ;
 
-?>
-
-<?php
 /**
  * Implements hook_menu().
  */
@@ -63,7 +28,7 @@ function gluu_sso_menu() {
   );
 
   $items['admin/config/people/gluu_sso/general'] = array(
-    'title' => 'General',
+    'title' => t('General'),
     'weight' => -5,
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'access arguments' => array('administer site configuration'),
@@ -72,7 +37,7 @@ function gluu_sso_menu() {
   );
 
   $items['admin/config/people/gluu_sso/scopes_scripts'] = array(
-    'title' => 'Scopes and custom scripts',
+    'title' => t('OpenID Connect Configuration'),
     'weight' => -4,
     'type' => MENU_LOCAL_TASK,
     'access arguments' => array('administer site configuration'),
@@ -81,7 +46,7 @@ function gluu_sso_menu() {
   );
 
   $items['admin/config/people/gluu_sso/config_form_setup'] = array(
-    'title' => 'Gluu and social login config',
+    'title' => t('Drupal Configuration'),
     'weight' => -3,
     'type' => MENU_LOCAL_TASK,
     'access arguments' => array('administer site configuration'),
@@ -89,17 +54,8 @@ function gluu_sso_menu() {
     'file' => 'gluu_sso_config_form_setup.inc',
   );
 
-  $items['admin/config/people/gluu_sso/testauthentication'] = array(
-    'title' => 'Shortcode',
-    'page_callback' => 'drupal_get_form',
-    'weight' => -2,
-    'type' => MENU_LOCAL_TASK,
-    'access arguments' => array('administer site configuration'),
-    'page arguments' => array('gluu_sso_testauthentication'),
-    'file' => 'gluu_sso_testauthentication.inc',
-  );
   $items['admin/config/people/gluu_sso/how_it_works'] = array(
-      'title' => 'Help & Troubleshooting',
+      'title' => t('Help & Troubleshooting'),
       'weight' => -1,
       'type' => MENU_LOCAL_TASK,
       'access arguments' => array('administer site configuration'),
@@ -124,11 +80,9 @@ function gluu_sso_form_user_login_alter(&$form, $form_state) {
  */
 
 function gluu_sso_form_user_login_block_alter(&$form, &$form_state) {
-if(isset($_GET['gluuOption'])){
-  oxd_openid_login_validate();
-}
-  $form['miniorange_samlauth_login_link'] = array(
-  );
+  if(isset($_GET['gluuOption'])){
+    oxd_openid_login_validate();
+  }
   $form['markup_2'] = array(
       '#markup' =>login_html(),
       );
@@ -286,142 +240,40 @@ function oxd_openid_login_validate(){
 
     $get_tokens_by_code_array = $get_tokens_by_code->getResponseObject()->data->id_token_claims;
 
-    setcookie( 'user_oxd_id_token', $get_tokens_by_code->getResponseIdToken());
-    setcookie( 'user_oxd_access_token', $get_tokens_by_code->getResponseAccessToken());
-    setcookie( 'session_states', $_REQUEST['session_state']);
-    setcookie( 'states', $_REQUEST['state']);
+    setcookie('user_oxd_id_token',$get_tokens_by_code->getResponseIdToken() , time()+3600*24*100);
+    setcookie('user_oxd_access_token',$get_tokens_by_code->getResponseAccessToken() , time()+3600*24*100);
+    setcookie('session_states',$get_tokens_by_code->getResponseAccessToken(), time()+3600*24*100 );
+    setcookie('states',$_REQUEST['session_state'], time()+3600*24*100 );
+
+    $_SESSION['user_oxd_id_token']= $get_tokens_by_code->getResponseIdToken();
+    $_SESSION['user_oxd_access_token']=  $get_tokens_by_code->getResponseAccessToken();
+    $_SESSION['session_states']=  $_REQUEST['session_state'];
+    $_SESSION['states']=  $_REQUEST['state'];
     $get_user_info = new Get_user_info();
     $get_user_info->setRequestOxdId(variable_get('oxd_id'));
-    $get_user_info->setRequestAccessToken($_COOKIE['user_oxd_access_token']);
+    $get_user_info->setRequestAccessToken($get_tokens_by_code->getResponseAccessToken());
     $get_user_info->request();
     $get_user_info_array = $get_user_info->getResponseObject()->data->claims;
 
-    $reg_first_name = '';
-    $reg_last_name = '';
     $reg_email = '';
-    $reg_avatar = '';
-    $reg_display_name = '';
-    $reg_nikname = '';
-    $reg_website = '';
-    $reg_middle_name = '';
-    $reg_country = '';
-    $reg_city = '';
-    $reg_region = '';
-    $reg_gender = '';
-    $reg_postal_code = '';
-    $reg_fax = '';
-    $reg_home_phone_number = '';
-    $reg_phone_mobile_number = '';
-    $reg_street_address = '';
-    $reg_birthdate = '';
-    if(!empty($get_user_info_array->website[0])){
-      $reg_website = $get_user_info_array->website[0];
-    }elseif(!empty($get_tokens_by_code_array->website[0])){
-      $reg_website = $get_tokens_by_code_array->website[0];
-    }
-    if(!empty($get_user_info_array->nickname[0])){
-      $reg_nikname = $get_user_info_array->nickname[0];
-    }elseif(!empty($get_tokens_by_code_array->nickname[0])){
-      $reg_nikname = $get_tokens_by_code_array->nickname[0];
-    }
-    if(!empty($get_user_info_array->name[0])){
-      $reg_display_name = $get_user_info_array->name[0];
-    }elseif(!empty($get_tokens_by_code_array->name[0])){
-      $reg_display_name = $get_tokens_by_code_array->name[0];
-    }
-    if(!empty($get_user_info_array->given_name[0])){
-      $reg_first_name = $get_user_info_array->given_name[0];
-    }elseif(!empty($get_tokens_by_code_array->given_name[0])){
-      $reg_first_name = $get_tokens_by_code_array->given_name[0];
-    }
-    if(!empty($get_user_info_array->family_name[0])){
-      $reg_last_name = $get_user_info_array->family_name[0];
-    }elseif(!empty($get_tokens_by_code_array->family_name[0])){
-      $reg_last_name = $get_tokens_by_code_array->family_name[0];
-    }
-    if(!empty($get_user_info_array->middle_name[0])){
-      $reg_middle_name = $get_user_info_array->middle_name[0];
-    }elseif(!empty($get_tokens_by_code_array->middle_name[0])){
-      $reg_middle_name = $get_tokens_by_code_array->middle_name[0];
-    }
+
     if(!empty($get_user_info_array->email[0])){
       $reg_email = $get_user_info_array->email[0];
     }elseif(!empty($get_tokens_by_code_array->email[0])){
       $reg_email = $get_tokens_by_code_array->email[0];
     }
-    if(!empty($get_user_info_array->country[0])){
-      $reg_country = $get_user_info_array->country[0];
-    }elseif(!empty($get_tokens_by_code_array->country[0])){
-      $reg_country = $get_tokens_by_code_array->country[0];
-    }
-    if(!empty($get_user_info_array->gender[0])){
-      if(!empty($get_user_info_array->gender[0] == 'male')){
-        $reg_gender = '1';
-      }else{
-        $reg_gender = '2';
-      }
-
-    }elseif(!empty($get_tokens_by_code_array->gender[0])){
-      if(!empty($get_tokens_by_code_array->gender[0] == 'male')){
-        $reg_gender = '1';
-      }else{
-        $reg_gender = '2';
-      }
-    }
-    if(!empty($get_user_info_array->locality[0])){
-      $reg_city = $get_user_info_array->locality[0];
-    }elseif(!empty($get_tokens_by_code_array->locality[0])){
-      $reg_city = $get_tokens_by_code_array->locality[0];
-    }
-    if(!empty($get_user_info_array->postal_code[0])){
-      $reg_postal_code = $get_user_info_array->postal_code[0];
-    }elseif(!empty($get_tokens_by_code_array->postal_code[0])){
-      $reg_postal_code = $get_tokens_by_code_array->postal_code[0];
-    }
-    if(!empty($get_user_info_array->phone_number[0])){
-      $reg_home_phone_number = $get_user_info_array->phone_number[0];
-    }elseif(!empty($get_tokens_by_code_array->phone_number[0])){
-      $reg_home_phone_number = $get_tokens_by_code_array->phone_number[0];
-    }
-    if(!empty($get_user_info_array->phone_mobile_number[0])){
-      $reg_phone_mobile_number = $get_user_info_array->phone_mobile_number[0];
-    }elseif(!empty($get_tokens_by_code_array->phone_mobile_number[0])){
-      $reg_phone_mobile_number = $get_tokens_by_code_array->phone_mobile_number[0];
-    }
-    if(!empty($get_user_info_array->picture[0])){
-      $reg_avatar = $get_user_info_array->picture[0];
-    }elseif(!empty($get_tokens_by_code_array->picture[0])){
-      $reg_avatar = $get_tokens_by_code_array->picture[0];
-    }
-    if(!empty($get_user_info_array->street_address[0])){
-      $reg_street_address = $get_user_info_array->street_address[0];
-    }elseif(!empty($get_tokens_by_code_array->street_address[0])){
-      $reg_street_address = $get_tokens_by_code_array->street_address[0];
-    }
-    if(!empty($get_user_info_array->birthdate[0])){
-      $reg_birthdate = $get_user_info_array->birthdate[0];
-    }elseif(!empty($get_tokens_by_code_array->birthdate[0])){
-      $reg_birthdate = $get_tokens_by_code_array->birthdate[0];
-    }
-    if(!empty($get_user_info_array->region[0])){
-      $reg_region = $get_user_info_array->region[0];
-    }elseif(!empty($get_tokens_by_code_array->region[0])){
-      $reg_region = $get_tokens_by_code_array->region[0];
-    }
 
     $username = '';
     if(!empty($get_user_info->getResponsePreferredUsername())){
-      $username = $get_user_info->getResponsePreferredUsername().'6';
-    }
-    else {
+      $username = $get_user_info->getResponsePreferredUsername();
+    }else {
       $email_split = explode("@", $reg_email);
-      $username = $email_split[0].'6';
+      $username = $email_split[0];
     }
     $account = user_external_load($username);
     if (!$account) {
-      // Register this new user.
       $userinfo = array(
-          'name' => $username.'6',
+          'name' => $username,
           'pass' => user_password(),
           'mail' => $reg_email,
           'init' => $reg_email,
@@ -429,18 +281,73 @@ function oxd_openid_login_validate(){
           'access' => REQUEST_TIME,
       );
       $account = user_save(drupal_anonymous_user(), $userinfo);
-      // Terminate if an error occurred during user_save().
       if (!$account) {
         drupal_set_message(t("Error saving user account."), 'error');
         return;
       }
       user_set_authmaps($account, array("authname_gluu_sso" => $username));
     }
-
-    // Log user in.
     $form_state['uid'] = $account->uid;
     user_login_submit(array(), $form_state);
     drupal_goto();
 
   }
+}
+
+function gluu_sso_user_logout($account){
+  if(isset($_SESSION['user_oxd_id_token']) && !empty($_SESSION['user_oxd_id_token'])){
+    $config_option = variable_get( 'gluu_config' );
+    $oxd_id = variable_get( 'oxd_id' );
+    $logout = new Logout();
+    $logout->setRequestOxdId($oxd_id);
+    $logout->setRequestIdToken($_SESSION['user_oxd_id_token']);
+    $logout->setRequestPostLogoutRedirectUri($config_option['logout_redirect_uri']);
+    $logout->setRequestSessionState($_SESSION['session_states']);
+    $logout->setRequestState($_SESSION['states']);
+    $logout->request();
+    unset($_SESSION['user_oxd_id_token']);
+    unset($_SESSION['states']);
+    unset($_SESSION['user_oxd_access_token']);
+    unset($_SESSION['session_states']);
+    echo '<script>
+              var delete_cookie = function(name) {
+                  document.cookie = name + \'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\';
+              };
+              delete_cookie(\'user_oxd_access_token\');
+              delete_cookie(\'user_oxd_id_token\');
+              delete_cookie(\'session_states\');
+              delete_cookie(\'states\');
+           </script>';
+    session_destroy();
+    header('Location: ' . $logout->getResponseObject()->data->uri);
+    exit;
+  }else{
+    echo '<script>
+              var delete_cookie = function(name) {
+                  document.cookie = name + \'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\';
+              };
+              delete_cookie(\'user_oxd_access_token\');
+              delete_cookie(\'user_oxd_id_token\');
+              delete_cookie(\'session_states\');
+              delete_cookie(\'states\');
+           </script>';
+    session_destroy();
+  }
+}
+
+function gluu_sso_init() {
+  if (isset($_REQUEST['option']) and strpos($_REQUEST['option'], 'allLogout') !== false && !isset($_REQUEST['state'])) {
+
+    echo '<script>
+						var delete_cookie = function(name) {
+							document.cookie = name + \'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\';
+				0		};
+						delete_cookie(\'user_oxd_access_token\');
+						delete_cookie(\'user_oxd_id_token\');
+						delete_cookie(\'session_states\');
+						delete_cookie(\'states\');
+					</script>';
+    session_destroy();
+  }
+
 }
