@@ -12,7 +12,8 @@ files[] = includes/oxd-rp/Logout.php
 files[] = includes/oxd-rp/Register_site.php
 
 ; Information added by Drupal.org packaging script on 2016-03-01
-version = "7.x-3.0.7"
+version = "7.x-2.4.2"
 core = "7.x"
 project = "gluu_sso"
 datestamp = "1452243841"
+
