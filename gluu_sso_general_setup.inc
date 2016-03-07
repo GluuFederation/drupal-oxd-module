@@ -8,6 +8,8 @@
  * Form for setting up Customer Account.
  */
 function gluu_sso_general_setup($form, &$form_state){
+  global $base_url;
+  $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
   $current_status = variable_get('oxd_id');
   if ($current_status) {
     $img_path = drupal_get_path('module', 'gluu_sso');
@@ -15,7 +17,7 @@ function gluu_sso_general_setup($form, &$form_state){
         '#markup' => '<fieldset style="border: 2px solid #53cc6b;">
                         <legend>
                             <div class="about">
-                                <img style="width: 45px; height: 45px" src="' . url($img_path . '/files/images/icons/ox.png') . '">server config
+                                <img style="width: 45px; height: 45px" src="' . url($bu . '/icons/ox.png') . '">server config
                             </div>
                         </legend>
                         <table class="form-table" style="margin-left: 30px; margin-right: 30px; width: 95% !important;">
@@ -107,6 +109,7 @@ function oxd_openid_check_empty_or_null( $value ) {
  */
 function gluu_sso_general_setup_submit(&$form, $form_state) {
   global $base_url;
+  $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
   $authorization_redirect_uri = $base_url.'?gluuOption=oxdOpenId';
   $logout_redirect_uri = $base_url.'/index.php?option=allLogout';
   $admin_email = $form['gluu_sso_admin_email']['#value'];
@@ -129,10 +132,10 @@ function gluu_sso_general_setup_submit(&$form, $form_state) {
   if(empty($custom_scripts)) {
     $img_path = drupal_get_path('module', 'gluu_sso');
     $custom_scripts = array(
-        array('name'=>'Google','image'=>url( $img_path.'/files/images/icons/google.png'),'value'=>'gplus'),
-        array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/basic.png'),'value'=>'basic'),
-        array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/duo.png'),'value'=>'duo'),
-        array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/u2f.png'),'value'=>'u2f')
+        array('name'=>'Google','image'=>url( $bu.'/icons/google.png'),'value'=>'gplus'),
+        array('name'=>'Basic','image'=>url(  $bu.'/icons/basic.png'),'value'=>'basic'),
+        array('name'=>'Duo','image'=>url(  $bu.'/icons/duo.png'),'value'=>'duo'),
+        array('name'=>'U2F token','image'=>url(  $bu.'/icons/u2f.png'),'value'=>'u2f')
     );
     variable_set('oxd_openid_custom_scripts',$custom_scripts);
   }
@@ -174,7 +177,8 @@ function gluu_sso_general_setup_submit(&$form, $form_state) {
  * Handle back button submit for customer setup.
  */
 function gluu_sso_back(&$form, $form_state) {
-
+  global $base_url;
+  $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
   $custom_scripts = variable_get('oxd_openid_custom_scripts');
   if($custom_scripts){
     foreach($custom_scripts as $custom_script){
@@ -235,10 +239,10 @@ function gluu_sso_back(&$form, $form_state) {
   $img_path = drupal_get_path('module', 'gluu_sso');
   variable_set('gluu_scops',array('openid','profile','email'));
   $custom_scripts = array(
-      array('name'=>'Google','image'=>url( $img_path.'/files/images/icons/google.png'),'value'=>'gplus'),
-      array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/basic.png'),'value'=>'basic'),
-      array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/duo.png'),'value'=>'duo'),
-      array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/u2f.png'),'value'=>'u2f')
+      array('name'=>'Google','image'=>url( $bu.'/icons/google.png'),'value'=>'gplus'),
+      array('name'=>'Basic','image'=>url( $bu.'/icons/basic.png'),'value'=>'basic'),
+      array('name'=>'Duo','image'=>url( $bu.'/icons/duo.png'),'value'=>'duo'),
+      array('name'=>'U2F token','image'=>url( $bu.'/icons/U2F.png'),'value'=>'u2f')
   );
   variable_set('oxd_openid_custom_scripts',$custom_scripts);
   $config_option = array(

@@ -27,6 +27,8 @@ function is_en_di(){
  */
 function gluu_sso_scopes_scripts_setup($form, &$form_state){
     $img_path = drupal_get_path('module', 'gluu_sso');
+    global $base_url;
+    $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
     if (!variable_get('oxd_id')) {
         $form['markup_1'] = array(
               '#markup' => '<div class="mess_red">Please enter OXD configuration to continue.</div>
@@ -44,7 +46,7 @@ function gluu_sso_scopes_scripts_setup($form, &$form_state){
     </style><fieldset style="border: 2px solid #53cc6b;">
                         <legend>
                             <div class="about">
-                                <img style="width: 65px; height: 45px" src="' . url($img_path . '/files/images/icons/gl.png') . '">server config
+                                <img style="height: 45px" src="' . url($bu . '/icons/gl.png') . '">server config
                             </div>
                         </legend>
                         <table style="margin-left: 30px; margin-right: 30px; width: 95% !important;" class="form-table">
