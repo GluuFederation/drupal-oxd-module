@@ -63,14 +63,14 @@ function gluu_sso_uninstall() {
 function gluu_sso_install() {
     global $base_url;
     $authorization_redirect_uri = $base_url.'?gluuOption=oxdOpenId';
-    $logout_redirect_uri = $base_url.'/user/logout';
+    $logout_redirect_uri = $base_url.'/index.php?option=allLogout';
     $img_path = drupal_get_path('module', 'gluu_sso');
     variable_set('gluu_scops',array('openid','profile','email'));
     $custom_scripts = array(
         array('name'=>'Google','image'=>url( $img_path.'/files/images/icons/google.png'),'value'=>'gplus'),
-        array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/Basic.png'),'value'=>'basic'),
-        array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/Duo.png'),'value'=>'duo'),
-        array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/U2F.png'),'value'=>'u2f')
+        array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/basic.png'),'value'=>'basic'),
+        array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/duo.png'),'value'=>'duo'),
+        array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/u2f.png'),'value'=>'u2f')
     );
     variable_set('oxd_openid_custom_scripts',$custom_scripts);
     $config_option = array(
@@ -164,14 +164,14 @@ function gluu_sso_disable() {
 function gluu_sso_enable() {
   global $base_url;
   $authorization_redirect_uri = $base_url.'?gluuOption=oxdOpenId';
-  $logout_redirect_uri = $base_url.'/user/logout';
+  $logout_redirect_uri = $base_url.'/index.php?option=allLogout';
   $img_path = drupal_get_path('module', 'gluu_sso');
   variable_set('gluu_scops',array('openid','profile','email'));
   $custom_scripts = array(
       array('name'=>'Google','image'=>url( $img_path.'/files/images/icons/google.png'),'value'=>'gplus'),
-      array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/Basic.png'),'value'=>'basic'),
-      array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/Duo.png'),'value'=>'duo'),
-      array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/U2F.png'),'value'=>'u2f')
+      array('name'=>'Basic','image'=>url( $img_path.'/files/images/icons/basic.png'),'value'=>'basic'),
+      array('name'=>'Duo','image'=>url( $img_path.'/files/images/icons/duo.png'),'value'=>'duo'),
+      array('name'=>'U2F token','image'=>url( $img_path.'/files/images/icons/u2f.png'),'value'=>'u2f')
   );
   variable_set('oxd_openid_custom_scripts',$custom_scripts);
   $config_option = array(
