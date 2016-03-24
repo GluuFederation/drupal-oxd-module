@@ -20,7 +20,7 @@ function gluu_sso_menu() {
 
   $items['admin/config/people/gluu_sso'] = array(
     'title' => 'Gluu SSO/ Gluu and social login configuration',
-    'description' => 'Gluu SSO',
+    'description' => 'Use OpenID Connect to login by leveraging the oxd client service demon.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('gluu_sso_general_setup'),
     'access arguments' => array('administer site configuration'),
@@ -240,11 +240,6 @@ function oxd_openid_login_validate(){
 
     $get_tokens_by_code_array = $get_tokens_by_code->getResponseObject()->data->id_token_claims;
 
-    setcookie('user_oxd_id_token',$get_tokens_by_code->getResponseIdToken() , time()+3600*24*100);
-    setcookie('user_oxd_access_token',$get_tokens_by_code->getResponseAccessToken() , time()+3600*24*100);
-    setcookie('session_states',$get_tokens_by_code->getResponseAccessToken(), time()+3600*24*100 );
-    setcookie('states',$_REQUEST['session_state'], time()+3600*24*100 );
-
     $_SESSION['user_oxd_id_token']= $get_tokens_by_code->getResponseIdToken();
     $_SESSION['user_oxd_access_token']=  $get_tokens_by_code->getResponseAccessToken();
     $_SESSION['session_states']=  $_REQUEST['session_state'];
@@ -305,49 +300,57 @@ function gluu_sso_user_logout($account){
     $logout->setRequestSessionState($_SESSION['session_states']);
     $logout->setRequestState($_SESSION['states']);
     $logout->request();
-    unset($_SESSION['user_oxd_id_token']);
-    unset($_SESSION['states']);
-    unset($_SESSION['user_oxd_access_token']);
-    unset($_SESSION['session_states']);
-    echo '<script>
-              var delete_cookie = function(name) {
-                  document.cookie = name + \'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\';
-              };
-              delete_cookie(\'user_oxd_access_token\');
-              delete_cookie(\'user_oxd_id_token\');
-              delete_cookie(\'session_states\');
-              delete_cookie(\'states\');
-           </script>';
+    if (isset($_SESSION['user_oxd_id_token'])){
+      unset($_SESSION['user_oxd_id_token']);
+    }
+    if (isset($_SESSION['states'])){
+      unset($_SESSION['states']);
+    }
+    if (isset($_SESSION['user_oxd_access_token'])){
+      unset($_SESSION['user_oxd_access_token']);
+    }
+    if (isset($_SESSION['session_states'])){
+      unset($_SESSION['session_states']);
+    }
+
     session_destroy();
     header('Location: ' . $logout->getResponseObject()->data->uri);
     exit;
   }else{
-    echo '<script>
-              var delete_cookie = function(name) {
-                  document.cookie = name + \'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\';
-              };
-              delete_cookie(\'user_oxd_access_token\');
-              delete_cookie(\'user_oxd_id_token\');
-              delete_cookie(\'session_states\');
-              delete_cookie(\'states\');
-           </script>';
+    if (isset($_SESSION['user_oxd_id_token'])){
+      unset($_SESSION['user_oxd_id_token']);
+    }
+    if (isset($_SESSION['states'])){
+      unset($_SESSION['states']);
+    }
+    if (isset($_SESSION['user_oxd_access_token'])){
+      unset($_SESSION['user_oxd_access_token']);
+    }
+    if (isset($_SESSION['session_states'])){
+      unset($_SESSION['session_states']);
+    }
     session_destroy();
   }
 }
 
 function gluu_sso_init() {
-  if (isset($_REQUEST['option']) and strpos($_REQUEST['option'], 'allLogout') !== false && !isset($_REQUEST['state'])) {
-
-    echo '<script>
-						var delete_cookie = function(name) {
-							document.cookie = name + \'=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\';
-				0		};
-						delete_cookie(\'user_oxd_access_token\');
-						delete_cookie(\'user_oxd_id_token\');
-						delete_cookie(\'session_states\');
-						delete_cookie(\'states\');
-					</script>';
+  global $base_url;
+  if (isset($_REQUEST['option']) and strpos($_REQUEST['option'], 'allLogout') !== false) {
+    if (isset($_SESSION['user_oxd_id_token'])){
+      unset($_SESSION['user_oxd_id_token']);
+    }
+    if (isset($_SESSION['states'])){
+      unset($_SESSION['states']);
+    }
+    if (isset($_SESSION['user_oxd_access_token'])){
+      unset($_SESSION['user_oxd_access_token']);
+    }
+    if (isset($_SESSION['session_states'])){
+      unset($_SESSION['session_states']);
+    }
+    $_SESSION = array();
     session_destroy();
+    header('Location: ' .$base_url );
   }
 
 }

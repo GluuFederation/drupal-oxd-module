@@ -242,7 +242,7 @@ function gluu_sso_back(&$form, $form_state) {
       array('name'=>'Google','image'=>url( $bu.'/icons/google.png'),'value'=>'gplus'),
       array('name'=>'Basic','image'=>url( $bu.'/icons/basic.png'),'value'=>'basic'),
       array('name'=>'Duo','image'=>url( $bu.'/icons/duo.png'),'value'=>'duo'),
-      array('name'=>'U2F token','image'=>url( $bu.'/icons/U2F.png'),'value'=>'u2f')
+      array('name'=>'U2F token','image'=>url( $bu.'/icons/u2f.png'),'value'=>'u2f')
   );
   variable_set('oxd_openid_custom_scripts',$custom_scripts);
   $config_option = array(
