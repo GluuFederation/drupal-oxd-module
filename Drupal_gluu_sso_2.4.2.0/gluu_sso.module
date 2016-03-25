@@ -18,8 +18,8 @@ add_js_css_fonts() ;
  */
 function gluu_sso_menu() {
 
-  $items['admin/config/people/gluu_sso'] = array(
-    'title' => 'Gluu SSO/ Gluu and social login configuration',
+  $items['admin/config/people/gluu_sso242'] = array(
+    'title' => 'Gluu SSO 2.4.2/ Gluu and social login configuration',
     'description' => 'Use OpenID Connect to login by leveraging the oxd client service demon.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('gluu_sso_general_setup'),
@@ -27,7 +27,7 @@ function gluu_sso_menu() {
     'file' => 'gluu_sso_general_setup.inc',
   );
 
-  $items['admin/config/people/gluu_sso/general'] = array(
+  $items['admin/config/people/gluu_sso242/general'] = array(
     'title' => t('General'),
     'weight' => -5,
     'type' => MENU_DEFAULT_LOCAL_TASK,
@@ -36,7 +36,7 @@ function gluu_sso_menu() {
     'file' => 'gluu_sso_general_setup.inc',
   );
 
-  $items['admin/config/people/gluu_sso/scopes_scripts'] = array(
+  $items['admin/config/people/gluu_sso242/scopes_scripts'] = array(
     'title' => t('OpenID Connect Configuration'),
     'weight' => -4,
     'type' => MENU_LOCAL_TASK,
@@ -45,7 +45,7 @@ function gluu_sso_menu() {
     'file' => 'gluu_sso_scopes_scripts_setup_details.inc',
   );
 
-  $items['admin/config/people/gluu_sso/config_form_setup'] = array(
+  $items['admin/config/people/gluu_sso242/config_form_setup'] = array(
     'title' => t('Drupal Configuration'),
     'weight' => -3,
     'type' => MENU_LOCAL_TASK,
@@ -54,7 +54,7 @@ function gluu_sso_menu() {
     'file' => 'gluu_sso_config_form_setup.inc',
   );
 
-  $items['admin/config/people/gluu_sso/how_it_works'] = array(
+  $items['admin/config/people/gluu_sso242/how_it_works'] = array(
       'title' => t('Help & Troubleshooting'),
       'weight' => -1,
       'type' => MENU_LOCAL_TASK,
@@ -239,7 +239,6 @@ function oxd_openid_login_validate(){
     $get_tokens_by_code->request();
 
     $get_tokens_by_code_array = $get_tokens_by_code->getResponseObject()->data->id_token_claims;
-
     $_SESSION['user_oxd_id_token']= $get_tokens_by_code->getResponseIdToken();
     $_SESSION['user_oxd_access_token']=  $get_tokens_by_code->getResponseAccessToken();
     $_SESSION['session_states']=  $_REQUEST['session_state'];

@@ -9,7 +9,7 @@
  */
 function gluu_sso_workflow($form, &$form_state) {
   global $base_url;
-  $bu = $base_url.'/sites/all/modules/gluu_sso/files';
+  $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.2.0/files';
   $form['markup_1'] = array(
       '#markup' => '<h3>Login structure</h3>',
   );

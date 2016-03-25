@@ -1,8 +1,8 @@
-name = Gluu SSO/Gluu and Social Login module
+name = Gluu SSO 2.4.2/Gluu and Social Login module
 description = Use OpenID Connect to login by leveraging the oxd client service demon..
 core = 7.x
-configure = admin/config/people/gluu_sso
-package = "Gluu SSO"
+configure = admin/config/people/gluu_sso242
+package = "Gluu SSO 2.4.2"
 
 files[] = includes/oxd-rp/Client_OXD_RP.php
 files[] = includes/oxd-rp/Get_authorization_url.php
@@ -11,9 +11,9 @@ files[] = includes/oxd-rp/Get_user_info.php
 files[] = includes/oxd-rp/Logout.php
 files[] = includes/oxd-rp/Register_site.php
 
-; Information added by Drupal.org packaging script on 2016-03-01
-version = "7.x-2.4.2"
+; Information added by Drupal.org packaging script on 2016-03-06
+version = "7.x-2.4.2.0"
 core = "7.x"
-project = "gluu_sso"
-datestamp = "1452243841"
+project = "gluu_sso242"
+datestamp = "1452648888"
 

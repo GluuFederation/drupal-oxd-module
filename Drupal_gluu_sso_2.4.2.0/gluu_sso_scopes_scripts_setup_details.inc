@@ -28,7 +28,7 @@ function is_en_di(){
 function gluu_sso_scopes_scripts_setup($form, &$form_state){
     $img_path = drupal_get_path('module', 'gluu_sso');
     global $base_url;
-    $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
+    $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.2.0/files/images';
     if (!variable_get('oxd_id')) {
         $form['markup_1'] = array(
               '#markup' => '<div class="mess_red">Please enter OXD configuration to continue.</div>
@@ -51,8 +51,8 @@ function gluu_sso_scopes_scripts_setup($form, &$form_state){
                         </legend>
                         <table style="margin-left: 30px; margin-right: 30px; width: 95% !important;" class="form-table">
                             <tbody>
-                            <tr>
-                                <th scope="row" style="width: 20% !important;">
+                            <tr >
+                                <th scope="row" rowspan="2" style="width: 20% !important;">
                                     Scopes
                                 </th>
                                 <td>
@@ -87,24 +87,10 @@ function gluu_sso_scopes_scripts_setup($form, &$form_state){
                         </div>
                         </td>
                         </tr>
-                        <tr>
-                            <th scope="row" rowspan="2">
-                                Add scopes
-                            </th>
-                        <td>
-                        <br/>
-                        <div>
-                        <div id="p_scents">
-                        <button '.is_en_di().' type="button" id="add_new_scope">Add scope</button>
-                        <p>
-                        <input type="text" '.is_en_di().' name="new_scope[]" value="" class="form-text" size="60" maxlength="128" placeholder="Input scope name" />',
+                        ',
     );
     $form['markup_6'] = array(
-          '#markup' => '</p>
-                        </div>
-                        </div>
-                        </td>
-                        </tr>
+          '#markup' => '
                         <tr>
                         <td>
                             <div >
