@@ -62,11 +62,11 @@ function gluu_sso_uninstall() {
  */
 function gluu_sso_install() {
     global $base_url;
-    $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
+    $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.3.0/files/images';
     $authorization_redirect_uri = $base_url.'?gluuOption=oxdOpenId';
     $logout_redirect_uri = $base_url.'/index.php?option=allLogout';
     $img_path = drupal_get_path('module', 'gluu_sso');
-    variable_set('gluu_scops',array('openid','profile','email'));
+    variable_set('gluu_scops',array("openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"));
     $custom_scripts = array(
               array('name'=>'Google','image'=>url( $bu.'/icons/google.png'),'value'=>'gplus'),
               array('name'=>'Basic','image'=>url( $bu.'/icons/basic.png'),'value'=>'basic'),
@@ -79,7 +79,7 @@ function gluu_sso_install() {
         "oxd_host_port" =>8099,
         "authorization_redirect_uri" => $authorization_redirect_uri,
         "logout_redirect_uri" => $logout_redirect_uri,
-        "scope" => [ "openid", "profile","email"],
+        "scope" => [ "openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"],
         "application_type" => "web",
         "redirect_uris" => [ $authorization_redirect_uri ],
         "response_types" => ["code"],
@@ -164,11 +164,11 @@ function gluu_sso_disable() {
  */
 function gluu_sso_enable() {
   global $base_url;
-  $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
+  $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.3.0/files/images';
   $authorization_redirect_uri = $base_url.'?gluuOption=oxdOpenId';
   $logout_redirect_uri = $base_url.'/index.php?option=allLogout';
   $img_path = drupal_get_path('module', 'gluu_sso');
-  variable_set('gluu_scops',array('openid','profile','email'));
+  variable_set('gluu_scops',array("openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"));
   $custom_scripts = array(
             array('name'=>'Google','image'=>url( $bu.'/icons/google.png'),'value'=>'gplus'),
             array('name'=>'Basic','image'=>url( $bu.'/icons/basic.png'),'value'=>'basic'),
@@ -181,7 +181,7 @@ function gluu_sso_enable() {
       "oxd_host_port" =>8099,
       "authorization_redirect_uri" => $authorization_redirect_uri,
       "logout_redirect_uri" => $logout_redirect_uri,
-      "scope" => [ "openid", "profile","email"],
+      "scope" => [ "openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"],
       "application_type" => "web",
       "redirect_uris" => [ $authorization_redirect_uri ],
       "response_types" => ["code"],

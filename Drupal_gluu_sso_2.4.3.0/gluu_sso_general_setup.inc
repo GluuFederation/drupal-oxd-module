@@ -4,13 +4,15 @@
  * Contains form for customer setup.
  */
 
+
 /**
  * Form for setting up Customer Account.
  */
 function gluu_sso_general_setup($form, &$form_state){
   global $base_url;
-  $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
+  $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.3.0/files/images';
   $current_status = variable_get('oxd_id');
+  $gluu_config = variable_get('gluu_config');
   if ($current_status) {
     $img_path = drupal_get_path('module', 'gluu_sso');
     $form['markup_2'] = array(
@@ -83,7 +85,7 @@ function gluu_sso_general_setup($form, &$form_state){
         '#type' => 'textfield',
         '#title' => t('Oxd port in your server'),
         '#required' => TRUE,
-        '#value' => 8099
+        '#value' => $gluu_config['oxd_host_port']
     );
     $form['markup_17'] = array(
         '#markup' => '<b style="color: red">NOTE:</b> It must be free port in your server.<br/><br/>',
@@ -109,17 +111,19 @@ function oxd_openid_check_empty_or_null( $value ) {
  */
 function gluu_sso_general_setup_submit(&$form, $form_state) {
   global $base_url;
-  $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
+  $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.3.0/files/images';
   $authorization_redirect_uri = $base_url.'?gluuOption=oxdOpenId';
   $logout_redirect_uri = $base_url.'/index.php?option=allLogout';
-  $admin_email = $form['gluu_sso_admin_email']['#value'];
-  $oxd_port = $form['gluu_sso_oxd_port']['#value'];
+  $admin_email = $_POST['gluu_sso_admin_email'];
+  $oxd_port = $_POST['gluu_sso_oxd_port'];
+
   $config_option = array(
       "oxd_host_ip" => '127.0.0.1',
+      "reg_email" => $admin_email,
       "oxd_host_port" =>$oxd_port,
       "authorization_redirect_uri" => $authorization_redirect_uri,
       "logout_redirect_uri" => $logout_redirect_uri,
-      "scope" => [ "openid", "profile","email"],
+      "scope" => [ "openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"],
       "application_type" => "web",
       "redirect_uris" => [ $authorization_redirect_uri ],
       "response_types" => ["code"],
@@ -141,7 +145,7 @@ function gluu_sso_general_setup_submit(&$form, $form_state) {
   }
   $scops = variable_get('gluu_scops');
   if(empty($scops)) {
-    variable_set('gluu_scops',array('openid','profile','email'));
+    variable_set('gluu_scops',array("openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"));
   }
   $register_site = new Register_site();
   $register_site->setRequestAcrValues($config_option['acr_values']);
@@ -237,7 +241,7 @@ function gluu_sso_back(&$form, $form_state) {
   $authorization_redirect_uri = $base_url.'?gluuOption=oxdOpenId';
   $logout_redirect_uri = $base_url.'/index.php?option=allLogout';
   $img_path = drupal_get_path('module', 'gluu_sso');
-  variable_set('gluu_scops',array('openid','profile','email'));
+  variable_set('gluu_scops',array("openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"));
   $custom_scripts = array(
       array('name'=>'Google','image'=>url( $bu.'/icons/google.png'),'value'=>'gplus'),
       array('name'=>'Basic','image'=>url( $bu.'/icons/basic.png'),'value'=>'basic'),
@@ -250,7 +254,7 @@ function gluu_sso_back(&$form, $form_state) {
       "oxd_host_port" =>8099,
       "authorization_redirect_uri" => $authorization_redirect_uri,
       "logout_redirect_uri" => $logout_redirect_uri,
-      "scope" => [ "openid", "profile","email"],
+      "scope" => [ "openid", "profile","email","address", "clientinfo", "mobile_phone", "phone"],
       "application_type" => "web",
       "redirect_uris" => [ $authorization_redirect_uri ],
       "response_types" => ["code"],

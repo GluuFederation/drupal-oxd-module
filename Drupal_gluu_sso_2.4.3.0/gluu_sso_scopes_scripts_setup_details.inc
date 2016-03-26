@@ -28,7 +28,7 @@ function is_en_di(){
 function gluu_sso_scopes_scripts_setup($form, &$form_state){
     $img_path = drupal_get_path('module', 'gluu_sso');
     global $base_url;
-    $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
+    $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.3.0/files/images';
     if (!variable_get('oxd_id')) {
         $form['markup_1'] = array(
               '#markup' => '<div class="mess_red">Please enter OXD configuration to continue.</div>
@@ -366,14 +366,42 @@ function gluu_sso_scope_script_submit(&$form, $form_state) {
                 }
             }
         }
+        $config_option = variable_get('gluu_config');
+        $update_site_registration = new Update_site_registration();
+        $update_site_registration->setRequestOxdId(variable_get('oxd_id'));
+        $update_site_registration->setRequestAcrValues($config_option['acr_values']);
+        $update_site_registration->setRequestAuthorizationRedirectUri($config_option['authorization_redirect_uri']);
+        $update_site_registration->setRequestRedirectUris($config_option['redirect_uris']);
+        $update_site_registration->setRequestGrantTypes($config_option['grant_types']);
+        $update_site_registration->setRequestResponseTypes(['code']);
+        $update_site_registration->setRequestLogoutRedirectUri($config_option['logout_redirect_uri']);
+        $update_site_registration->setRequestContacts([$config_option['reg_email']]);
+        $update_site_registration->setRequestApplicationType('web');
+        $update_site_registration->setRequestClientLogoutUri($config_option['logout_redirect_uri']);
+        $update_site_registration->setRequestScope($config_option['scope']);
+        $status = $update_site_registration->request();
+        $up_mes = '';
+        if(!$status['status']){
+            $up_mes = $status['message'];
+        }
         if(!$error){
-            $error_message = '';
+            if($up_mes){
+                $error_message = $up_mes.'<br/>';
+            }else{
+                $error_message = '';
+            }
+
             foreach($error_array as $error_a){
                 $error_message.= 'Name = '.$_POST['new_custom_script_name_'.$error_a]. ' or value = '. $_POST['new_custom_script_value_'.$error_a]. ' is exist.<br/>';
             }
             drupal_set_message(t($error_message), 'error');
         }else{
-            drupal_set_message(t('Your settings are saved successfully.'));
+            if($up_mes){
+                $error_message = "Problem with updating scopes in gluu server: ".$up_mes.'<br/>';
+            }else{
+                $error_message = '';
+            }
+            drupal_set_message(t($error_message.'Your settings are saved successfully.'));
         }
     }else {
         drupal_set_message(t('Please register an account before trying to enable any app.'), 'error');
