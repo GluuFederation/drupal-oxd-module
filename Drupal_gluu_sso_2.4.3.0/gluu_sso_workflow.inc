@@ -16,7 +16,7 @@ function gluu_sso_workflow($form, &$form_state) {
                 <p><img style="width: 100%; height: 100%;"  src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-Drupal-module/master/plugin.jpg" alt="image"></p>
                 <p>Drupal-GLUU-SSO module gives access for login to your Drupal site, with the help of GLUU server.</p>
                 <p>There are already 2 versions of Drupal-GLUU-SSO (2.4.2.0 and 2.4.3.0) modules, each in its turn is working with oxD and GLUU servers.
-                    For example if you are using Drupal-gluu-sso-2.4.3.0 module, you need to connect with oxD-server-2.4.2.</p>
+                    For example if you are using Drupal-gluu-sso-2.4.3.0 module, you need to connect with oxD-server-2.4.3.</p>
                 <p>Now I want to explain in details how to use module step by step.</p>
                 <p>Module will not be working if your host does not have https://.</p>
                 <h2><a id="Step_1_Install_Gluuserver_13"></a>Step 1. Install Gluu-server</h2>

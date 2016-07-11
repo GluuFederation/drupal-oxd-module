@@ -182,7 +182,7 @@ function gluu_sso_general_setup_submit(&$form, $form_state) {
  */
 function gluu_sso_back(&$form, $form_state) {
   global $base_url;
-  $bu = $base_url.'/sites/all/modules/gluu_sso/files/images';
+  $bu = $base_url.'/sites/all/modules/Drupal_gluu_sso_2.4.3.0/files/images';
   $custom_scripts = variable_get('oxd_openid_custom_scripts');
   if($custom_scripts){
     foreach($custom_scripts as $custom_script){
