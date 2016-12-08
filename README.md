@@ -1,140 +1,94 @@
-DRUPAL GLUU SSO module 
-=========================
+# Drupal OpenID Connect Single Sign-On (SSO) Module By Gluu
+
 ![image](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/plugin.jpg)
 
-DRUPAL-GLUU-SSO module gives access for login to your Drupal site, with the help of GLUU server.
+Gluu's OpenID Connect Single Sign-On (SSO) Drupal module will enable you to authenticate users against any standard OpenID Connect Provider (OP). If you don't already have an OP you can [deploy the free open source Gluu Server](https://gluu.org/docs/deployment).  
 
-There are already 3 versions of DRUPAL-GLUU-SSO (2.4.2.0, 2.4.3.0 and 2.4.4.0) modules, each in its turn is working with oxD and GLUU servers.
-For example if you are using DRUPAL-gluu-sso-2.4.4.0 module, you need to connect with oxD-server-2.4.4.
+## Requirements
+In order to use the Drupal module you will need to have a standard OP (like Google or a Gluu Server) and the oxd server.
 
-Now I want to explain in details how to use module step by step. 
+* [Gluu Server Installation Guide](https://www.gluu.org/docs/deployment/).
 
-Module will not be working if your host does not have https://. 
+* [oxd Server Installation Guide](https://oxd.gluu.org/docs/oxdserver/install/)
 
-## Step 1. Install Gluu-server 
 
-(version 2.4.2, 2.4.3 or 2.4.4)
-
-If you want to use external gluu server, You can not do this step.   
-
-[Gluu-server installation gide](https://www.gluu.org/docs/deployment/).
-
-## Step 2. Download oxD-server 
-
-(version 2.4.2, 2.4.3 or 2.4.4)
-
-[Download oxD-server-2.4.2.Final](https://ox.gluu.org/maven/org/xdi/oxd-server/2.4.2.Final/oxd-server-2.4.2.Final-distribution.zip).
-
-or
-
-[Download oxD-server-2.4.3.Final](https://ox.gluu.org/maven/org/xdi/oxd-server/2.4.3.Final/oxd-server-2.4.3.Final-distribution.zip).
-
-or
-
-[Download oxD-server-2.4.4.Final](https://ox.gluu.org/maven/org/xdi/oxd-server/2.4.4.Final/oxd-server-2.4.4.Final-distribution.zip).
-
-## Step 3. Unzip and run oXD-server
+## Installation
  
-1. Unzip your oxD-server. 
-2. Open the command line and navigate to the extracted folder in the conf directory.
-3. Open oxd-conf.json file.  
-4. If your server is using 8099 port, please change "port" number to free port, which is not used.
-5. Set parameter "op_host":"Your gluu-server-url (internal or external)" (in version 2.4.4 it removed)
-6. Open the command line and navigate to the extracted folder in the bin directory.
-7. For Linux environment, run sh oxd-start.sh&. 
-8. For Windows environment, run oxd-start.bat.
-9. After the server starts, go to Step 4.
+### Download
+[Drupal Module 2.4.4](https://github.com/GluuFederation/gluu-sso-drupal-module/blob/master/gluu_sso_module.tar.gz?raw=true)
 
-## Step 4. Download Drupal-gluu-sso module
- 
-(version 2.4.2, 2.4.3 or 2.4.4)
-
-[Download Drupal-gluu-sso-2.4.2.0 module](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/Drupal_gluu_sso_2.4.2.0/Drupal_gluu_sso_2.4.2.0.tar.gz).
-
-or
-
-[Download Drupal-gluu-sso-2.4.3.0 module](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/Drupal_gluu_sso_2.4.3.0/Drupal_gluu_sso_2.4.3.0.tar.gz).
-
-or
-
-[Download Drupal-gluu-sso-2.4.4.0 module](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/Drupal_gluu_sso_2.4.4.0/Drupal_gluu_sso_2.4.4.0.tar.gz).
-
-For example if you are using gluu-server-2.4.4 it is necessary to use oxD-server-2.4.4 and Drupal-gluu-sso-2.4.4.0-module
-
-## Step 5. Install module
- 
-1. Open menu tab Modules and click on ```Install new module``` button
+1. Open menu tab Modules and click on `Install new module` button
 ![Manager](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d1.png) 
 
-2. Choose downloaded module and click on ```INSTALL``` button. 
+2. Choose downloaded module and click on `INSTALL` button. 
 ![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d2.png) 
 
-## Step 6. Activate module
+### Activate module
  
 1. Go to Modules page
-2. Find module Gluu SSO {version}, choose on enabled checkbox and save configuration.
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d3.png) 
+2. Find module OpenID Connect Single Sign-On (SSO) Module By Gluu, choose on enabled checkbox and save configuration.
+![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/5.png) 
 3. Go to Configuration page and open module configuration page.
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d4.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/6.png) 
 
-## Step 7. General
+## Configuration
 
-In Drupal-gluu-sso 2.4.2.0 and 2.4.3.0-2.4.4.0  you do not need add Gluu server URL.
-![General](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d5.png)  
-
-In Drupal-gluu-sso 2.4.4.0  you do not need add Gluu server URL.
-![Scopes1](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/15.png) 
-
-1. Admin Email: please add your or admin email address for registrating site in Gluu server.
-2. Gluu Server URL: please add your Gluu server URL.
-3. Oxd port in your server: choose that port which is using oxd-server (see in oxd-server/conf/oxd-conf.json file).
-4. Click next to continue.
-
-If You are successfully registered in gluu server, you will see bottom page.
-
-![oxD_id](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d6.png)
-
-For making sure go to your gluu server / OpenID Connect / Clients and search for your oxD ID
-
-If you want to reset configurations click on Reset configurations button.
-
-## Step 8. OpenID Connect Configuration
-
-OpenID Connect Configuration page for Drupal-gluu-sso 2.4.2.0 and Drupal-gluu-sso 2.4.3.0-2.4.4.0 are different.
-
-### Scopes.
-You can look all scopes in your gluu server / OpenID Connect / Scopes and understand the meaning of  every scope.
-Scopes are need for getting loged in users information from gluu server.
-Pay attention to that, which scopes you are using that are switched on in your gluu server.
-
-In Drupal-gluu-sso 2.4.2.0  you can only enable, disable and delete scope.
-![Scopes1](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d7.png) 
-
-In Drupal-gluu-sso 2.4.3.0-2.4.4.0 you can not only enable, disable and delete scope, but also add new scope, but when you add new scope by {any name}, necessary to add that scope in your gluu server too. 
-![Scopes2](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d8.png) 
-
-### Custom scripts.
-
-![Customscripts](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d9.png)  
-
-You can look all custom scripts in your gluu server / Configuration / Manage Custom Scripts / and enable login type, which type you want.
-Custom Script represent itself the type of login, at this moment gluu server supports (U2F, Duo, Google +, Basic) types.
-
-### Pay attention to that.
-
-1. Which custom script you enable in your Drupal site in order it must be switched on in gluu server too.
-2. Which custom script you will be enable in OpenID Connect Configuration page, after saving that will be showed in Drupal Configuration page too.
-3. When you create new custom script, both fields are required.
-
-## Step 9. Drupal Configuration
-
-### Customize Login Icons
+### General
  
-Pay attention to that, if custom scripts are not enabled, nothing will be showed.
-Customize shape, space between icons and size of the login icons.
+In your Drupal admin menu panel you should now see the OpenID Connect menu tab. Click the link to navigate to the General configuration  page:
 
-![DrupalConfiguration](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d10.png)  
+![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/1.png) 
 
-## Step 10. Show icons in frontend
+1. Automatically register any user with an account in the OpenID Provider: By setting registration to automatic, any user with an account in the OP will be able to dynamically register for an account in your Drupal site. They will be assigned the new user default role specified below.
+2. Only register users with the following role(s) in the OP: Using this option you can limit registration to users who have a specified role in the OP, for instance `drupal`. This is not configurable in all OP's. It is configurable if you are using a Gluu Server. [Follow the instructions below](#role-based-enrollment) to limit access based on an OP role. 
+3. New User Default Role: specify which role to give to new users upon registration.  
+4. URI of the OpenID Provider: insert the URI of the OpenID Connect Provider.
+5. Custom URI after logout: custom URI after logout (for example "Thank you" page).
+6. oxd port: enter the oxd-server port (you can find this in the `oxd-server/conf/oxd-conf.json` file).
+7. Click `Register` to continue.
 
-![frontend](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d11.png) 
+If your OpenID Provider supports dynamic registration, no additional steps are required in the general tab and you can navigate to the [OpenID Connect Configuration](#openid-connect-configuration) tab. 
+
+If your OpenID Connect Provider doesn't support dynamic registration, you will need to insert your OpenID Provider `client_id` and `client_secret` on the following page.
+
+![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/2.png
+To generate your `client_id` and `client_secret` use the redirect uri: `https://{site-base-url}/index.php?option=oxdOpenId`.
+
+> If you are using a Gluu server as your OpenID Provider, you can make sure everything is configured properly by logging into to your Gluu Server, navigate to the OpenID Connect > Clients page. Search for your `oxd id`.
+
+#### Role based enrollment
+
+Navigate to your Gluu Server admin GUI. Click the `Users` tab in the left hand navigation menu. Select `Manage People`. Find the person(s) who should have access. Click their user entry. Add the `User Permission` attribute to the person and specify the same value as in the module. For instance, if in the module you have limit enrollment to user(s) with role = `drupal`, then you should also have `User Permission` = `sugarecrm` in the user entry. Update the user record, and now they are ready for enrollment at your Drupal site. 
+
+### OpenID Connect Configuration
+
+![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/3.png) 
+
+#### User Scopes
+
+Scopes are groups of user attributes that are sent from the OP to the application during login and enrollment. By default, the requested scopes are `profile`, `email`, and `openid`.  
+
+To view your OP's available scopes, in a web browser navigate to `https://OpenID-Provider/.well-known/openid-configuration`. For example, here are the scopes you can request if you're using [Google as your OP](https://accounts.google.com/.well-known/openid-configuration). 
+
+If you are using a Gluu server as your OpenID Provider, you can view all available scopes by navigating to the OpenID Connect > Scopes intefrace. 
+
+In the module interface you can enable, disable and delete scopes. 
+
+> If you have chosen to limit enrollment to users with specific roles in the OP, you will also need to request the `Permission` scope, as shown in the above screenshot. 
+
+#### Authentication
+
+##### Bypass the local Drupal login page and send users straight to the OP for authentication
+
+Check this box so that when users attempt to login they are sent straight to the OP, bypassing the local Drupal login screen.
+When it is not checked, it will give proof the following screen.   
+
+![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/4.png) 
+
+##### Select acr
+
+To signal which type of authentication should be used, an OpenID Connect client may request a specific authentication context class reference value (a.k.a. "acr"). The authentication options available will depend on which types of mechanisms the OP has been configured to support. The Gluu Server supports the following authentication mechanisms out-of-the-box: username/password (basic), Duo Security, Super Gluu, and U2F tokens, like Yubikey.  
+
+Navigate to your OpenID Provider confiuration webpage `https://OpenID-Provider/.well-known/openid-configuration` to see supported `acr_values`. In the `Select acr` section of the module page, choose the mechanism which you want for authentication. 
+
+Note: If the `Select acr` value is `none`, users will be sent to pass the OP's default authentication mechanism.
