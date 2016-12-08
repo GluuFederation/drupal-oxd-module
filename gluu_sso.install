@@ -53,59 +53,59 @@ function gluu_sso_install() {
      global $base_url;
       if (!variable_get('gluu_scopes')) {
           $get_scopes = array("openid", "profile", "email");
-          $result = variable_set('gluu_scopes', $get_scopes);
+          variable_set('gluu_scopes', $get_scopes);
       }
       if (!variable_get('gluu_acr')) {
           $custom_scripts = array('none');
-          $result = variable_set('gluu_acr', $custom_scripts);
+          variable_set('gluu_acr', $custom_scripts);
       }
       if (!variable_get('gluu_config')) {
           $gluu_config = array(
               "gluu_oxd_port" => 8099,
               "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
               "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-              "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+              "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
               "config_scopes" => ["openid","profile","email"],
               "gluu_client_id" => "",
               "gluu_client_secret" => "",
               "config_acr" => []
           );
-          $result = variable_set('gluu_config', $gluu_config);
+          variable_set('gluu_config', $gluu_config);
       }
       if (!variable_get('gluu_auth_type')) {
           $gluu_auth_type = 'default';
-          $result = variable_set('gluu_auth_type', $gluu_auth_type);
+          variable_set('gluu_auth_type', $gluu_auth_type);
       }
       if (!variable_get('gluu_custom_logout')) {
           $gluu_custom_logout = '';
-          $result = variable_set('gluu_custom_logout', $gluu_custom_logout);
+          variable_set('gluu_custom_logout', $gluu_custom_logout);
       }
       if (!variable_get('gluu_provider')) {
           $gluu_provider = '';
-          $result = variable_set('gluu_provider', $gluu_provider);
+          variable_set('gluu_provider', $gluu_provider);
       }
       if (!variable_get('gluu_send_user_check')) {
           $gluu_send_user_check = 0;
-          $result = variable_set('gluu_send_user_check', $gluu_send_user_check);
+          variable_set('gluu_send_user_check', $gluu_send_user_check);
       }
       if (!variable_get('gluu_oxd_id')) {
           $gluu_oxd_id = '';
-          $result = variable_set('gluu_oxd_id', $gluu_oxd_id);
+          variable_set('gluu_oxd_id', $gluu_oxd_id);
       }
       if (!variable_get('gluu_user_role')) {
           $gluu_user_role = 1;
-          $result = variable_set('gluu_user_role', $gluu_user_role);
+          variable_set('gluu_user_role', $gluu_user_role);
       }
       if (!variable_get('gluu_users_can_register')) {
           $gluu_users_can_register = 1;
-          $result = variable_set('gluu_users_can_register', $gluu_users_can_register);
+          variable_set('gluu_users_can_register', $gluu_users_can_register);
       }
       if (!variable_get('gluu_new_role')) {
-          $result = variable_set('gluu_new_role', array());
+          variable_set('gluu_new_role', array());
       }
       if (!variable_get('openid_error')) {
           $openid_error = '';
-          $result = variable_set('openid_error', $openid_error);
+          variable_set('openid_error', $openid_error);
       }
 }
 
@@ -162,61 +162,61 @@ function gluu_sso_disable() {
  * was disabled.
  */
 function gluu_sso_enable() {
-  global $base_url;
-  if (!variable_get('gluu_scopes')) {
-      $get_scopes = array("openid", "profile", "email");
-      $result = variable_set('gluu_scopes', $get_scopes);
-  }
-  if (!variable_get('gluu_acr')) {
-      $custom_scripts = array('none');
-      $result = variable_set('gluu_acr', $custom_scripts);
-  }
-  if (!variable_get('gluu_config')) {
-      $gluu_config = array(
-          "gluu_oxd_port" => 8099,
-          "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-          "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-          "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
-          "config_scopes" => ["openid","profile","email"],
-          "gluu_client_id" => "",
-          "gluu_client_secret" => "",
-          "config_acr" => []
-      );
-      $result = variable_set('gluu_config', $gluu_config);
-  }
-  if (!variable_get('gluu_auth_type')) {
-      $gluu_auth_type = 'default';
-      $result = variable_set('gluu_auth_type', $gluu_auth_type);
-  }
-  if (!variable_get('gluu_custom_logout')) {
-      $gluu_custom_logout = '';
-      $result = variable_set('gluu_custom_logout', $gluu_custom_logout);
-  }
-  if (!variable_get('gluu_provider')) {
-      $gluu_provider = '';
-      $result = variable_set('gluu_provider', $gluu_provider);
-  }
-  if (!variable_get('gluu_send_user_check')) {
-      $gluu_send_user_check = 0;
-      $result = variable_set('gluu_send_user_check', $gluu_send_user_check);
-  }
-  if (!variable_get('gluu_oxd_id')) {
-      $gluu_oxd_id = '';
-      $result = variable_set('gluu_oxd_id', $gluu_oxd_id);
-  }
-  if (!variable_get('gluu_user_role')) {
-      $gluu_user_role = 1;
-      $result = variable_set('gluu_user_role', $gluu_user_role);
-  }
-  if (!variable_get('gluu_users_can_register')) {
-      $gluu_users_can_register = 1;
-      $result = variable_set('gluu_users_can_register', $gluu_users_can_register);
-  }
-  if (!variable_get('gluu_new_role')) {
-      $result = variable_set('gluu_new_role', array());
-  }
-  if (!variable_get('openid_error')) {
-      $openid_error = '';
-      $result = variable_set('openid_error', $openid_error);
-  }
+    global $base_url;
+    if (!variable_get('gluu_scopes')) {
+        $get_scopes = array("openid", "profile", "email");
+        variable_set('gluu_scopes', $get_scopes);
+    }
+    if (!variable_get('gluu_acr')) {
+        $custom_scripts = array('none');
+        variable_set('gluu_acr', $custom_scripts);
+    }
+    if (!variable_get('gluu_config')) {
+        $gluu_config = array(
+            "gluu_oxd_port" => 8099,
+            "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
+            "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+            "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
+            "config_scopes" => ["openid","profile","email"],
+            "gluu_client_id" => "",
+            "gluu_client_secret" => "",
+            "config_acr" => []
+        );
+        variable_set('gluu_config', $gluu_config);
+    }
+    if (!variable_get('gluu_auth_type')) {
+        $gluu_auth_type = 'default';
+        variable_set('gluu_auth_type', $gluu_auth_type);
+    }
+    if (!variable_get('gluu_custom_logout')) {
+        $gluu_custom_logout = '';
+        variable_set('gluu_custom_logout', $gluu_custom_logout);
+    }
+    if (!variable_get('gluu_provider')) {
+        $gluu_provider = '';
+        variable_set('gluu_provider', $gluu_provider);
+    }
+    if (!variable_get('gluu_send_user_check')) {
+        $gluu_send_user_check = 0;
+        variable_set('gluu_send_user_check', $gluu_send_user_check);
+    }
+    if (!variable_get('gluu_oxd_id')) {
+        $gluu_oxd_id = '';
+        variable_set('gluu_oxd_id', $gluu_oxd_id);
+    }
+    if (!variable_get('gluu_user_role')) {
+        $gluu_user_role = 1;
+        variable_set('gluu_user_role', $gluu_user_role);
+    }
+    if (!variable_get('gluu_users_can_register')) {
+        $gluu_users_can_register = 1;
+        variable_set('gluu_users_can_register', $gluu_users_can_register);
+    }
+    if (!variable_get('gluu_new_role')) {
+        variable_set('gluu_new_role', array());
+    }
+    if (!variable_get('openid_error')) {
+        $openid_error = '';
+        variable_set('openid_error', $openid_error);
+    }
 }

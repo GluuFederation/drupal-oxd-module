@@ -3,13 +3,17 @@
  * @file
  * Contains workflow of the miniOrange Active Directory/sso Module.
  */
-global $base_url;
-global $user;
+$currentPath = $_SERVER['PHP_SELF'];
+$pathInfo = pathinfo($currentPath);
+$hostName = $_SERVER['HTTP_HOST'];
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$base_url =  $protocol.$hostName.$pathInfo['dirname']."/";
+global $user; 
 if (is_array($user->roles) && in_array('administrator', $user->roles)) {
     if( isset( $_REQUEST['form_key'] ) and strpos( $_REQUEST['form_key'], 'general_register_page' ) !== false ) {
         if(!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] != "on") {
             variable_set('message_error', 'OpenID Connect requires https. This plugin will not work if your website uses http only.');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
         if($_POST['gluu_user_role']==3){
             variable_set('gluu_user_role', 3);
@@ -54,16 +58,16 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
         }
         if (empty($_POST['gluu_oxd_port'])) {
             variable_set('message_error', 'All the fields are required. Please enter valid entries.');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
         if (intval($_POST['gluu_oxd_port']) > 65535 && intval($_POST['gluu_oxd_port']) < 0) {
             variable_set('message_error', 'Enter your oxd host port (Min. number 1, Max. number 65535)');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
         if  (!empty($_POST['gluu_provider'])) {
             if (filter_var($_POST['gluu_provider'], FILTER_VALIDATE_URL) === false) {
                 variable_set('message_error', 'Please enter valid OpenID Provider URI.');
-                header("Location: /admin/config/people/gluu_sso");return;
+                header("Location: ".$base_url."admin/config/people/gluu_sso");return;
             }
         }
         if  (!empty($_POST['gluu_custom_logout'])) {
@@ -98,7 +102,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                         "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                         "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                        "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                        "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                         "config_scopes" => ["openid","profile","email"],
                         "gluu_client_id" => "",
                         "gluu_client_secret" => "",
@@ -116,7 +120,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                             "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                             "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                             "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                            "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                            "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                             "config_scopes" => ["openid","profile","email"],
                             "gluu_client_id" => $_POST['gluu_client_id'],
                             "gluu_client_secret" => $_POST['gluu_client_secret'],
@@ -130,7 +134,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         }
                         if(!gluu_is_port_working()){
                             variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                            header("Location: /admin/config/people/gluu_sso");return;
+                            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                         }
                         $register_site = new Register_site();
                         $register_site->setRequestOpHost($gluu_provider);
@@ -160,15 +164,15 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         $status = $register_site->request();
                         if ($status['message'] == 'invalid_op_host') {
                             variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                            header("Location: /admin/config/people/gluu_sso");return;
+                            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                         }
                         if (!$status['status']) {
                             variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                            header("Location: /admin/config/people/gluu_sso");return;
+                            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                         }
                         if ($status['message'] == 'internal_error') {
                             variable_set('message_error', 'ERROR: '.$status['error_message']);
-                            header("Location: /admin/config/people/gluu_sso");return;
+                            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                         }
                         $gluu_oxd_id = $register_site->getResponseOxdId();
                         //var_dump($register_site->getResponseObject());exit;
@@ -177,15 +181,15 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                             $gluu_provider = $register_site->getResponseOpHost();
                             variable_set('gluu_provider', $gluu_provider);
                             variable_set('message_success', 'Your settings are saved successfully.');
-                            header("Location: /admin/config/people/gluu_sso");return;
+                            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                         } else {
                             variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                            header("Location: /admin/config/people/gluu_sso");return;
+                            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                         }
                     }
                     else{
                         variable_set('openid_error', 'Error505.');
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                 }
                 else{
@@ -194,7 +198,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                         "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                         "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                        "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                        "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                         "config_scopes" => ["openid","profile","email"],
                         "gluu_client_id" => "",
                         "gluu_client_secret" => "",
@@ -209,7 +213,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
 
                     if(!gluu_is_port_working()){
                         variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
 
                     $register_site = new Register_site();
@@ -239,15 +243,15 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     //var_dump($status);exit;
                     if ($status['message'] == 'invalid_op_host') {
                         variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                     if (!$status['status']) {
                         variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                     if ($status['message'] == 'internal_error') {
                         variable_set('message_error', 'ERROR: '.$status['error_message']);
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                     $gluu_oxd_id = $register_site->getResponseOxdId();
                     if ($gluu_oxd_id) {
@@ -256,18 +260,18 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         variable_set('gluu_provider', $gluu_provider);
                         variable_set('message_success', 'Your settings are saved successfully.');
 
-                        header("Location: /admin/config/people/gluu_sso");
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");
                         return;
                     }
                     else {
                         variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                 }
             }
             else{
                 variable_set('message_error', 'Please enter correct URI of the OpenID Provider');
-                header("Location: /admin/config/people/gluu_sso");return;
+                header("Location: ".$base_url."admin/config/people/gluu_sso");return;
             }
         }
         else{
@@ -275,7 +279,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                 "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                 "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                 "config_scopes" => ["openid","profile","email"],
                 "gluu_client_id" => "",
                 "gluu_client_secret" => "",
@@ -290,7 +294,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
             if(!gluu_is_port_working()){
                 variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
 
-                header("Location: /admin/config/people/gluu_sso");return;
+                header("Location: ".$base_url."admin/config/people/gluu_sso");return;
             }
             $register_site = new Register_site();
             $register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
@@ -303,17 +307,17 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
 
             if ($status['message'] == 'invalid_op_host') {
                 variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                header("Location: /admin/config/people/gluu_sso");
+                header("Location: ".$base_url."admin/config/people/gluu_sso");
                 return;
             }
             if (!$status['status']) {
                 variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                header("Location: /admin/config/people/gluu_sso");
+                header("Location: ".$base_url."admin/config/people/gluu_sso");
                 return;
             }
             if ($status['message'] == 'internal_error') {
                 variable_set('message_error', 'ERROR: '.$status['error_message']);
-                header("Location: /admin/config/people/gluu_sso");
+                header("Location: ".$base_url."admin/config/people/gluu_sso");
                 return;
             }
             $gluu_oxd_id = $register_site->getResponseOxdId();
@@ -331,7 +335,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 $obj = json_decode($json);
                 if(!gluu_is_port_working()){
                     variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 $register_site = new Register_site();
                 $register_site->setRequestOpHost($gluu_provider);
@@ -360,37 +364,37 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 $status = $register_site->request();
                 if ($status['message'] == 'invalid_op_host') {
                     variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 if (!$status['status']) {
                     variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 if ($status['message'] == 'internal_error') {
                     variable_set('message_error', 'ERROR: '.$status['error_message']);
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 $gluu_oxd_id = $register_site->getResponseOxdId();
                 if ($gluu_oxd_id) {
                     variable_set('gluu_oxd_id', $gluu_oxd_id);
                     variable_set('message_success', 'Your settings are saved successfully.');
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 else {
                     variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
             }
             else {
                 variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                header("Location: /admin/config/people/gluu_sso");return;
+                header("Location: ".$base_url."admin/config/people/gluu_sso");return;
             }
         }
     }
     else if( isset( $_REQUEST['form_key'] ) and strpos( $_REQUEST['form_key'], 'general_oxd_edit' ) !== false ) {
         if(!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] != "on") {
             variable_set('message_error', 'OpenID Connect requires https. This plugin will not work if your website uses http only.');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
 
         if($_POST['gluu_user_role']==3){
@@ -434,11 +438,11 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
         }
         if (empty($_POST['gluu_oxd_port'])) {
             variable_set('message_error', 'All the fields are required. Please enter valid entries.');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
         if (intval($_POST['gluu_oxd_port']) > 65535 && intval($_POST['gluu_oxd_port']) < 0) {
             variable_set('message_error', 'Enter your oxd host port (Min. number 1, Max. number 65535)');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
 
         if  (!empty($_POST['gluu_custom_logout'])) {
@@ -469,7 +473,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                     "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                     "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                    "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                    "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                     "config_scopes" => ["openid","profile","email"],
                     "gluu_client_id" => "",
                     "gluu_client_secret" => "",
@@ -487,7 +491,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                         "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                         "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                        "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                        "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                         "config_scopes" => ["openid","profile","email"],
                         "gluu_client_id" => $_POST['gluu_client_id'],
                         "gluu_client_secret" => $_POST['gluu_client_secret'],
@@ -501,7 +505,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     }
                     if(!gluu_is_port_working()){
                         variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                     $register_site = new Register_site();
                     $register_site->setRequestOpHost($gluu_provider);
@@ -531,15 +535,15 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     $status = $register_site->request();
                     if ($status['message'] == 'invalid_op_host') {
                         variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                     if (!$status['status']) {
                         variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                     if ($status['message'] == 'internal_error') {
                         variable_set('message_error', 'ERROR: '.$status['error_message']);
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                     $gluu_oxd_id = $register_site->getResponseOxdId();
                     //var_dump($register_site->getResponseObject());exit;
@@ -548,15 +552,15 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         $gluu_provider = $register_site->getResponseOpHost();
                         variable_set('gluu_provider', $gluu_provider);
                         variable_set('message_success', 'Your settings are saved successfully.');
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     } else {
                         variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                        header("Location: /admin/config/people/gluu_sso");return;
+                        header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                     }
                 }
                 else{
                     variable_set('openid_error', 'Error505.');
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
             }
             else{
@@ -565,7 +569,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                     "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                     "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                    "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                    "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                     "config_scopes" => ["openid","profile","email"],
                     "gluu_client_id" => "",
                     "gluu_client_secret" => "",
@@ -580,7 +584,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
 
                 if(!gluu_is_port_working()){
                     variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
 
                 $register_site = new Register_site();
@@ -610,15 +614,15 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 //var_dump($status);exit;
                 if ($status['message'] == 'invalid_op_host') {
                     variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 if (!$status['status']) {
                     variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 if ($status['message'] == 'internal_error') {
                     variable_set('message_error', 'ERROR: '.$status['error_message']);
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
                 $gluu_oxd_id = $register_site->getResponseOxdId();
                 if ($gluu_oxd_id) {
@@ -627,18 +631,18 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     variable_set('gluu_provider', $gluu_provider);
                     variable_set('message_success', 'Your settings are saved successfully.');
 
-                    header("Location: /admin/config/people/gluu_sso");
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");
                     return;
                 }
                 else {
                     variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
-                    header("Location: /admin/config/people/gluu_sso");return;
+                    header("Location: ".$base_url."admin/config/people/gluu_sso");return;
                 }
             }
         }
         else{
             variable_set('message_error', 'Please enter correct URI of the OpenID Provider');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
     }
     else if( isset( $_REQUEST['submit'] ) and strpos( $_REQUEST['submit'], 'delete' )  !== false and !empty($_REQUEST['submit'])) {
@@ -693,7 +697,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 "gluu_oxd_port" => 8099,
                 "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                 "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                 "config_scopes" => ["openid","profile","email"],
                 "gluu_client_id" => "",
                 "gluu_client_secret" => "",
@@ -737,7 +741,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
             variable_set('openid_error', $openid_error);
         }
         variable_set('message_success', 'Configurations deleted Successfully.');;
-        header("Location: /admin/config/people/gluu_sso");
+        header("Location: ".$base_url."admin/config/people/gluu_sso");
         return;
     }
     else if( isset( $_REQUEST['form_key'] ) and strpos( $_REQUEST['form_key'], 'general_oxd_id_reset' )!== false and !empty($_REQUEST['resetButton'])) {
@@ -791,7 +795,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 "gluu_oxd_port" => 8099,
                 "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                 "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
-                "post_logout_redirect_uri" => $base_url.'/index.php?option=allLogout',
+                "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                 "config_scopes" => ["openid","profile","email"],
                 "gluu_client_id" => "",
                 "gluu_client_secret" => "",
@@ -835,7 +839,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
             variable_set('openid_error', $openid_error);
         }
         drupal_set_message(t('Configurations deleted Successfully.'));
-        header("Location: /admin/config/people/gluu_sso");
+        header("Location: ".$base_url."admin/config/people/gluu_sso");
         return;
     }
     else if( isset( $_REQUEST['form_key'] ) and strpos( $_REQUEST['form_key'], 'openid_config_page' ) !== false ) {
@@ -881,7 +885,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
         $gluu_oxd_id =   variable_get("gluu_oxd_id");
         if(!gluu_is_port_working()){
             variable_set('message_error', 'Can not connect to the oxd server. Please check the oxd-config.json file to make sure you have entered the correct port and the oxd server is operational.');
-            header("Location: /admin/config/people/gluu_sso");return;
+            header("Location: ".$base_url."admin/config/people/gluu_sso");return;
         }
         $update_site_registration = new Update_site_registration();
         $update_site_registration->setRequestOxdId($gluu_oxd_id);
@@ -898,7 +902,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
         }
 
         variable_set('message_success', 'Your OpenID connect configuration has been saved.');
-        header("Location: /admin/config/people/gluu_sso/openidconnect");return;
+        header("Location: ".$base_url."admin/config/people/gluu_sso/openidconnect");return;
     }
     else if( isset( $_REQUEST['form_key_scope_delete'] ) and strpos( $_REQUEST['form_key_scope_delete'], 'form_key_scope_delete' ) !== false ) {
         $get_scopes =   variable_get('gluu_scopes');

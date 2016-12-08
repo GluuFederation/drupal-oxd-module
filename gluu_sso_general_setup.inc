@@ -17,7 +17,9 @@ function add_js_css_fonts() {
 add_js_css_fonts() ;
 
 function gluu_sso_general_setup($form, &$form_state){
-    $form['#action'] = url('/admin/config/people/gluu_sso/savedata');
+    global $base_path;
+    $base_url = $base_path;
+    $form['#action'] = url('admin/config/people/gluu_sso/savedata');
     $form['markup_1'] = array(
         '#markup' => admin_html()
     );
@@ -26,8 +28,12 @@ function gluu_sso_general_setup($form, &$form_state){
 
 function admin_html()
 {
-    global $base_url;
-    $img_path = drupal_get_path('module', 'gluu_sso');
+    $currentPath = $_SERVER['PHP_SELF'];
+    $pathInfo = pathinfo($currentPath);
+    $hostName = $_SERVER['HTTP_HOST'];
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $base_url =  $protocol.$hostName.$pathInfo['dirname']."/";
+    $img_path = $base_url.'sites/all/modules/gluu_sso';
     $get_scopes = variable_get('gluu_scopes');
     $gluu_config = variable_get('gluu_config');
     $gluu_acr = variable_get('gluu_acr');
@@ -164,11 +170,11 @@ function admin_html()
     }
     $html .= '</div>
         <ul class="navbar navbar-tabs">
-            <li class="active" id="account_setup"><a style="cursor: pointer;" href="/admin/config/people/gluu_sso/general">General</a></li>';
+            <li class="active" id="account_setup"><a style="cursor: pointer;" href="'.$base_url.'admin/config/people/gluu_sso/general">General</a></li>';
     if (!gluu_is_oxd_registered()) {
         $html .= '<li id="social-sharing-setup"><a  style="pointer-events: none; cursor: pointer;" >OpenID Connect Configuration</a></li>';
     } else {
-        $html .= '<li id="social-sharing-setup"><a href="/admin/config/people/gluu_sso/openidconnect">OpenID Connect Configuration</a></li>';
+        $html .= '<li id="social-sharing-setup"><a href="'.$base_url.'admin/config/people/gluu_sso/openidconnect">OpenID Connect Configuration</a></li>';
     }
     $html .= '<li id=""><a href="https://oxd.gluu.org/docs/plugin/drupal/" target="_blank">Documentation</a></li>';
     $html .= '</ul>
@@ -316,12 +322,12 @@ function admin_html()
                                                 );
         $html .= '<div class="form-group" style="margin-bottom: 0px !important;">
                                                     <select id="UserType" class="form-control" name="gluu_user_role" >';
-                                                        
+
                                                         foreach($user_types as $user_type){
                                                             $html .= '<option ';
-                                                            if($user_type['status'] == $gluu_user_role) $html .= ' selected '; 
+                                                            if($user_type['status'] == $gluu_user_role) $html .= ' selected ';
                                                              $html .= ' value="'.$user_type['status'].'">'.$user_type['name'].'</option>';
-                                                            
+
                                                         }
                                                     $html .= '</select>
                                                 </div>
@@ -337,7 +343,7 @@ function admin_html()
                                                     </div>
                                                 </td>
                                                 <td  style="border: none !important;">
-                                                    <div><a class="button button-danger button-large form-submit" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style=" background-color:red;text-decoration: none;text-align:center; float: left;  width: 100px !important;" href="/admin/config/people/gluu_sso/savedata?submit=delete">Delete</a></div>
+                                                    <div><a class="button button-danger button-large form-submit" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style=" background-color:red;text-decoration: none;text-align:center; float: left;  width: 100px !important;" href="'.$base_url.'admin/config/people/gluu_sso/savedata?submit=delete">Delete</a></div>
                                                 </td>
                                             </tr>';
         } else {
@@ -349,7 +355,7 @@ function admin_html()
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <a class="button button-danger button-large form-submit" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style="background-color:red;text-decoration: none;text-align:center; float: left; width: 120px;" href="/admin/config/people/gluu_sso/savedata?submit=delete">Delete</a>
+                                                        <a class="button button-danger button-large form-submit" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style="background-color:red;text-decoration: none;text-align:center; float: left; width: 120px;" href="'.$base_url.'admin/config/people/gluu_sso/savedata?submit=delete">Delete</a>
                                                     </td>';
             } else {
                 $html .= '<td style="width: 250px">
@@ -373,7 +379,7 @@ function admin_html()
                         <input type="hidden" name="form_key" value="general_oxd_id_reset"/>
                         <fieldset style="border: 2px solid #53cc6b; padding: 20px">
                             <legend style="border-bottom:none; width: 110px !important;">
-                                <img style=" height: 45px;" src="/'.$img_path.'/files/images/icons/gl.png"/>
+                                <img style=" height: 45px;" src="'.$img_path.'/files/images/icons/gl.png"/>
                             </legend>
                             <div style="padding-left: 10px; margin-top: -20px;">
                                 <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60%; font-weight: bold ">Server Settings</h3>
@@ -507,12 +513,12 @@ function admin_html()
                                             );
                                     $html .= '<div class="form-group" style="margin-bottom: 0px !important;">
                                                 <select id="UserType" class="form-control" name="gluu_user_role" >';
-                                                    
+
                                                     foreach($user_types as $user_type){
                                                         $html .= '<option ';
-                                                        if($user_type['status'] == $gluu_user_role) $html .= ' selected '; 
+                                                        if($user_type['status'] == $gluu_user_role) $html .= ' selected ';
                                                          $html .= ' value="'.$user_type['status'].'">'.$user_type['name'].'</option>';
-                                                        
+
                                                     }
                                                 $html .= '</select>
                                             </div>
@@ -520,7 +526,7 @@ function admin_html()
                                     </tr>
                                     <tr>
                                         <td style="width: 250px">
-                                            <a class="button button-danger button-large form-submit" style="text-decoration: none;text-align:center; float: right;  width: 100px !important;background-color: blue" href="/admin/config/people/gluu_sso/generaledit">Edit</a>
+                                            <a class="button button-danger button-large form-submit" style="text-decoration: none;text-align:center; float: right;  width: 100px !important;background-color: blue" href="'.$base_url.'admin/config/people/gluu_sso/generaledit">Edit</a>
                                         </td>
                                         <td>
                                             <input type="submit" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" name="resetButton" value="Delete" style="background-color:red;text-decoration: none;text-align:center; float: left; width: 120px;" class="form-submit"/>

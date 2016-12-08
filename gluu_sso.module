@@ -432,6 +432,7 @@ function gluu_sso_user_logout($account){
 
 function gluu_sso_init() {
   global $base_url;
+  @session_start();
   if (isset($_REQUEST['option']) and strpos($_REQUEST['option'], 'allLogout') !== false) {
     if(isset($_SESSION['session_in_op'])){
       if(time()<(int)$_SESSION['session_in_op']) {
