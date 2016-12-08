@@ -51,7 +51,7 @@ If your OpenID Provider supports dynamic registration, no additional steps are r
 
 If your OpenID Connect Provider doesn't support dynamic registration, you will need to insert your OpenID Provider `client_id` and `client_secret` on the following page.
 
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/2.png
+![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/2.png) 
 To generate your `client_id` and `client_secret` use the redirect uri: `https://{site-base-url}/index.php?option=oxdOpenId`.
 
 > If you are using a Gluu server as your OpenID Provider, you can make sure everything is configured properly by logging into to your Gluu Server, navigate to the OpenID Connect > Clients page. Search for your `oxd id`.
