@@ -1,0 +1,20 @@
+name = OpenID Connect Single Sign-On (SSO) Module By Gluu
+description = This module will enable you to authenticate users against any standard OpenID Connect Provider.
+core = 7.x
+configure = admin/config/people/gluu_sso
+package = "OpenID Connect SSO"
+
+files[] = includes/oxd-rp/Client_OXD_RP.php
+files[] = includes/oxd-rp/Get_authorization_url.php
+files[] = includes/oxd-rp/Get_tokens_by_code.php
+files[] = includes/oxd-rp/Get_user_info.php
+files[] = includes/oxd-rp/Logout.php
+files[] = includes/oxd-rp/Register_site.php
+files[] = includes/oxd-rp/Update_site_registration.php
+
+; Information added by Drupal.org packaging script on 2016-12-08
+version = "7.x"
+core = "7.x"
+project = "gluu_sso"
+datestamp = "1458648888"
+

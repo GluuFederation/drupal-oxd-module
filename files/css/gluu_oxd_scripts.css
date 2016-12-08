@@ -1,0 +1,30 @@
+.mess_red{
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    color: red;
+    background-color: rgba(251, 232, 0, 0.15);
+    padding: 5px;
+    border: solid 1px rgba(255, 0, 9, 0.36);
+}
+#edit-gluu-sso-customer-setup-button{
+    background: #00d300 !important;
+    color: black !important;
+}
+th {
+    text-align: center !important;
+}
+/*td{
+  border: 1px solid #00d300 !important;
+}*/
+.tabs li a{
+    background-color:#00d300 !important;
+}
+ul.primary li.active a, ul.primary li.active a.active, ul.primary li.active a:active, ul.primary li.active a:visited{
+    background-color:white !important;
+}
+#gluu-sso-general-setup, #gluu-sso-scopes-scripts-setup, #gluu-sso-gateway-form,#gluu-sso-testauthentication, #gluu-sso-workflow,#gluu-sso-config-form{
+    border: 2px solid #00d300 !important;
+    padding: 20px !important;
+    border-radius: 5px !important;
+}

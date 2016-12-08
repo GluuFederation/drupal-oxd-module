@@ -1,0 +1,596 @@
+<?php
+/**
+ * @file
+ * Module file for miniOrange sso Module.
+ */
+
+
+
+/**
+ * Implements hook_menu().
+ */
+function gluu_sso_menu() {
+
+
+  $items['admin/config/people/gluu_sso'] = array(
+    'title' => 'OpenID Connect',
+    'description' => 'This module will enable you to authenticate users against any standard OpenID Provider (OP).',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('gluu_sso_general_setup'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'gluu_sso_general_setup.inc',
+  );
+
+  $items['admin/config/people/gluu_sso/general'] = array(
+    'type' => MENU_VISIBLE_IN_BREADCRUMB,
+    'access arguments' => array('administer site configuration'),
+    'page arguments' => array('gluu_sso_general_setup'),
+    'file' => 'gluu_sso_general_setup.inc',
+  );
+  $items['admin/config/people/gluu_sso/generaledit'] = array(
+      'type' => MENU_VISIBLE_IN_BREADCRUMB,
+      'access arguments' => array('administer site configuration'),
+      'page arguments' => array('gluu_sso_generaledit_setup'),
+      'file' => 'gluu_sso_generaledit_setup.inc',
+  );
+
+  $items['admin/config/people/gluu_sso/openidconnect'] = array(
+    'type' => MENU_VISIBLE_IN_BREADCRUMB,
+    'access arguments' => array('administer site configuration'),
+    'page arguments' => array('gluu_sso_openidconnect_setup'),
+    'file' => 'gluu_sso_openidconnect_setup.inc',
+  );
+  $items['admin/config/people/gluu_sso/savedata'] = array(
+      'type' => MENU_VISIBLE_IN_BREADCRUMB,
+      'access arguments' => array('administer site configuration'),
+      'page arguments' => array('gluu_sso_openidconnect_setup'),
+      'file' => 'gluu_sso_workflow.inc',
+  );
+
+  return $items;
+}
+/**
+ * Implements hook_user_login_alter().
+ */
+function gluu_sso_form_user_login_alter(&$form, $form_state) {
+  $sso_login_enabled = variable_get('gluu_sso_enable_login', FALSE);
+  if (!empty($sso_login_enabled)) {
+    array_unshift($form['#validate'], 'gluu_sso_login_validate');
+  }
+}
+
+/**
+ * Implements hook_user_login_block_alter().
+ */
+
+function gluu_sso_form_user_login_block_alter(&$form, &$form_state) {
+  if(isset($_GET['gluuOption'])){
+    gluu_sso_login_validate($form, $form_state);
+  }
+  $form['markup_2'] = array(
+      '#markup' =>login_html(),
+      );
+  $form['links']['#weight'] = 1;
+}
+
+function login_html(){
+  $gluu_config           = variable_get('gluu_config');
+  $gluu_auth_type        = variable_get('gluu_auth_type');
+  $gluu_oxd_id           = variable_get('gluu_oxd_id');
+  $gluu_send_user_check  = variable_get('gluu_send_user_check');
+  $html = '';
+  if(gluu_is_port_working_module()){
+    if($gluu_send_user_check && $gluu_oxd_id) {
+      header("Location: ".login_url());exit;
+    }
+    else if(!$gluu_send_user_check && $gluu_oxd_id) {
+      $html.= '<script type="application/javascript">
+		jQuery( document ).ready(function() {
+			jQuery(\'#user-login-form\').before( "<p><input type=\'radio\' name=\'radio\' id=\'OpenID\' value=\'Yes\' /> Login by OpenID Provider </p>" +
+				"<p><input type=\'radio\' name=\'radio\' id=\'base\' value=\'No\' /> Show login form </p>" );
+			jQuery(\'#user-login-form\').before(\'<a href="'.login_url().'" style="padding: 5px !important; " class="form-submit button button-primary button-large" id="gluu_login">Login by OpenID Provider</a>\');
+			jQuery(\'#user-login-form\').hide();
+			jQuery(\'input:radio[name="radio"]\').change(
+				function(){
+					if (jQuery(this).is(\':checked\') && jQuery(this).val() == \'Yes\') {
+						jQuery(\'#gluu_login\').show();
+						jQuery(\'#user-login-form\').hide();
+					}else{
+						jQuery(\'#gluu_login\').hide();
+						jQuery(\'#user-login-form\').show();
+					}
+				});
+			jQuery(\'#OpenID\').attr(\'checked\', true);
+
+		});
+	</script>';
+    }
+  }
+  return $html;
+}
+
+function gluu_sso_login_validate($form, &$form_state)
+{
+  global $base_url;
+  if (isset($_REQUEST['gluuOption']) and strpos($_REQUEST['gluuOption'], 'oxdOpenId') !== false) {
+    if (isset($_REQUEST['error']) and strpos($_REQUEST['error'], 'session_selection_required') !== false) {
+      header("Location: " . login_url_prompt('login'));
+      exit;
+    }
+    $oxd_id = variable_get('gluu_oxd_id');
+    $gluu_user_role = variable_get('gluu_user_role');
+    $http = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? "https://" : "http://";
+    $parts = parse_url($http . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    parse_str($parts['query'], $query);
+    $get_tokens_by_code = new Get_tokens_by_code();
+    $get_tokens_by_code->setRequestOxdId($oxd_id);
+    $get_tokens_by_code->setRequestCode($_REQUEST['code']);
+    $get_tokens_by_code->setRequestState($_REQUEST['state']);
+    $get_tokens_by_code->request();
+
+    $get_tokens_by_code_array = array();
+    if (!empty($get_tokens_by_code->getResponseAccessToken())) {
+      $get_tokens_by_code_array = $get_tokens_by_code->getResponseObject()->data->id_token_claims;
+    } else {
+      echo "<script type='application/javascript'>
+					alert('Missing claims : Please talk to your organizational system administrator or try again.');
+					location.href='" . $base_url . "';
+				 </script>";
+      exit;
+    }
+
+    $get_user_info = new Get_user_info();
+    $get_user_info->setRequestOxdId($oxd_id);
+    $get_user_info->setRequestAccessToken($get_tokens_by_code->getResponseAccessToken());
+    $get_user_info->request();
+    $get_user_info_array = $get_user_info->getResponseObject()->data->claims;
+    $_SESSION['session_in_op'] = $get_tokens_by_code->getResponseIdTokenClaims()->exp[0];
+    $_SESSION['user_oxd_id_token'] = $get_tokens_by_code->getResponseIdToken();
+    $_SESSION['user_oxd_access_token'] = $get_tokens_by_code->getResponseAccessToken();
+    $_SESSION['session_state'] = $_REQUEST['session_state'];
+    $_SESSION['state'] = $_REQUEST['state'];
+    $get_user_info_array = $get_user_info->getResponseObject()->data->claims;
+    $reg_first_name = '';
+    $reg_user_name = '';
+    $reg_last_name = '';
+    $reg_email = '';
+    $reg_avatar = '';
+    $reg_display_name = '';
+    $reg_nikname = '';
+    $reg_website = '';
+    $reg_middle_name = '';
+    $reg_country = '';
+    $reg_city = '';
+    $reg_region = '';
+    $reg_gender = '';
+    $reg_postal_code = '';
+    $reg_fax = '';
+    $reg_home_phone_number = '';
+    $reg_phone_mobile_number = '';
+    $reg_street_address = '';
+    $reg_street_address_2 = '';
+    $reg_birthdate = '';
+    $reg_user_permission = '';
+    $data = array();
+    if (!empty($get_user_info_array->email[0])) {
+      $reg_email = $get_user_info_array->email[0];
+    } elseif (!empty($get_tokens_by_code_array->email[0])) {
+      $reg_email = $get_tokens_by_code_array->email[0];
+    } else {
+      echo "<script type='application/javascript'>
+					alert('Missing claim : (email). Please talk to your organizational system administrator.');
+					location.href='" . $base_url . "';
+				 </script>";
+      exit;
+    }
+    if (!empty($get_user_info_array->website[0])) {
+      $reg_website = $get_user_info_array->website[0];
+    } elseif (!empty($get_tokens_by_code_array->website[0])) {
+      $reg_website = $get_tokens_by_code_array->website[0];
+    }
+    if (!empty($get_user_info_array->nickname[0])) {
+      $reg_nikname = $get_user_info_array->nickname[0];
+    } elseif (!empty($get_tokens_by_code_array->nickname[0])) {
+      $reg_nikname = $get_tokens_by_code_array->nickname[0];
+    }
+    if (!empty($get_user_info_array->name[0])) {
+      $reg_display_name = $get_user_info_array->name[0];
+    } elseif (!empty($get_tokens_by_code_array->name[0])) {
+      $reg_display_name = $get_tokens_by_code_array->name[0];
+    }
+    if (!empty($get_user_info_array->given_name[0])) {
+      $reg_first_name = $get_user_info_array->given_name[0];
+    } elseif (!empty($get_tokens_by_code_array->given_name[0])) {
+      $reg_first_name = $get_tokens_by_code_array->given_name[0];
+    }
+    if (!empty($get_user_info_array->family_name[0])) {
+      $reg_last_name = $get_user_info_array->family_name[0];
+    } elseif (!empty($get_tokens_by_code_array->family_name[0])) {
+      $reg_last_name = $get_tokens_by_code_array->family_name[0];
+    }
+    if (!empty($get_user_info_array->middle_name[0])) {
+      $reg_middle_name = $get_user_info_array->middle_name[0];
+    } elseif (!empty($get_tokens_by_code_array->middle_name[0])) {
+      $reg_middle_name = $get_tokens_by_code_array->middle_name[0];
+    }
+    if (!empty($get_user_info_array->country[0])) {
+      $reg_country = $get_user_info_array->country[0];
+    } elseif (!empty($get_tokens_by_code_array->country[0])) {
+      $reg_country = $get_tokens_by_code_array->country[0];
+    }
+    if (!empty($get_user_info_array->gender[0])) {
+      if ($get_user_info_array->gender[0] == 'male') {
+        $reg_gender = '1';
+      } else {
+        $reg_gender = '2';
+      }
+
+    } elseif (!empty($get_tokens_by_code_array->gender[0])) {
+      if ($get_tokens_by_code_array->gender[0] == 'male') {
+        $reg_gender = '1';
+      } else {
+        $reg_gender = '2';
+      }
+    }
+    if (!empty($get_user_info_array->locality[0])) {
+      $reg_city = $get_user_info_array->locality[0];
+    } elseif (!empty($get_tokens_by_code_array->locality[0])) {
+      $reg_city = $get_tokens_by_code_array->locality[0];
+    }
+    if (!empty($get_user_info_array->postal_code[0])) {
+      $reg_postal_code = $get_user_info_array->postal_code[0];
+    } elseif (!empty($get_tokens_by_code_array->postal_code[0])) {
+      $reg_postal_code = $get_tokens_by_code_array->postal_code[0];
+    }
+    if (!empty($get_user_info_array->phone_number[0])) {
+      $reg_home_phone_number = $get_user_info_array->phone_number[0];
+    } elseif (!empty($get_tokens_by_code_array->phone_number[0])) {
+      $reg_home_phone_number = $get_tokens_by_code_array->phone_number[0];
+    }
+    if (!empty($get_user_info_array->phone_mobile_number[0])) {
+      $reg_phone_mobile_number = $get_user_info_array->phone_mobile_number[0];
+    } elseif (!empty($get_tokens_by_code_array->phone_mobile_number[0])) {
+      $reg_phone_mobile_number = $get_tokens_by_code_array->phone_mobile_number[0];
+    }
+    if (!empty($get_user_info_array->picture[0])) {
+      $reg_avatar = $get_user_info_array->picture[0];
+    } elseif (!empty($get_tokens_by_code_array->picture[0])) {
+      $reg_avatar = $get_tokens_by_code_array->picture[0];
+    }
+    if (!empty($get_user_info_array->street_address[0])) {
+      $reg_street_address = $get_user_info_array->street_address[0];
+    } elseif (!empty($get_tokens_by_code_array->street_address[0])) {
+      $reg_street_address = $get_tokens_by_code_array->street_address[0];
+    }
+    if (!empty($get_user_info_array->street_address[1])) {
+      $reg_street_address_2 = $get_user_info_array->street_address[1];
+    } elseif (!empty($get_tokens_by_code_array->street_address[1])) {
+      $reg_street_address_2 = $get_tokens_by_code_array->street_address[1];
+    }
+    if (!empty($get_user_info_array->birthdate[0])) {
+      $reg_birthdate = $get_user_info_array->birthdate[0];
+    } elseif (!empty($get_tokens_by_code_array->birthdate[0])) {
+      $reg_birthdate = $get_tokens_by_code_array->birthdate[0];
+    }
+    if (!empty($get_user_info_array->region[0])) {
+      $reg_region = $get_user_info_array->region[0];
+    } elseif (!empty($get_tokens_by_code_array->region[0])) {
+      $reg_region = $get_tokens_by_code_array->region[0];
+    }
+
+    $username = '';
+    if (!empty($get_user_info_array->user_name[0])) {
+      $username = $get_user_info_array->user_name[0];
+    } else {
+      $email_split = explode("@", $reg_email);
+      $username = $email_split[0];
+    }
+    if (!empty($get_user_info_array->permission[0])) {
+      $world = str_replace("[", "", $get_user_info_array->permission[0]);
+      $reg_user_permission = str_replace("]", "", $world);
+    }
+    elseif (!empty($get_tokens_by_code_array->permission[0])) {
+      $world = str_replace("[", "", $get_user_info_array->permission[0]);
+      $reg_user_permission = str_replace("]", "", $world);
+    }
+
+
+    if ($reg_email) {
+      $account = user_load_by_mail($reg_email);
+
+      if (!$account) {
+        $bool = true;
+        $gluu_new_roles = variable_get('gluu_new_role');
+        $gluu_users_can_register = variable_get('gluu_users_can_register');
+        if ($gluu_users_can_register == 2 and !empty($gluu_new_roles)) {
+          if (!in_array($reg_user_permission, $gluu_new_roles)) {
+            $bool = false;
+          } else {
+            $bool = True;
+          }
+        }
+        if (!$bool or $gluu_users_can_register == 3) {
+          echo "<script>
+					alert('You are not authorized for an account on this application. If you think this is an error, please contact your OpenID Connect Provider (OP) admin.');
+					location.href='".doing_logout()."';
+				 </script>";
+          exit;
+        }
+
+        $userinfo = array(
+            'name' => $username,
+            'pass' => user_password(),
+            'mail' => $reg_email,
+            'init' => $reg_email,
+            'status' => 1,
+            'access' => REQUEST_TIME,
+            $data,
+
+        );
+        if(variable_get('gluu_user_role') == 3){
+          $userinfo['roles']= array(
+              DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+              3 => 'custom role',
+          );
+        }
+
+        $new_account = user_save(drupal_anonymous_user(), $userinfo);
+
+        if (!$new_account) {
+          drupal_set_message(t("Error saving user account."), 'error');
+          return;
+        }
+        $form_state['uid'] = $new_account->uid;
+      }
+      else{
+        $data = array();
+        foreach ($get_user_info->getResponseObject()->data->claims as $key=>$value){
+          if($value){
+            $data['field_'.$key] = array(LANGUAGE_NONE => array(array('value' => $value)));
+          }
+        }
+        if(!empty($data)){
+          $account->data = $data;
+          user_save((object) array('uid' => $account->uid), (array) $account);
+        }
+        $form_state['uid'] = $account->uid;
+      }
+
+      user_login_submit(array(), $form_state);
+      drupal_goto();
+
+    }
+
+
+  }
+}
+
+function gluu_sso_user_logout($account){
+  global $base_url;
+  if(isset($_SESSION['session_in_op'])){
+    if(time()<(int)$_SESSION['session_in_op']) {
+
+      $gluu_provider = variable_get('gluu_provider');
+      $arrContextOptions=array(
+          "ssl"=>array(
+              "verify_peer"=>false,
+              "verify_peer_name"=>false,
+          ),
+      );
+      $json = file_get_contents($gluu_provider.'/.well-known/openid-configuration', false, stream_context_create($arrContextOptions));
+      $obj = json_decode($json);
+
+      $oxd_id = variable_get('gluu_oxd_id');
+      $gluu_config = variable_get('gluu_config');
+      if (!empty($obj->end_session_endpoint ) or $gluu_provider == 'https://accounts.google.com') {
+        if (!empty($_SESSION['user_oxd_id_token'])) {
+          if ($oxd_id && $_SESSION['user_oxd_id_token'] && $_SESSION['session_in_op']) {
+            $logout = new Logout();
+            $logout->setRequestOxdId($oxd_id);
+            $logout->setRequestIdToken($_SESSION['user_oxd_id_token']);
+            $logout->setRequestPostLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
+            $logout->setRequestSessionState($_SESSION['session_state']);
+            $logout->setRequestState($_SESSION['state']);
+            $logout->request();
+            unset($_SESSION['user_oxd_access_token']);
+            unset($_SESSION['user_oxd_id_token']);
+            unset($_SESSION['session_state']);
+            unset($_SESSION['state']);
+            unset($_SESSION['session_in_op']);
+            session_destroy();
+            header('Location: ' . $logout->getResponseObject()->data->uri);
+            exit;
+          }
+        }
+      } else {
+        unset($_SESSION['user_oxd_access_token']);
+        unset($_SESSION['user_oxd_id_token']);
+        unset($_SESSION['session_state']);
+        unset($_SESSION['state']);
+        unset($_SESSION['session_in_op']);
+        session_destroy();
+
+
+      }
+    }
+  }
+  unset($_SESSION['user_oxd_access_token']);
+  unset($_SESSION['user_oxd_id_token']);
+  unset($_SESSION['session_state']);
+  unset($_SESSION['state']);
+  unset($_SESSION['session_in_op']);
+  @session_destroy();
+  $gluu_custom_logout = variable_get('gluu_custom_logout');
+  if(!empty($gluu_custom_logout)){
+    drupal_goto($gluu_custom_logout);
+    exit;
+  }else{
+    drupal_goto($base_url);
+    exit;
+  }
+}
+
+function gluu_sso_init() {
+  global $base_url;
+  if (isset($_REQUEST['option']) and strpos($_REQUEST['option'], 'allLogout') !== false) {
+    if(isset($_SESSION['session_in_op'])){
+      if(time()<(int)$_SESSION['session_in_op']) {
+
+        $gluu_provider = variable_get('gluu_provider');
+        $arrContextOptions=array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+        $json = file_get_contents($gluu_provider.'/.well-known/openid-configuration', false, stream_context_create($arrContextOptions));
+        $obj = json_decode($json);
+
+        $oxd_id = variable_get('gluu_oxd_id');
+        $gluu_config = variable_get('gluu_config');
+        if (!empty($obj->end_session_endpoint ) or $gluu_provider == 'https://accounts.google.com') {
+          if (!empty($_SESSION['user_oxd_id_token'])) {
+            if ($oxd_id && $_SESSION['user_oxd_id_token'] && $_SESSION['session_in_op']) {
+              $logout = new Logout();
+              $logout->setRequestOxdId($oxd_id);
+              $logout->setRequestIdToken($_SESSION['user_oxd_id_token']);
+              $logout->setRequestPostLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
+              $logout->setRequestSessionState($_SESSION['session_state']);
+              $logout->setRequestState($_SESSION['state']);
+              $logout->request();
+              unset($_SESSION['user_oxd_access_token']);
+              unset($_SESSION['user_oxd_id_token']);
+              unset($_SESSION['session_state']);
+              unset($_SESSION['state']);
+              unset($_SESSION['session_in_op']);
+              session_destroy();
+              header('Location: ' . $logout->getResponseObject()->data->uri);
+              exit;
+            }
+          }
+        } else {
+          unset($_SESSION['user_oxd_access_token']);
+          unset($_SESSION['user_oxd_id_token']);
+          unset($_SESSION['session_state']);
+          unset($_SESSION['state']);
+          unset($_SESSION['session_in_op']);
+          session_destroy();
+
+
+        }
+      }
+    }
+    unset($_SESSION['user_oxd_access_token']);
+    unset($_SESSION['user_oxd_id_token']);
+    unset($_SESSION['session_state']);
+    unset($_SESSION['state']);
+    unset($_SESSION['session_in_op']);
+    @session_destroy();
+    $gluu_custom_logout = variable_get('gluu_custom_logout');
+    if(!empty($gluu_custom_logout)){
+      drupal_goto($gluu_custom_logout);
+      exit;
+    }else{
+      drupal_goto($base_url);
+      exit;
+    }
+  }
+
+}
+
+function login_url(){
+  $gluu_config           = variable_get('gluu_config');
+  $gluu_auth_type        = variable_get('gluu_auth_type');
+  $oxd_id = variable_get('gluu_oxd_id');
+
+  $get_authorization_url = new Get_authorization_url();
+  $get_authorization_url->setRequestOxdId($oxd_id);
+  $get_authorization_url->setRequestScope($gluu_config['config_scopes']);
+  if($gluu_auth_type != "default"){
+    $get_authorization_url->setRequestAcrValues([$gluu_auth_type]);
+  }else{
+    $get_authorization_url->setRequestAcrValues(null);
+  }
+  $get_authorization_url->request();
+
+  return $get_authorization_url->getResponseAuthorizationUrl();
+}
+
+function login_url_prompt($prompt){
+  $gluu_config           = variable_get('gluu_config');
+  $gluu_auth_type        = variable_get('gluu_auth_type');
+  $oxd_id = variable_get('gluu_oxd_id');
+
+  $get_authorization_url = new Get_authorization_url();
+  $get_authorization_url->setRequestOxdId($oxd_id);
+
+
+  $get_authorization_url->setRequestScope($gluu_config['config_scopes']);
+  if($gluu_auth_type != "default"){
+    $get_authorization_url->setRequestAcrValues([$gluu_auth_type]);
+  }else{
+    $get_authorization_url->setRequestAcrValues(null);
+  }
+
+
+  $get_authorization_url->setRequestPrompt($prompt);
+  $get_authorization_url->request();
+
+  return $get_authorization_url->getResponseAuthorizationUrl();
+}
+
+function doing_logout(){
+  global $base_url;
+  if(isset($_SESSION['session_in_op'])){
+    if(time()<(int)$_SESSION['session_in_op']) {
+
+      $gluu_provider = variable_get('gluu_provider');
+      $arrContextOptions=array(
+          "ssl"=>array(
+              "verify_peer"=>false,
+              "verify_peer_name"=>false,
+          ),
+      );
+      $json = file_get_contents($gluu_provider.'/.well-known/openid-configuration', false, stream_context_create($arrContextOptions));
+      $obj = json_decode($json);
+
+      $oxd_id = variable_get('gluu_oxd_id');
+      $gluu_config = variable_get('gluu_config');
+      if (!empty($obj->end_session_endpoint ) or $gluu_provider == 'https://accounts.google.com') {
+        if (!empty($_SESSION['user_oxd_id_token'])) {
+          if ($oxd_id && $_SESSION['user_oxd_id_token'] && $_SESSION['session_in_op']) {
+            $logout = new Logout();
+            $logout->setRequestOxdId($oxd_id);
+            $logout->setRequestIdToken($_SESSION['user_oxd_id_token']);
+            $logout->setRequestPostLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
+            $logout->setRequestSessionState($_SESSION['session_state']);
+            $logout->setRequestState($_SESSION['state']);
+            $logout->request();
+            unset($_SESSION['user_oxd_access_token']);
+            unset($_SESSION['user_oxd_id_token']);
+            unset($_SESSION['session_state']);
+            unset($_SESSION['state']);
+            unset($_SESSION['session_in_op']);
+            session_destroy();
+            return $logout->getResponseObject()->data->uri;
+          }
+        }
+      }
+      return $base_url;
+    }
+  }
+}
+
+function gluu_is_port_working_module(){
+  $config_option = variable_get('gluu_config');
+  $connection = @fsockopen('127.0.0.1', $config_option['gluu_oxd_port']);
+  if (is_resource($connection))
+  {
+    fclose($connection);
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
