@@ -58,7 +58,7 @@ To generate your `client_id` and `client_secret` use the redirect uri: `https://
 
 #### Role based enrollment
 
-Navigate to your Gluu Server admin GUI. Click the `Users` tab in the left hand navigation menu. Select `Manage People`. Find the person(s) who should have access. Click their user entry. Add the `User Permission` attribute to the person and specify the same value as in the module. For instance, if in the module you have limit enrollment to user(s) with role = `drupal`, then you should also have `User Permission` = `sugarecrm` in the user entry. Update the user record, and now they are ready for enrollment at your Drupal site. 
+Navigate to your Gluu Server admin GUI. Click the `Users` tab in the left hand navigation menu. Select `Manage People`. Find the person(s) who should have access. Click their user entry. Add the `User Permission` attribute to the person and specify the same value as in the module. For instance, if in the module you have limit enrollment to user(s) with role = `drupal`, then you should also have `User Permission` = `drupal` in the user entry. Update the user record, and now they are ready for enrollment at your Drupal site. 
 
 ### OpenID Connect Configuration
 
