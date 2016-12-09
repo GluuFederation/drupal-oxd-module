@@ -3,11 +3,27 @@
  * @file
  * Contains workflow of the miniOrange Active Directory/sso Module.
  */
-$currentPath = $_SERVER['PHP_SELF'];
-$pathInfo = pathinfo($currentPath);
-$hostName = $_SERVER['HTTP_HOST'];
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$base_url =  $protocol.$hostName.$pathInfo['dirname']."/";
+function getBaseUrlWorkflow()
+{
+    // output: /myproject/index.php
+    $currentPath = $_SERVER['PHP_SELF'];
+
+    // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+    $pathInfo = pathinfo($currentPath);
+
+    // output: localhost
+    $hostName = $_SERVER['HTTP_HOST'];
+
+    // output: http://
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+    if (strpos($pathInfo['dirname'], '\\') !== FALSE) {
+        return $protocol.$hostName."/";
+    }else{
+        return $protocol.$hostName.$pathInfo['dirname']."/";
+    }
+}
+$base_url = getBaseUrlWorkflow();
 global $user; 
 if (is_array($user->roles) && in_array('administrator', $user->roles)) {
     if( isset( $_REQUEST['form_key'] ) and strpos( $_REQUEST['form_key'], 'general_register_page' ) !== false ) {
@@ -101,7 +117,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     $gluu_config = array(
                         "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                         "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                        "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                        "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                         "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                         "config_scopes" => ["openid","profile","email"],
                         "gluu_client_id" => "",
@@ -119,7 +135,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                         $gluu_config = array(
                             "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                             "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                            "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                            "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                             "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                             "config_scopes" => ["openid","profile","email"],
                             "gluu_client_id" => $_POST['gluu_client_id'],
@@ -197,7 +213,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     $gluu_config = array(
                         "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                         "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                        "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                        "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                         "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                         "config_scopes" => ["openid","profile","email"],
                         "gluu_client_id" => "",
@@ -278,7 +294,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
             $gluu_config = array(
                 "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                 "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                 "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                 "config_scopes" => ["openid","profile","email"],
                 "gluu_client_id" => "",
@@ -472,7 +488,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 $gluu_config = array(
                     "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                     "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                    "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                    "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                     "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                     "config_scopes" => ["openid","profile","email"],
                     "gluu_client_id" => "",
@@ -490,7 +506,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                     $gluu_config = array(
                         "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                         "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                        "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                        "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                         "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                         "config_scopes" => ["openid","profile","email"],
                         "gluu_client_id" => $_POST['gluu_client_id'],
@@ -568,7 +584,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
                 $gluu_config = array(
                     "gluu_oxd_port" =>$_POST['gluu_oxd_port'],
                     "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                    "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                    "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                     "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                     "config_scopes" => ["openid","profile","email"],
                     "gluu_client_id" => "",
@@ -696,7 +712,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
             $gluu_config = array(
                 "gluu_oxd_port" => 8099,
                 "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                 "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                 "config_scopes" => ["openid","profile","email"],
                 "gluu_client_id" => "",
@@ -794,7 +810,7 @@ if (is_array($user->roles) && in_array('administrator', $user->roles)) {
             $gluu_config = array(
                 "gluu_oxd_port" => 8099,
                 "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-                "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+                "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
                 "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
                 "config_scopes" => ["openid","profile","email"],
                 "gluu_client_id" => "",

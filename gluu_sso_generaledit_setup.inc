@@ -23,15 +23,30 @@ function gluu_sso_generaledit_setup($form, &$form_state){
     );
     return $form;
 }
+function getBaseUrlEdit()
+{
+    // output: /myproject/index.php
+    $currentPath = $_SERVER['PHP_SELF'];
 
+    // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+    $pathInfo = pathinfo($currentPath);
+
+    // output: localhost
+    $hostName = $_SERVER['HTTP_HOST'];
+
+    // output: http://
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+    if (strpos($pathInfo['dirname'], '\\') !== FALSE) {
+        return $protocol.$hostName."/";
+    }else{
+        return $protocol.$hostName.$pathInfo['dirname']."/";
+    }
+}
 function admin_edit_html()
 {
-    $currentPath = $_SERVER['PHP_SELF'];
-    $pathInfo = pathinfo($currentPath);
-    $hostName = $_SERVER['HTTP_HOST'];
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $base_url =  $protocol.$hostName.$pathInfo['dirname']."/";
-    $img_path = $base_url.'sites/all/modules/gluu_sso';
+    $base_url = getBaseUrlEdit();
+    $img_path = $base_url.'/sites/all/modules/gluu_sso';
     $get_scopes = variable_get('gluu_scopes');
     $gluu_config = variable_get('gluu_config');
     $gluu_acr = variable_get('gluu_acr');
@@ -199,7 +214,6 @@ function admin_edit_html()
 
         $html .= '<div class="page" id="accountsetup">
                     <div class="mo2f_table_layout">
-                        <form id="register_GluuOxd" name="f" method="post" action="index.php?module=Gluussos&action=gluuPostData">
                             <input type="hidden" name="form_key" value="general_register_page"/>
                             <div class="login_GluuOxd">
                                 <br/>
@@ -231,7 +245,7 @@ function admin_edit_html()
         if (!empty($openid_error)) {
             $html .= '<tr>
                                                 <td style="width: 250px"><b><font color="#FF0000">*</font>Redirect URL:</b></td>
-                                                <td><p>' . $base_url . '?gluuOption=oxdOpenId</p>
+                                                <td><p>' . $base_url . '/index.php?gluuOption=oxdOpenId</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -382,10 +396,10 @@ function admin_edit_html()
         $html .= '</table>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>';
-    } else {
+    }
+    else {
         $html .= '<div style="padding: 20px !important;" id="accountsetup">
                     <input type="hidden" name="form_key" value="general_oxd_edit"/>
                     <fieldset style="border: 2px solid #53cc6b; padding: 20px">

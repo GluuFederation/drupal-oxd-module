@@ -25,14 +25,29 @@ function gluu_sso_general_setup($form, &$form_state){
     );
     return $form;
 }
+function getBaseUrlGen()
+{
+    // output: /myproject/index.php
+    $currentPath = $_SERVER['PHP_SELF'];
 
+    // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+    $pathInfo = pathinfo($currentPath);
+
+    // output: localhost
+    $hostName = $_SERVER['HTTP_HOST'];
+
+    // output: http://
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+    if (strpos($pathInfo['dirname'], '\\') !== FALSE) {
+        return $protocol.$hostName."/";
+    }else{
+        return $protocol.$hostName.$pathInfo['dirname']."/";
+    }
+}
 function admin_html()
 {
-    $currentPath = $_SERVER['PHP_SELF'];
-    $pathInfo = pathinfo($currentPath);
-    $hostName = $_SERVER['HTTP_HOST'];
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $base_url =  $protocol.$hostName.$pathInfo['dirname']."/";
+    $base_url = getBaseUrlGen();
     $img_path = $base_url.'sites/all/modules/gluu_sso';
     $get_scopes = variable_get('gluu_scopes');
     $gluu_config = variable_get('gluu_config');
@@ -214,7 +229,7 @@ function admin_html()
         if (!empty($openid_error)) {
             $html .= '<tr>
                                                 <td style="width: 250px"><b><font color="#FF0000">*</font>Redirect URL:</b></td>
-                                                <td><p>' . $base_url . '?gluuOption=oxdOpenId</p>
+                                                <td><p>' . $base_url . 'index.php?gluuOption=oxdOpenId</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -403,7 +418,7 @@ function admin_html()
         if (!empty($gluu_config['gluu_client_id']) and !empty($gluu_config['gluu_client_secret'])) {
             $html .= '<tr>
                                             <td style="width: 250px"><b>Redirect URL:</b></td>
-                                            <td><p>' . $base_url . '?gluuOption=oxdOpenId</p>
+                                            <td><p>' . $base_url . 'index.php?gluuOption=oxdOpenId</p>
                                                 </td>
                                         </tr>
                                         <tr>

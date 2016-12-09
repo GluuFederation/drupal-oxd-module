@@ -25,14 +25,30 @@ function gluu_sso_openidconnect_setup($form, &$form_state){
     );
     return $form;
 }
+function getBaseUrlOPC()
+{
+    // output: /myproject/index.php
+    $currentPath = $_SERVER['PHP_SELF'];
+
+    // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+    $pathInfo = pathinfo($currentPath);
+
+    // output: localhost
+    $hostName = $_SERVER['HTTP_HOST'];
+
+    // output: http://
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+    if (strpos($pathInfo['dirname'], '\\') !== FALSE) {
+        return $protocol.$hostName."/";
+    }else{
+        return $protocol.$hostName.$pathInfo['dirname']."/";
+    }
+}
 
 function admin_openidconnect_html()
 {
-    $currentPath = $_SERVER['PHP_SELF'];
-    $pathInfo = pathinfo($currentPath);
-    $hostName = $_SERVER['HTTP_HOST'];
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $base_url =  $protocol.$hostName.$pathInfo['dirname']."/";
+    $base_url = getBaseUrlOPC();
     $img_path = $base_url.'sites/all/modules/gluu_sso';
     $get_scopes = variable_get('gluu_scopes');
     $gluu_config = variable_get('gluu_config');

@@ -185,8 +185,11 @@ class Get_tokens_by_code extends Client_OXD_RP
      */
     public function getResponseAccessToken()
     {
-        $this->response_access_token = $this->getResponseData()->access_token;
-        return $this->response_access_token;
+        if(!empty($this->getResponseData()->access_token)){
+            return $this->response_access_token = $this->getResponseData()->access_token;
+        }else{
+            return '';
+        }
     }
 
     /**

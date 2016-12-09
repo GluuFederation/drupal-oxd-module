@@ -51,6 +51,7 @@ function gluu_sso_uninstall() {
  */
 function gluu_sso_install() {
      global $base_url;
+      variable_set('clean_url', 1);
       if (!variable_get('gluu_scopes')) {
           $get_scopes = array("openid", "profile", "email");
           variable_set('gluu_scopes', $get_scopes);
@@ -63,7 +64,7 @@ function gluu_sso_install() {
           $gluu_config = array(
               "gluu_oxd_port" => 8099,
               "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-              "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+              "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
               "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
               "config_scopes" => ["openid","profile","email"],
               "gluu_client_id" => "",
@@ -163,6 +164,7 @@ function gluu_sso_disable() {
  */
 function gluu_sso_enable() {
     global $base_url;
+    variable_set('clean_url', 1);
     if (!variable_get('gluu_scopes')) {
         $get_scopes = array("openid", "profile", "email");
         variable_set('gluu_scopes', $get_scopes);
@@ -175,7 +177,7 @@ function gluu_sso_enable() {
         $gluu_config = array(
             "gluu_oxd_port" => 8099,
             "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
-            "authorization_redirect_uri" => $base_url.'?gluuOption=oxdOpenId',
+            "authorization_redirect_uri" => $base_url.'index.php?gluuOption=oxdOpenId',
             "post_logout_redirect_uri" => $base_url.'index.php?option=allLogout',
             "config_scopes" => ["openid","profile","email"],
             "gluu_client_id" => "",
