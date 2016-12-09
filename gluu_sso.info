@@ -13,8 +13,5 @@ files[] = includes/oxd-rp/Register_site.php
 files[] = includes/oxd-rp/Update_site_registration.php
 
 ; Information added by Drupal.org packaging script on 2016-12-08
-version = "7.x-2.4.4"
 core = "7.x"
-project = "gluu_sso"
-datestamp = "1458648888"
 

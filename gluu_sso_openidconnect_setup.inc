@@ -1,69 +1,75 @@
 <?php
-/**
- * @file
- * Contains form for customer setup.
- */
-function add_js_css_fonts() {
-    drupal_add_js('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js', 'external');
-    drupal_add_css(drupal_get_path('module', 'gluu_sso') . '/files/css/gluu-oxd-css.css');
-    drupal_add_css(drupal_get_path('module', 'gluu_sso') . '/files/css/gluu-oxd-css1.css');
-    drupal_add_css(drupal_get_path('module', 'gluu_sso') . '/files/css/bootstrap.css');
-    drupal_add_js('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', 'external');
-    drupal_add_js(drupal_get_path('module', 'gluu_sso') . '/files/js/scope-custom-script.js' );
-
-}
-add_js_css_fonts() ;
-/**
- * Form for setting up Customer Account.
- */
-function gluu_sso_openidconnect_setup($form, &$form_state){
-    global $base_path;
-    $base_url = $base_path;
-    $form['#action'] = url('admin/config/people/gluu_sso/savedata');
-    $form['markup_2'] = array(
-        '#markup' => admin_openidconnect_html()
-    );
-    return $form;
-}
-function getBaseUrlOPC()
-{
-    // output: /myproject/index.php
-    $currentPath = $_SERVER['PHP_SELF'];
-
-    // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
-    $pathInfo = pathinfo($currentPath);
-
-    // output: localhost
-    $hostName = $_SERVER['HTTP_HOST'];
-
-    // output: http://
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-
-    if (strpos($pathInfo['dirname'], '\\') !== FALSE) {
-        return $protocol.$hostName."/";
-    }else{
-        return $protocol.$hostName.$pathInfo['dirname']."/";
-    }
-}
-
-function admin_openidconnect_html()
-{
-    $base_url = getBaseUrlOPC();
-    $img_path = $base_url.'sites/all/modules/gluu_sso';
-    $get_scopes = variable_get('gluu_scopes');
-    $gluu_config = variable_get('gluu_config');
-    $gluu_acr = variable_get('gluu_acr');
-    $gluu_auth_type = variable_get('gluu_auth_type');
-    $gluu_send_user_check = variable_get('gluu_send_user_check');
-    $gluu_provider = variable_get('gluu_provider');
-    $gluu_user_role = variable_get('gluu_user_role');
-    $gluu_custom_logout = variable_get('gluu_custom_logout');
-    $gluu_new_roles = variable_get('gluu_new_role');
-    $gluu_users_can_register = variable_get('gluu_users_can_register');
-    $message_error = variable_get('message_error');
-    $message_success = variable_get('message_success');
-    $openid_error = variable_get('openid_error');
-    $html="
+	/**
+	 * @file
+	 * Contains form for customer setup.
+	 */
+	
+	/**
+	 * Loading js and css .
+	 */
+	function gluu_sso_add_js_css_fonts_opc()
+	{
+		drupal_add_js('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js', 'external');
+		drupal_add_css(drupal_get_path('module', 'gluu_sso') . '/files/css/gluu-oxd-css.css');
+		drupal_add_css(drupal_get_path('module', 'gluu_sso') . '/files/css/gluu-oxd-css1.css');
+		drupal_add_css(drupal_get_path('module', 'gluu_sso') . '/files/css/bootstrap.css');
+		drupal_add_js('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', 'external');
+	}
+	
+	gluu_sso_add_js_css_fonts_opc();
+	
+	/**
+	 * Menu openidConnect page callback;
+	 */
+	function gluu_sso_openidconnect_setup($form, &$form_state)
+	{
+		$form['#action'] = url('admin/config/people/gluu_sso/savedata');
+		$form['markup_2'] = array(
+			'#markup' => gluu_sso_admin_openidconnect_html()
+		);
+		
+		return $form;
+	}
+	
+	/**
+	 * Getting base url;
+	 */
+	function gluu_sso_get_base_url_op_c()
+	{
+		// output: /myproject/index.php
+		$currentPath = $_SERVER['PHP_SELF'];
+		
+		// output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+		$pathInfo = pathinfo($currentPath);
+		
+		// output: localhost
+		$hostName = $_SERVER['HTTP_HOST'];
+		
+		// output: http://
+		$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+		
+		if (strpos($pathInfo['dirname'], '\\') !== false) {
+			return $protocol . $hostName . "/";
+		} else {
+			return $protocol . $hostName . $pathInfo['dirname'] . "/";
+		}
+	}
+	
+	/**
+	 * Html for openidConnect page;
+	 */
+	function gluu_sso_admin_openidconnect_html()
+	{
+		$base_url = gluu_sso_get_base_url_op_c();
+		$img_path = $base_url . 'sites/all/modules/gluu_sso';
+		$get_scopes = variable_get('gluu_scopes');
+		$gluu_config = variable_get('gluu_config');
+		$gluu_acr = variable_get('gluu_acr');
+		$gluu_auth_type = variable_get('gluu_auth_type');
+		$gluu_send_user_check = variable_get('gluu_send_user_check');
+		$message_error = variable_get('message_error');
+		$message_success = variable_get('message_success');
+		$html = "
 <script type='application/javascript'>
     jQuery(document).ready(function() {
 
@@ -200,34 +206,34 @@ function admin_openidconnect_html()
         }
     }
 </script>";
-    $html.=
-        '
+		$html .=
+			'
         <div id="messages">';
-    if (!empty($message_error)) {
-        $html .= '<div class="mess_red_error">' . $message_error . '</div>';
-        variable_set('message_error', '');
-    }
-    if (!empty($message_success)) {
-        $html .= '<div class="mess_green">' . $message_success . '</div>';
-        variable_set('message_success', '');
-    }
-    $html .= '</div>
+		if (!empty($message_error)) {
+			$html .= '<div class="mess_red_error">' . $message_error . '</div>';
+			variable_set('message_error', '');
+		}
+		if (!empty($message_success)) {
+			$html .= '<div class="mess_green">' . $message_success . '</div>';
+			variable_set('message_success', '');
+		}
+		$html .= '</div>
         <ul class="navbar navbar-tabs">
-            <li id="account_setup"><a  style="cursor: pointer;" href="'.$base_url.'admin/config/people/gluu_sso/general">General</a></li>';
-    if (!gluu_is_oxd_registered()) {
-        $html .= '<li  class="active" id="social-sharing-setup"><a  style="pointer-events: none; cursor: default;" >OpenID Connect Configuration</a></li>';
-    } else {
-        $html .= '<li  class="active" id="social-sharing-setup"><a  style="cursor: pointer;" href="'.$base_url.'admin/config/people/gluu_sso/openidconnect">OpenID Connect Configuration</a></li>';
-    }
-    $html .= '<li id=""><a href="https://oxd.gluu.org/docs/plugin/drupal/" target="_blank">Documentation</a></li>';
-    $html .= '</ul>
+            <li id="account_setup"><a  style="cursor: pointer;" href="' . $base_url . 'admin/config/people/gluu_sso/general">General</a></li>';
+		if (!gluu_sso_is_oxd_registered_opc()) {
+			$html .= '<li  class="active" id="social-sharing-setup"><a  style="pointer-events: none; cursor: default;" >OpenID Connect Configuration</a></li>';
+		} else {
+			$html .= '<li  class="active" id="social-sharing-setup"><a  style="cursor: pointer;" href="' . $base_url . 'admin/config/people/gluu_sso/openidconnect">OpenID Connect Configuration</a></li>';
+		}
+		$html .= '<li id=""><a href="https://oxd.gluu.org/docs/plugin/drupal/" target="_blank">Documentation</a></li>';
+		$html .= '</ul>
         <div class="container-page">';
-    $html .= '            
+		$html .= '            
             <div id="configopenid" style="padding: 20px !important;">
                     <input type="hidden" name="form_key" value="openid_config_page"/>
                     <fieldset style="border: 2px solid #53cc6b; padding: 20px">
                         <legend style="border-bottom:none; width: 110px !important;">
-                            <img style=" height: 45px;" src="'.$img_path.'/files/images/icons/gl.png"/>
+                            <img style=" height: 45px;" src="' . $img_path . '/files/images/icons/gl.png"/>
                         </legend>
                         <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60%; ">User Scopes</h3>
                         <div >
@@ -295,30 +301,32 @@ function admin_openidconnect_html()
                                                         <a class="btn btn-danger btn-xs" style="margin: 5px; float: right" disabled><span class="glyphicon glyphicon-trash"></span></a>
                                                     </td>
                                                 </tr>';
-    foreach($get_scopes as $scop) {
-        if ($scop == 'openid' or $scop == 'email' or $scop == 'profile'){
-        } else{
-            $html.='<tr style="padding: 0px">
+		foreach ($get_scopes as $scop) {
+			if ($scop == 'openid' or $scop == 'email' or $scop == 'profile') {
+			} else {
+				$html .= '<tr style="padding: 0px">
                                                             <td>
-                                                                <p  style="margin:0px !important;" id="'.$scop.'1">
+                                                                <p  style="margin:0px !important;" id="' . $scop . '1">
                                                                     <input ';
-            if($gluu_config && in_array($scop, $gluu_config['config_scopes'])){ $html.=" checked ";
-            } $html.=' type="checkbox" name="scope[]"  id="'.$scop.'1" value="'.$scop.'" ';
-            if (!gluu_is_oxd_registered() || $scop=='openid') $html.=' disabled ';
-            $html.='/>
+				if ($gluu_config && in_array($scop, $gluu_config['config_scopes'])) {
+					$html .= " checked ";
+				}
+				$html .= ' type="checkbox" name="scope[]"  id="' . $scop . '1" value="' . $scop . '" ';
+				if (!gluu_sso_is_oxd_registered_opc() || $scop == 'openid') $html .= ' disabled ';
+				$html .= '/>
                                                                 </p>
                                                             </td>
                                                             <td>
-                                                                <p style="margin:0px !important;" id="'.$scop.'1">'.$scop.'
+                                                                <p style="margin:0px !important;" id="' . $scop . '1">' . $scop . '
                                                                 </p>
                                                             </td>
                                                             <td style="padding: 0px !important; ">
-                                                                <button type="button" class="btn btn-danger btn-xs" style="margin: 5px; float: right" onclick="delete_scopes(\''.$scop.'\')" ><span class="glyphicon glyphicon-trash"></span></button>
+                                                                <button type="button" class="btn btn-danger btn-xs" style="margin: 5px; float: right" onclick="delete_scopes(\'' . $scop . '\')" ><span class="glyphicon glyphicon-trash"></span></button>
                                                             </td>
                                                         </tr>';
-        }
-    }
-    $html.='</tbody>
+			}
+		}
+		$html .= '</tbody>
                                             </table>
                                     </td>
                                 </tr>
@@ -336,8 +344,8 @@ function admin_openidconnect_html()
                                             <p>
                                                 <input class="form-control" style="
     height: 25px;" type="text" id="new_scope_field" name="new_scope[]" placeholder="Input scope name"';
-    if(!gluu_is_oxd_registered()) $html.=' disabled ';
-    $html.=' />
+		if (!gluu_sso_is_oxd_registered_opc()) $html .= ' disabled ';
+		$html .= ' />
                                             </p>
                                             <br/>
                                             <p>
@@ -352,9 +360,9 @@ function admin_openidconnect_html()
                         <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60%; font-weight: bold ">Authentication</h3>
                         <br/>
                         <p style=" margin-left: 20px; font-weight:bold "><label style="display: inline !important; "><input type="checkbox" name="send_user_check" id="send_user" value="1" ';
-    if(!gluu_is_oxd_registered()) $html.=' disabled ';
-    if( $gluu_send_user_check) $html.=' checked ';
-    $html.= '/> <span>Bypass the local Drupal login page and send users straight to the OP for authentication</span></label>
+		if (!gluu_sso_is_oxd_registered_opc()) $html .= ' disabled ';
+		if ($gluu_send_user_check) $html .= ' checked ';
+		$html .= '/> <span>Bypass the local Drupal login page and send users straight to the OP for authentication</span></label>
                         </p>
                         <br/>
                         <div>
@@ -372,25 +380,25 @@ function admin_openidconnect_html()
                                         </h4>
                                     </th>
                                     <td >';
-    $custom_scripts = $gluu_acr;
-    if(!empty($custom_scripts)){
-        $html.='<div class="form-group" style="margin-bottom: 0px !important;"><select style="margin-left: 5px; " class="form-control" name="send_user_type" id="send_user_type" ';
-        if(!gluu_is_oxd_registered()) $html.= ' disabled ';
-        $html.='>
+		$custom_scripts = $gluu_acr;
+		if (!empty($custom_scripts)) {
+			$html .= '<div class="form-group" style="margin-bottom: 0px !important;"><select style="margin-left: 5px; " class="form-control" name="send_user_type" id="send_user_type" ';
+			if (!gluu_sso_is_oxd_registered_opc()) $html .= ' disabled ';
+			$html .= '>
                                                 <option value="default">none</option>';
-        if($custom_scripts){
-            foreach($custom_scripts as $custom_script){
-                if($custom_script != "default" and $custom_script != "none"){
-                    $html.='<option ';
-                    if($gluu_auth_type == $custom_script) $html.='selected';
-                    $html.=' value="'.$custom_script.'">'.$custom_script.'</option>';
-
-                }
-            }
-        }
-        $html.='</select></div>';
-    }
-    $html.='</td>
+			if ($custom_scripts) {
+				foreach ($custom_scripts as $custom_script) {
+					if ($custom_script != "default" and $custom_script != "none") {
+						$html .= '<option ';
+						if ($gluu_auth_type == $custom_script) $html .= 'selected';
+						$html .= ' value="' . $custom_script . '">' . $custom_script . '</option>';
+						
+					}
+				}
+			}
+			$html .= '</select></div>';
+		}
+		$html .= '</td>
                                 </tr>
                                 <tr>
                                     <th style="text-transform: none !important;
@@ -398,8 +406,8 @@ function admin_openidconnect_html()
      font-weight: normal;
      border:none !important;">
                                         <input type="submit" class="btn btn-primary btn-large" ';
-    if(!gluu_is_oxd_registered()) $html.=' disabled ';
-    $html.=' value="Save Authentication Settings" name="set_oxd_config" />
+		if (!gluu_sso_is_oxd_registered_opc()) $html .= ' disabled ';
+		$html .= ' value="Save Authentication Settings" name="set_oxd_config" />
                                     </th>
                                     <td>
                                     </td>
@@ -409,18 +417,23 @@ function admin_openidconnect_html()
                         </div>
                     </fieldset>
             </div>';
-    return $html;
-
-
-    }
-
-function gluu_is_oxd_registered(){
-    if(variable_get('gluu_oxd_id')){
-        $oxd_id = variable_get('gluu_oxd_id');
-        if(!$oxd_id ) {
-            return 0;
-        } else {
-            return $oxd_id;
-        }
-    }
-}
+		
+		return $html;
+		
+		
+	}
+	
+	/**
+	 * Checking is oxd working;
+	 */
+	function gluu_sso_is_oxd_registered_opc()
+	{
+		if (variable_get('gluu_oxd_id')) {
+			$oxd_id = variable_get('gluu_oxd_id');
+			if (!$oxd_id) {
+				return 0;
+			} else {
+				return $oxd_id;
+			}
+		}
+	}
