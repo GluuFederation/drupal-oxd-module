@@ -526,7 +526,7 @@
 				array('name' => 'System Administrator User', 'status' => '3')
 			);
 			$html .= '<div class="form-group" style="margin-bottom: 0px !important;">
-                                                <select id="UserType" class="form-control" name="gluu_user_role" >';
+                                                <select id="UserType" disabled class="form-control" name="gluu_user_role" >';
 			
 			foreach ($user_types as $user_type) {
 				$html .= '<option ';

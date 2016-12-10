@@ -54,32 +54,33 @@
 	 */
 	function gluu_sso_form_user_login_block_alter(&$form, &$form_state)
 	{
-		@session_start();
-		
 		if (isset($_REQUEST['gluuOption']) and strpos($_REQUEST['gluuOption'], 'oxdOpenId') !== false) {
 			gluu_sso_login_validate($form, $form_state);
-			
 			return;
 		}
 		$form['markup_1'] = array(
 			'#markup' => gluu_sso_login_html(),
 		);
-		
+
 		return $form;
 	}
-	
+
 	/**
 	 * Implements hook_user_login_validate().
 	 */
 	function gluu_sso_login_validate($form, &$form_state)
 	{
-		@session_start();
+		_drupal_session_delete_cookie('S' . session_name(), TRUE);
+		@session_destroy();
+		drupal_flush_all_caches();
 		$base_url = gluu_sso_getbaseurl();
 		if (isset($_REQUEST['gluuOption']) and strpos($_REQUEST['gluuOption'], 'oxdOpenId') !== false) {
-			@session_destroy();
-			drupal_flush_all_caches();
+
 			if (isset($_REQUEST['error']) and strpos($_REQUEST['error'], 'session_selection_required') !== false) {
-				header("Location: " . gluu_sso_login_url_prompt('login'));
+				echo "<script type='application/javascript'>
+					alert('Missing claims : Please talk to your organizational system administrator or try again.');
+					window.location.href='" . gluu_sso_login_url_prompt('login') . "';
+				 </script>";
 				exit;
 			}
 			$oxd_id = variable_get('gluu_oxd_id');
@@ -99,7 +100,7 @@
 				 </script>";
 				exit;
 			}
-			
+
 			$get_user_info = new Gluu_sso_get_user_info();
 			$get_user_info->setRequestOxdId($oxd_id);
 			$get_user_info->setRequestAccessToken($get_tokens_by_code->getResponseAccessToken());
@@ -136,7 +137,7 @@
 				$world = str_replace("[", "", $get_user_info_array->permission[0]);
 				$reg_user_permission = str_replace("]", "", $world);
 			}
-			
+
 			if ($reg_email) {
 				$data = array();
 				foreach ($get_user_info->getResponseObject()->data->claims as $key => $value) {
@@ -163,7 +164,7 @@
 				 </script>";
 						exit;
 					}
-					
+
 					$userinfo = array(
 						'name' => $username,
 						'pass' => user_password(),
@@ -172,7 +173,7 @@
 						'status' => 1,
 						'access' => REQUEST_TIME,
 						$data
-					
+
 					);
 					if ($gluu_user_role == 3) {
 						$userinfo['roles'] = array(
@@ -180,10 +181,10 @@
 							3 => 'custom role',
 						);
 					}
-					
+
 					$new_account = user_save(drupal_anonymous_user(), $userinfo);
-					
-					
+
+
 					if (!$new_account) {
 						echo "<script type='application/javascript'>
 					alert('Error saving user account.');
@@ -199,12 +200,12 @@
 					}
 					$form_state['uid'] = $account->uid;
 				}
-				
+
 				user_login_submit(array(), $form_state);
 				drupal_goto($base_url);
-				
+
 				return;
-				
+
 			} else {
 				echo "<script type='application/javascript'>
 					alert('Missing claim : (email). Please talk to your organizational system administrator.');
@@ -214,7 +215,7 @@
 			}
 		}
 	}
-	
+
 	/**
 	 * Implements hook_user_user_logout().
 	 */
@@ -224,7 +225,7 @@
 		$base_url = gluu_sso_getbaseurl();
 		if (isset($_SESSION['session_in_op'])) {
 			if (time() < (int)$_SESSION['session_in_op']) {
-				
+
 				$gluu_provider = variable_get('gluu_provider');
 				$arrContextOptions = array(
 					"ssl" => array(
@@ -234,7 +235,7 @@
 				);
 				$json = file_get_contents($gluu_provider . '/.well-known/openid-configuration', false, stream_context_create($arrContextOptions));
 				$obj = json_decode($json);
-				
+
 				$oxd_id = variable_get('gluu_oxd_id');
 				$gluu_config = variable_get('gluu_config');
 				if (!empty($obj->end_session_endpoint) or $gluu_provider == 'https://accounts.google.com') {
@@ -252,6 +253,7 @@
 							unset($_SESSION['session_states']);
 							unset($_SESSION['state']);
 							unset($_SESSION['session_in_op']);
+							_drupal_session_delete_cookie('S' . session_name(), TRUE);
 							@session_destroy();
 							drupal_flush_all_caches();
 							header('Location: ' . $logout->getResponseObject()->data->uri);
@@ -264,9 +266,10 @@
 					unset($_SESSION['session_states']);
 					unset($_SESSION['state']);
 					unset($_SESSION['session_in_op']);
+					_drupal_session_delete_cookie('S' . session_name(), TRUE);
 					@session_destroy();
 					drupal_flush_all_caches();
-					
+
 				}
 			}
 		}
@@ -275,6 +278,7 @@
 		unset($_SESSION['session_states']);
 		unset($_SESSION['state']);
 		unset($_SESSION['session_in_op']);
+		_drupal_session_delete_cookie('S' . session_name(), TRUE);
 		@session_destroy();
 		drupal_flush_all_caches();
 		$gluu_custom_logout = variable_get('gluu_custom_logout');
@@ -286,19 +290,18 @@
 			exit;
 		}
 	}
-	
+
 	/**
 	 * Implements hook_init().
 	 */
 	function gluu_sso_init()
 	{
-		drupal_static(__FUNCTION__, false);
-		@session_start();
 		$base_url = gluu_sso_getbaseurl();
 		if (isset($_REQUEST['option']) and strpos($_REQUEST['option'], 'allLogout') !== false) {
+			@session_start();
 			if (isset($_SESSION['session_in_op'])) {
 				if (time() < (int)$_SESSION['session_in_op']) {
-					
+
 					$gluu_provider = variable_get('gluu_provider');
 					$arrContextOptions = array(
 						"ssl" => array(
@@ -308,7 +311,7 @@
 					);
 					$json = file_get_contents($gluu_provider . '/.well-known/openid-configuration', false, stream_context_create($arrContextOptions));
 					$obj = json_decode($json);
-					
+
 					$oxd_id = variable_get('gluu_oxd_id');
 					$gluu_config = variable_get('gluu_config');
 					if (!empty($obj->end_session_endpoint) or $gluu_provider == 'https://accounts.google.com') {
@@ -326,6 +329,7 @@
 								unset($_SESSION['session_states']);
 								unset($_SESSION['state']);
 								unset($_SESSION['session_in_op']);
+								_drupal_session_delete_cookie('S' . session_name(), TRUE);
 								@session_destroy();
 								drupal_flush_all_caches();
 								header('Location: ' . $logout->getResponseObject()->data->uri);
@@ -338,17 +342,20 @@
 						unset($_SESSION['session_states']);
 						unset($_SESSION['state']);
 						unset($_SESSION['session_in_op']);
+						_drupal_session_delete_cookie('S' . session_name(), TRUE);
 						@session_destroy();
 						drupal_flush_all_caches();
-						
+
 					}
 				}
 			}
+			@session_start(); 
 			unset($_SESSION['user_oxd_access_token']);
 			unset($_SESSION['user_oxd_id_token']);
 			unset($_SESSION['session_states']);
 			unset($_SESSION['state']);
 			unset($_SESSION['session_in_op']);
+			_drupal_session_delete_cookie('S' . session_name(), TRUE);
 			@session_destroy();
 			drupal_flush_all_caches();
 			$gluu_custom_logout = variable_get('gluu_custom_logout');
@@ -360,9 +367,9 @@
 				exit;
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * Generate login page html;
 	 */
@@ -375,7 +382,8 @@
 			if ($gluu_send_user_check && $gluu_oxd_id) {
 				header("Location: " . gluu_sso_login_url());
 				exit;
-			} else if (!$gluu_send_user_check && $gluu_oxd_id) {
+			}
+			else if (!$gluu_send_user_check && $gluu_oxd_id) {
 				$html .= '<script type="application/javascript">
         function deleteAllCookies() {
             var cookies = document.cookie.split(";");
@@ -409,20 +417,20 @@
 	</script>';
 			}
 		}
-		
+
 		return $html;
 	}
-	
+
 	/**
 	 * Getting authorization url for gluu_sso module;
 	 */
 	function gluu_sso_login_url()
 	{
-		
+
 		$gluu_config = variable_get('gluu_config');
 		$gluu_auth_type = variable_get('gluu_auth_type');
 		$oxd_id = variable_get('gluu_oxd_id');
-		
+
 		$get_authorization_url = new Gluu_sso_get_authorization_url();
 		$get_authorization_url->setRequestOxdId($oxd_id);
 		$get_authorization_url->setRequestScope($gluu_config['config_scopes']);
@@ -432,10 +440,10 @@
 			$get_authorization_url->setRequestAcrValues(null);
 		}
 		$get_authorization_url->request();
-		
+
 		return $get_authorization_url->getResponseAuthorizationUrl();
 	}
-	
+
 	/**
 	 * Getting authorization url with prompt for gluu_sso module;
 	 */
@@ -444,25 +452,25 @@
 		$gluu_config = variable_get('gluu_config');
 		$gluu_auth_type = variable_get('gluu_auth_type');
 		$oxd_id = variable_get('gluu_oxd_id');
-		
+
 		$get_authorization_url = new Gluu_sso_get_authorization_url();
 		$get_authorization_url->setRequestOxdId($oxd_id);
-		
-		
+
+
 		$get_authorization_url->setRequestScope($gluu_config['config_scopes']);
 		if ($gluu_auth_type != "default") {
 			$get_authorization_url->setRequestAcrValues([$gluu_auth_type]);
 		} else {
 			$get_authorization_url->setRequestAcrValues(null);
 		}
-		
-		
+
+
 		$get_authorization_url->setRequestPrompt($prompt);
 		$get_authorization_url->request();
-		
+
 		return $get_authorization_url->getResponseAuthorizationUrl();
 	}
-	
+
 	/**
 	 * Doing logout is something is wrong
 	 */
@@ -479,7 +487,7 @@
 		);
 		$json = file_get_contents($gluu_provider . '/.well-known/openid-configuration', false, stream_context_create($arrContextOptions));
 		$obj = json_decode($json);
-		
+
 		$oxd_id = variable_get('gluu_oxd_id');
 		$gluu_config = variable_get('gluu_config');
 		if (!empty($obj->end_session_endpoint) or $gluu_provider == 'https://accounts.google.com') {
@@ -495,6 +503,7 @@
 			unset($_SESSION['session_states']);
 			unset($_SESSION['state']);
 			unset($_SESSION['session_in_op']);
+			_drupal_session_delete_cookie('S' . session_name(), TRUE);
 			@session_destroy();
 			
 			return $logout->getResponseObject()->data->uri;
@@ -518,7 +527,7 @@
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Getting base url;
 	 */
