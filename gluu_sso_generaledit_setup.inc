@@ -318,14 +318,14 @@
 					if (!$k) {
 						$k++;
 						$html .= '<p class="role_p" style="padding-top: 10px">
-                                                                <input  type="text" name="gluu_new_role[]" class="form-control" style="display: inline; width: 200px !important; "
+                                                                <input  type="text" name="gluu_new_role[]"  required class="form-control" style="display: inline; width: 200px !important; "
                                                                         placeholder="Input role name"
                                                                         value="' . $gluu_new_role . '"/>
                                                                 <button type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button>
                                                             </p>';
 					} else {
 						$html .= '<p class="role_p" style="padding-top: 10px">
-                                                                <input type="text" name="gluu_new_role[]" class="form-control" style="display: inline; width: 200px !important; "
+                                                                <input type="text" name="gluu_new_role[]"  required class="form-control" style="display: inline; width: 200px !important; "
                                                                        placeholder="Input role name"
                                                                        value="' . $gluu_new_role . '"/>
                                                                 <button type="button"  class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button>
@@ -335,7 +335,7 @@
 				}
 			} else {
 				$html .= '<p class="role_p" style="padding-top: 10px">
-                                                        <input type="text" name="gluu_new_role[]" class="form-control" placeholder="Input role name" style="display: inline; width: 200px !important; " value=""/>
+                                                        <input type="text" name="gluu_new_role[]"  required class="form-control" placeholder="Input role name" style="display: inline; width: 200px !important; " value=""/>
                                                         <button  type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button>
                                                     </p>';
 			}
@@ -501,14 +501,14 @@
 					if (!$k) {
 						$k++;
 						$html .= '<p class="role_p" style="padding-top: 10px">
-                                                                <input  type="text" name="gluu_new_role[]" class="form-control" style="display: inline; width: 200px !important; "
+                                                                <input  type="text" name="gluu_new_role[]" required  class="form-control" style="display: inline; width: 200px !important; "
                                                                         placeholder="Input role name"
                                                                         value="' . $gluu_new_role . '"/>
                                                                 <button type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button>
                                                             </p>';
 					} else {
 						$html .= '<p class="role_p" style="padding-top: 10px">
-                                                                <input type="text" name="gluu_new_role[]" class="form-control" style="display: inline; width: 200px !important; "
+                                                                <input type="text" name="gluu_new_role[]" required  class="form-control" style="display: inline; width: 200px !important; "
                                                                        placeholder="Input role name"
                                                                        value="' . $gluu_new_role . '"/>
                                                                 <button type="button"  class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button>
@@ -518,7 +518,7 @@
 				}
 			} else {
 				$html .= '<p class="role_p" style="padding-top: 10px">
-                                                        <input type="text" name="gluu_new_role[]" class="form-control" placeholder="Input role name" style="display: inline; width: 200px !important; " value=""/>
+                                                        <input type="text" name="gluu_new_role[]" required  class="form-control" placeholder="Input role name" style="display: inline; width: 200px !important; " value=""/>
                                                         <button  type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button>
                                                     </p>';
 			}
