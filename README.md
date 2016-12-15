@@ -1,6 +1,6 @@
 # Drupal OpenID Connect Single Sign-On (SSO) Module By Gluu
 
-![image](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/plugin.jpg)
+![image](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/plugin.jpg)
 
 Gluu's OpenID Connect Single Sign-On (SSO) Drupal module will enable you to authenticate users against any standard OpenID Connect Provider (OP). If you don't already have an OP you can [deploy the free open source Gluu Server](https://gluu.org/docs/deployment).  
 
@@ -15,21 +15,21 @@ In order to use the Drupal module you will need to have a standard OP (like Goog
 ## Installation
  
 ### Download
-[Drupal Module 2.4.4](https://github.com/GluuFederation/gluu-sso-drupal-module/blob/master/gluu_sso.tar.gz?raw=true)
+[Drupal Module 2.4.4](https://github.com/GluuFederation/drupal-oxd-module/blob/master/gluu_sso.tar.gz?raw=true)
 
 1. Open menu tab Modules and click on `Install new module` button
-![Manager](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d1.png) 
+![Manager](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/d1.png) 
 
 2. Choose downloaded module and click on `INSTALL` button. 
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/d2.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/d2.png) 
 
 ### Activate module
  
 1. Go to Modules page
 2. Find module OpenID Connect Single Sign-On (SSO) Module By Gluu, choose on enabled checkbox and save configuration.
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/5.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/5.png) 
 3. Go to Configuration page and open module configuration page.
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/6.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/6.png) 
 
 ## Configuration
 
@@ -37,7 +37,7 @@ In order to use the Drupal module you will need to have a standard OP (like Goog
  
 In your Drupal admin menu panel you should now see the OpenID Connect menu tab. Click the link to navigate to the General configuration  page:
 
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/1.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/1.png) 
 
 1. Automatically register any user with an account in the OpenID Provider: By setting registration to automatic, any user with an account in the OP will be able to dynamically register for an account in your Drupal site. They will be assigned the new user default role specified below.
 2. Only register users with the following role(s) in the OP: Using this option you can limit registration to users who have a specified role in the OP, for instance `drupal`. This is not configurable in all OP's. It is configurable if you are using a Gluu Server. [Follow the instructions below](#role-based-enrollment) to limit access based on an OP role. 
@@ -51,7 +51,7 @@ If your OpenID Provider supports dynamic registration, no additional steps are r
 
 If your OpenID Connect Provider doesn't support dynamic registration, you will need to insert your OpenID Provider `client_id` and `client_secret` on the following page.
 
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/2.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/2.png) 
 To generate your `client_id` and `client_secret` use the redirect uri: `https://{site-base-url}/index.php?gluuOption=oxdOpenId`.
 
 > If you are using a Gluu server as your OpenID Provider, you can make sure everything is configured properly by logging into to your Gluu Server, navigate to the OpenID Connect > Clients page. Search for your `oxd id`.
@@ -62,7 +62,7 @@ Navigate to your Gluu Server admin GUI. Click the `Users` tab in the left hand n
 
 ### OpenID Connect Configuration
 
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/3.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/3.png) 
 
 #### User Scopes
 
@@ -83,7 +83,7 @@ In the module interface you can enable, disable and delete scopes.
 Check this box so that when users attempt to login they are sent straight to the OP, bypassing the local Drupal login screen.
 When it is not checked, it will give proof the following screen.   
 
-![upload](https://raw.githubusercontent.com/GluuFederation/gluu-sso-drupal-module/master/docu/4.png) 
+![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/4.png) 
 
 ##### Select acr
 
