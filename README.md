@@ -40,7 +40,7 @@ In your Drupal admin menu panel you should now see the OpenID Connect menu tab. 
 ![upload](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/1.png) 
 
 1. Automatically register any user with an account in the OpenID Provider: By setting registration to automatic, any user with an account in the OP will be able to dynamically register for an account in your Drupal site. They will be assigned the new user default role specified below.
-2. Only register users with the following role(s) in the OP: Using this option you can limit registration to users who have a specified role in the OP, for instance `drupal`. This is not configurable in all OP's. It is configurable if you are using a Gluu Server. [Follow the instructions below](#role-based-enrollment) to limit access based on an OP role. 
+2. Only register and allow ongoing access to users with one or more of the following roles in the OP: Using this option you can limit registration to users who have a specified role in the OP, for instance `drupal`. This is not configurable in all OP's. It is configurable if you are using a Gluu Server. [Follow the instructions below](#role-based-enrollment) to limit access based on an OP role. 
 3. New User Default Role: specify which role to give to new users upon registration.  
 4. URI of the OpenID Provider: insert the URI of the OpenID Connect Provider.
 5. Custom URI after logout: custom URI after logout (for example "Thank you" page).
@@ -56,7 +56,7 @@ To generate your `client_id` and `client_secret` use the redirect uri: `https://
 
 > If you are using a Gluu server as your OpenID Provider, you can make sure everything is configured properly by logging into to your Gluu Server, navigate to the OpenID Connect > Clients page. Search for your `oxd id`.
 
-#### Role based enrollment
+#### Enrollment and Access Management
 
 Navigate to your Gluu Server admin GUI. Click the `Users` tab in the left hand navigation menu. Select `Manage People`. Find the person(s) who should have access. Click their user entry. Add the `User Permission` attribute to the person and specify the same value as in the module. For instance, if in the module you have limit enrollment to user(s) with role = `drupal`, then you should also have `User Permission` = `drupal` in the user entry. Update the user record, and now they are ready for enrollment at your Drupal site. 
 
