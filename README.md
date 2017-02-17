@@ -15,7 +15,7 @@ In order to use the Drupal module you will need to have a standard OP (like Goog
 ## Installation
  
 ### Download
-[Drupal Module 2.4.4](https://github.com/GluuFederation/drupal-oxd-module/blob/master/gluu_sso.tar.gz?raw=true)
+[Drupal Module 3.0.0](https://github.com/GluuFederation/drupal-oxd-module/blob/master/gluu_sso.tar.gz?raw=true)
 
 1. Open menu tab Modules and click on `Install new module` button
 ![Manager](https://raw.githubusercontent.com/GluuFederation/drupal-oxd-module/master/docu/d1.png) 
