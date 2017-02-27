@@ -1,7 +1,7 @@
 <?php
 
 	/**
-	 * Created Volodya Karapetyan
+	 * Created Vlad Karapetyan
 	 */
 	abstract class Gluu_sso_client_OXD_RP
 	{
