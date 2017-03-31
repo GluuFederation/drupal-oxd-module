@@ -1,0 +1,7 @@
+gluu_ssojs:
+  version: 1.x
+  js:
+    js/gluu.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

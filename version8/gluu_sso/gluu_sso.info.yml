@@ -1,0 +1,5 @@
+name: OpenID Connect Single Sign-On (SSO) Module By Gluu
+type: module
+description: This module will enable you to authenticate users against any standard OpenID Connect Provider.
+core: 8.x
+package: custom

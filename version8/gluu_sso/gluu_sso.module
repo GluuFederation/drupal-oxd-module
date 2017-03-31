@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Contains gluu_sso.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+// use Drupal\gluu_sso\Plugin\oxd\Gluu_sso_client_OXD_RP;
+// use Drupal\gluu_sso\Plugin\oxd\Gluu_sso_get_authorization_url;
+// use Drupal\gluu_sso\Plugin\oxd\Gluu_sso_get_tokens_by_code;
+
+/**
+ * Implements hook_help().
+ */
+function gluu_sso_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the gluu_sso module.
+    case 'help.page.gluu_sso':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module will enable you to authenticate users against any standard OpenID Connect Provider.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+// function gluu_sso_form_alter(&$form, &$form_state, $form_id) {
+//   print_r($form_id);
+// }

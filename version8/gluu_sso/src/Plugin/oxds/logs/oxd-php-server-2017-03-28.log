@@ -1,0 +1,12 @@
+
+Tuesday 28th of March 2017 06:31:57 AM
+Client: socket::socket_connectsocket connected
+
+Tuesday 28th of March 2017 06:31:57 AM
+Client: oxd_socket_request638
+
+Tuesday 28th of March 2017 06:31:57 AM
+Client: oxd_socket_response0135{"status":"error","data":{"error":"internal_error","error_description":"Command parameters are not specified or otherwise malformed."}}
+
+Tuesday 28th of March 2017 06:31:57 AM
+Client: oxd_socket_connectiondisconnected.

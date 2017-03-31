@@ -1,0 +1,79 @@
+<?php
+/***
+table install
+**/
+
+function gluu_sso_schema(){
+    $schema['gluu_sso_settings'] = array(
+        'description' => 'The table for storing the subscriber data.',
+        'fields' => array(
+            'id' => array(
+                'description' => 'The primary identifier for subscriber.',
+                'type' => 'serial',
+                'not null' => TRUE,
+                'unsigned' => TRUE,
+            ),
+            'openidurl' => array(
+                'description' => 'Url of the open id provider.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'logouturl' => array(
+                'description' => 'Custom logout url',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'oxd_port' => array(
+                'description' => 'oxd port',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+            ),
+            'enrollement' => array(
+                'description' => 'enrollement status(1=automatic reg,0=disable registration).',
+                'type' => 'int',
+                'length' => 1,
+                'not null' => TRUE,
+                'default' => 1,
+            ),
+            'requestedscopes' => array(
+                'description' => 'Requested Scopes',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+            ),
+            'newuserdefaultrole' => array(
+                'description' => 'New user default role',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+            ),
+            'acr_values' => array(
+                'description' => 'Acr values',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+            ),
+
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}
+function myModule_menu()
+{
+  $items['user/%/my_interests'] = array
+  (
+    'title' => 'My Interests',
+    'description ' => 'shows my interests',
+    'page callback' => 'page_display', // this should be the name of the function that you want to be executed in order to display the page
+    'type' => MENU_LOCAL_TASK,
+  );
+  return $items;
+}
+
+?>

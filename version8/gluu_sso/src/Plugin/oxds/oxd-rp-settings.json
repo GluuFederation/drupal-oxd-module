@@ -1,0 +1,11 @@
+{
+  "op_host": "https://ce-dev2.gluu.org/",
+  "oxd_host_port":8099,
+  "authorization_redirect_uri" : "https://drupal-oxd.com/gluu_sso/form/loginform",
+  "post_logout_redirect_uri" : "https://drupal-oxd.com/",
+  "scope" : [ "openid", "profile","email"],
+  "application_type" : "web",
+  "response_types" : ["code"],
+  "grant_types":["authorization_code"],
+  "acr_values" : [ "basic"]
+}

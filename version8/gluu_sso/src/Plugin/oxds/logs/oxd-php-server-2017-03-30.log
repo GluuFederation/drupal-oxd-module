@@ -1,0 +1,1644 @@
+
+Thursday 30th of March 2017 09:48:40 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:51:31 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:51:41 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:53:36 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:53:43 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:55:01 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:55:19 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:56:07 AM
+Client: socket::socket_connect is not connected, error: Connection refused
+
+Thursday 30th of March 2017 09:56:44 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 09:56:44 AM
+Client: oxd_socket_request644
+
+Thursday 30th of March 2017 09:56:48 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"6de72776-3171-41ba-b554-e80d6c256065","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 09:56:48 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 09:58:26 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 09:58:26 AM
+Client: oxd_socket_request644
+
+Thursday 30th of March 2017 09:58:29 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"e83eae6b-76f0-4af1-87f8-6884621cc8ed","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 09:58:29 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 09:58:29 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 09:58:29 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 09:58:29 AM
+Client: oxd_socket_response0381{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!9741.B059.65F8.3B0C&redirect_uri=https://drupal-oxd.com/gluu_sso/form/loginform.php&scope=openid+profile+email&state=c1ddvhc1ipg91kejaci046eme6&nonce=t56sr20jpopo31ove31cm4242l&acr_values=basic"}}
+
+Thursday 30th of March 2017 09:58:29 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 10:16:15 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 10:16:15 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 10:16:17 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"eade0a71-2503-420d-a635-244e31fd1718","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 10:16:17 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 10:16:17 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 10:16:17 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 10:16:17 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!AEEA.0D9D.57C9.2955&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=fsvtdcp69edfuo66i5j0jn5fl0&nonce=3q5mg6qscuhv31k3uostoc4k5p&acr_values=basic"}}
+
+Thursday 30th of March 2017 10:16:17 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 10:26:52 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 10:26:52 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 10:26:54 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"20d3eb57-3364-4ba8-b61b-0f6df168b3ac","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 10:26:54 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 10:26:54 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 10:26:54 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 10:26:54 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!28F0.6D28.30C2.8891&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=3oa7duvmltht6oi7pmkvplucvk&nonce=e261supftmtomegmviqpv12t8c&acr_values=basic"}}
+
+Thursday 30th of March 2017 10:26:54 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 10:42:28 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 10:42:28 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 10:42:29 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"60800178-a8b8-4c00-a545-2208881e13a3","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 10:42:29 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 10:42:29 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 10:42:29 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 10:42:29 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!D288.03F1.43D0.2FC0&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=iil9f5p57jlm65u84p0euf9s0q&nonce=a07lt9qkrfv8qbm5mskdlb0l54&acr_values=basic"}}
+
+Thursday 30th of March 2017 10:42:29 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:34:59 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:34:59 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:35:01 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"1d0ee0fa-3b35-4721-a31e-6138b118e82a","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:35:01 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:35:01 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:35:01 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:35:01 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!09E9.07F7.A74D.4583&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=e7ptnohruifhjso7lf5mois1s0&nonce=dinu4bokupi70pc5pi5qev41q0&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:35:01 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:37:13 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:37:13 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:37:19 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"48947bfc-2522-4f34-8537-4aec2f42d676","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:37:19 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:37:20 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:37:20 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:37:20 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!FBBC.577E.69B2.99EA&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=vvr0kt05otnbnf2cam6gclbjm1&nonce=1vialocuorhf48svhv61buk2lt&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:37:20 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:38:44 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:38:44 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:38:45 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"75da3ff5-8aa2-431a-ac43-320fedb82f4e","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:38:45 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:38:45 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:38:45 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:38:45 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!A822.C329.54E6.193E&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=ki0ehhkjcgjij7m79nebmnn12d&nonce=m31juhoimunimkefa3om1thq6b&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:38:45 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:38:59 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:38:59 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:39:00 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"ed3b553b-6b67-468d-9dcc-968e5826216c","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:39:00 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:39:00 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:39:00 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:39:00 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!2AD0.90A6.34CC.4E13&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=kiur3cuughn97i299jogrrg986&nonce=345657gk698o0l41h9b5qvpdaa&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:39:00 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:39:05 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:39:05 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:39:06 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"512b5ed4-05a5-423b-b9cf-f29dbc1c4392","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:39:06 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:39:07 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:39:07 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:39:07 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!703A.287B.9CCB.6EF3&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=97nt91k89hb4jjl44g6v2d9gm3&nonce=bt7qiscgja39119scoca33rp8l&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:39:07 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:39:10 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:39:10 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:39:12 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"9e7db684-f2ce-42c8-ac75-296cd786fd54","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:39:12 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:39:12 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:39:12 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:39:12 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!1C0C.36EA.0C9F.45F1&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=3050vbjkfbjvp5kkfvsraljjbc&nonce=apsonoo0hoe89atokdc6j9tfcl&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:39:12 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:39:22 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:39:22 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:39:24 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"18041cbd-f485-46e1-a7c7-dd5c029ff4e4","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:39:24 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:39:24 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:39:24 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:39:24 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!90DC.A74E.164C.70ED&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=m4gbeamfqebh229lr1iui81ddb&nonce=eiv4s10ruocfpjqf2l8jl1vbst&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:39:24 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:41:19 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:41:19 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:41:20 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"47dd6206-458a-4182-afde-501596b4547e","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:41:20 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:41:20 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:41:20 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:41:20 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!C6BD.E52A.68F0.5B24&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=dqj6ghc1n440onbigohto6s1o8&nonce=3i8lvpsakl12jhr1qoh9apj13l&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:41:20 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:41:33 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:41:33 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:41:34 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"fe6b91ad-db77-4d08-9c02-cf80c2af4a41","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:41:34 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:41:34 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:41:34 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:41:34 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!921D.7B6F.360E.907F&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=jvt17pk9gnvsfvrr9m8ctkb1mf&nonce=jphlqm6j2pnu90iiq0539no59p&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:41:34 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:41:38 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:41:38 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:41:39 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"d869a1ac-7d0f-4d38-b0a2-55855106dc33","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:41:39 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:41:39 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:41:39 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:41:39 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!3FE0.36E1.672D.AEEF&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=darhhr537snvhatc7em6ij1ag0&nonce=a04q4nosqgnak5a2auqpdi6m63&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:41:39 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:45:35 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:45:35 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:45:37 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"12502229-f309-4d98-92bb-3620f0a6aac6","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:45:37 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:45:38 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:45:38 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:45:38 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!9937.3FC8.37FE.3FA6&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=hu4gvaqmb4eubobl1qkv2d1b26&nonce=tm97d92pfmqnjhso628gs2ued1&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:45:38 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:45:45 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:45:45 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:45:47 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"cf55a4da-4988-44c9-8fef-3803f6550765","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:45:47 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:45:47 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:45:47 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:45:47 AM
+Client: oxd_socket_response0372{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!C962.942E.EDA9.A1B2&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=aaloqlf32pn3er3s6100mi9u4j&nonce=ihnk7bmp5b18lpccq2pf1ql17&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:45:47 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:45:50 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:45:50 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:45:52 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"cb3228ec-95af-46d9-b799-3e8c8827e126","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:45:52 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:45:52 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:45:52 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:45:52 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!8AF0.394A.C09D.EB6C&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=n106d497ajsa6ut8ujua078f81&nonce=7qp36q4c8nnrvgqqf48595gmoa&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:45:52 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:46:12 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:46:12 AM
+Client: oxd_socket_request656
+
+Thursday 30th of March 2017 11:46:13 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"d47d87a4-6ec8-498d-ba56-aea29a211fb7","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:46:13 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:46:13 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:46:13 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:46:13 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!7857.BDCD.5D7E.1B1B&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=ceegs11d4lu2vvn7ie80d8qebc&nonce=mif2h9pktkdjn8bf3tf4r4updi&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:46:13 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:49:56 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:49:56 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:49:59 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"2c973d42-65d3-48dc-adef-a7579faeabd0","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:49:59 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:49:59 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:49:59 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:49:59 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!DB5D.B40B.7376.7211&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=oslvu2r6j608mis4p5kkuac8fm&nonce=2d27qe5vplosdhc8svbvi0k4ak&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:49:59 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:50:05 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:50:05 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:50:07 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"61575236-6212-4269-b8d3-57355ced37ed","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:50:07 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:50:07 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:50:07 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:50:07 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!A45F.995A.F971.ADB4&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=cld1sgnd014nbu2g5sr6i1q0lb&nonce=bbprmsl43mhl4n3g37ticm92he&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:50:07 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:50:24 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:50:24 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:50:26 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"850bb5c9-6eb7-4776-a6be-b69bfbf30402","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:50:26 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:50:26 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:50:26 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:50:26 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!8728.010A.70DC.EC14&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=gu1pbclmmn0fra63ctascmtl5q&nonce=18rh18ei09fvi6j0te6qlpleil&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:50:26 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:51:35 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:51:35 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:51:36 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"8cfa0d7b-33a8-4e2a-9a30-3dd518a0362a","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:51:36 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:51:36 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:51:36 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:51:36 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!1198.C8E4.ACBA.D1E2&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=k26hbad6au3upj5p8cr43mji9r&nonce=e2top48c2p9crgts5d5id7nc70&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:51:36 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:51:40 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:51:40 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:51:41 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"c527dccd-b595-4e11-a020-1505bb0b4b1b","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:51:41 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:51:41 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:51:41 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:51:41 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!BBC1.6C2F.975D.4652&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=4m35qd46q61b3uaf7hevlsto7i&nonce=ef2c7v9f18pdaf6d83n7pp32nt&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:51:41 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:52:38 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:52:38 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:52:40 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"fde5dbba-d466-482a-8281-a72ae493be42","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:52:40 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:52:40 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:52:40 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:52:40 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!E78E.E32E.68A2.96E1&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=m3o6tu41tgi86lfd3fvcun0640&nonce=uj7pdkr5q9uoc64uvdkun4vv9v&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:52:40 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:52:58 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:52:58 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:53:00 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"6e61dca1-b6ed-4335-84e4-6de96c648821","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:53:00 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:53:00 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:53:00 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:53:00 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!F1CA.AA6D.1500.C9BD&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=htnctes451ncunk06j72vodck4&nonce=b2l13efb61th5c1dpasugas82v&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:53:00 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:54:28 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:54:28 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:54:31 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"50f7c969-f5bf-4085-aa45-ead141018d72","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:54:31 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:54:31 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:54:31 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:54:31 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!8C74.E35A.5114.2013&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=p4ubouhchr5eg2ffa3iivlc0jn&nonce=9e70qgmn064oc4d0f12skhmp4v&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:54:31 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:54:47 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:54:47 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:54:48 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"86ca0312-e0bf-4473-8471-4d3a33c0a885","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:54:48 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:54:48 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:54:48 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:54:48 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!D128.EAAE.D0B9.2DEB&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=bnif5db71fkn9m4th0cvq4oj13&nonce=d8illrildflcg89kb5i6p4h2jv&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:54:48 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:55:00 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:55:00 AM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 11:55:01 AM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"023c2604-3f65-4b75-b3b3-15deab3d7bb1","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 11:55:01 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 11:55:01 AM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 11:55:01 AM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 11:55:01 AM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!F6FA.F58A.FB9D.44AA&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=54flmkp442k3q197ti9iu77kvg&nonce=ql3c2bagjl9h1aqimg1i8m9mdn&acr_values=basic"}}
+
+Thursday 30th of March 2017 11:55:01 AM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:03:43 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:03:43 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:03:45 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"ca375e14-fb42-4e65-8c00-c8ed1546a7c0","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:03:45 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:03:45 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:03:45 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:03:45 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!9164.F35D.FDAF.9133&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=hj7rs08dppbjabm7nebd40acr3&nonce=1rrndps5i86g7uhdsk1acce2tk&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:03:45 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:04:01 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:04:01 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:04:03 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"707c3c32-7891-4e25-9ed9-3d427a8d0a2f","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:04:03 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:04:03 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:04:03 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:04:03 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!33FC.D788.6896.312A&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=adc9400n8okbha04874fsmkrng&nonce=iu31bsju2o3ps3qgitvvruling&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:04:03 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:04:28 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:04:28 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:04:29 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"d786971a-a06d-4973-9503-30bcd0aa7b8d","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:04:29 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:04:29 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:04:29 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:04:29 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!A184.908D.090E.B288&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=a250h2d35vurdatblqm8ptlbk7&nonce=sfkechfav9no8m4qohkssteqiv&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:04:29 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:05:02 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:05:02 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:05:03 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"b85eb8e5-9b47-4fec-94c1-92da6a170cda","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:05:03 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:05:03 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:05:03 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:05:03 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!07DA.9403.1117.2A70&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=p3iqg7tfcpmbimbkmom12d5urg&nonce=i41vmt5mpvheacaes63q91h5le&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:05:03 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:05:17 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:05:17 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:05:18 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"81655851-6ec8-4158-9d30-95765400eea7","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:05:18 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:05:18 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:05:18 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:05:18 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!C82A.F14B.B105.490E&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=d81t33abgi13q4nded4tr97ehd&nonce=n844q1e925hbf5blb6k9sb1pgi&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:05:18 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:05:41 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:05:41 PM
+Client: oxd_socket_request644
+
+Thursday 30th of March 2017 12:05:43 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"2aa83997-20e4-47e8-b24c-4724b888a4f3","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:05:43 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:05:43 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:05:43 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:05:43 PM
+Client: oxd_socket_response0381{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!EEC1.F33C.7200.A2B9&redirect_uri=https://drupal-oxd.com/gluu_sso/form/loginform.php&scope=openid+profile+email&state=941dd9u35jqiitmhvpqhns0q5r&nonce=cm339kjaeipiupqgi64mtksidj&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:05:43 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:00 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:00 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:12:02 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"7eaf4174-f26b-472e-9ad4-776148f680d4","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:12:02 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:02 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:02 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:12:02 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!A093.AE6F.B0A1.A708&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=ojmi3bc64r3kv3dvm75764duf4&nonce=4sn47q5et35357hpmtk6grp372&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:12:02 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:16 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:16 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:12:17 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"0e88df36-b9a1-4701-b4fb-175ff0cc5b52","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:12:17 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:17 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:17 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:12:17 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!E6C5.CB40.F8A3.6755&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=usigqb7t61thuarh1plefv0pbh&nonce=2enb0fhsras56g99hblpv2coa9&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:12:17 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:24 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:24 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:12:26 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"fb0c416e-69be-4709-b758-4c1d31f72ced","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:12:26 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:26 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:26 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:12:26 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!1B12.507B.4312.276F&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=2fhvid1qrv1prjpss4dpbuaanp&nonce=qacskpj9n7p0b4bakafll0brlc&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:12:26 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:37 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:37 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:12:39 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"05cf5f1e-446d-4896-9fe5-397135716245","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:12:39 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:12:39 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:12:39 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:12:39 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!334F.FEF6.4288.7653&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=b8t45k26sa2pv2cj9gh66c4qq3&nonce=1ioe90qjb6j8slv1df1sh1cpdv&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:12:39 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:18:02 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:18:02 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:18:04 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"a758c651-de5a-403d-8971-43de5857f8be","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:18:04 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:18:04 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:18:04 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:18:04 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!523A.13F0.3FFD.9793&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=9b40t6bneklmfo5dj0ucp74euv&nonce=ombg6bqe3585aoab5g42vgimq7&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:18:04 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:20:33 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:20:33 PM
+Client: oxd_socket_request655
+
+Thursday 30th of March 2017 12:20:35 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"517c078a-bf35-4c14-8945-beb5985289b7","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:20:35 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:20:35 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:20:35 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:20:35 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!A889.3D3B.82DC.7B76&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=dj675mvut93d16qng3m833st5e&nonce=at86ql2bbp8tdosddgk6dmi1np&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:20:35 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:20:48 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:20:48 PM
+Client: oxd_socket_request655
+
+Thursday 30th of March 2017 12:20:49 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"8365f990-ca2d-4dc9-9a97-61bcb7116eab","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:20:49 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:20:49 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:20:49 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:20:49 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!E0E6.A148.A428.F968&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=811830jmuac03cfub3rju7t4g8&nonce=iead72lbc9uegi079t5ma5u4at&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:20:49 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:20:59 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:20:59 PM
+Client: oxd_socket_request655
+
+Thursday 30th of March 2017 12:21:01 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"4a1d2019-bab0-4cf9-8212-7dfaada899b6","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:21:01 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:21:01 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:21:01 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:21:01 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!B6BE.D8D8.C76E.A1B4&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=2gsabsb2e609vlage6hlmv27t8&nonce=7hg2mqu7559f2m7fvb5u7bm6n4&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:21:01 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:04 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:04 PM
+Client: oxd_socket_request655
+
+Thursday 30th of March 2017 12:22:05 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"fc275a89-bf1c-4e54-842a-af85de0e7636","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:22:05 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:05 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:05 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:22:05 PM
+Client: oxd_socket_response0372{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!4CBC.5D12.3842.AAF4&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=ir909bkqn3j3aqajdpuemcsidt&nonce=pv6tbd1uostvvkoogt6de1hrt&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:22:05 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:08 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:08 PM
+Client: oxd_socket_request655
+
+Thursday 30th of March 2017 12:22:10 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"83036334-5e91-4e52-bd6c-3c0f0a70ba52","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:22:10 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:10 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:10 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:22:10 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!B61F.580A.AE46.D258&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=v8fckihirljue27d5b0bor9eu0&nonce=r9477p5s5tcv1d9d1v9fp2drln&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:22:10 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:14 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:14 PM
+Client: oxd_socket_request655
+
+Thursday 30th of March 2017 12:22:15 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"191058f9-e611-49eb-953f-446891dc3157","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:22:15 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:15 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:15 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:22:15 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!115C.356E.A5C8.1AA1&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=t37lpe2p21adhmp8skq1qvipqd&nonce=k296ckiut64dspi5ct0mvtvtkm&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:22:15 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:29 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:29 PM
+Client: oxd_socket_request655
+
+Thursday 30th of March 2017 12:22:31 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"7be635be-eb96-46cf-b6fc-6ea3944d9ba0","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:22:31 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:22:31 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:22:31 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:22:31 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!362B.4362.D9B0.9836&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=qlo9gtnb7mudarhn1paku5e0j2&nonce=bta8cve6rhkcjmn0oqe10puffj&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:22:31 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:26:23 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:26:23 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:26:25 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"3389a3a7-0e90-41da-9e9e-c46ec70d2177","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:26:25 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:26:25 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:26:25 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:26:25 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!629D.52AF.6CCD.DBEF&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=kpk4ub5m5q6u55mq0i408o2225&nonce=t2pl9a0ggrhlabu4dmojehjt59&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:26:25 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:26:29 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:26:29 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:26:31 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"bbd7ca2e-28d5-4649-8708-5a9dd4ef4290","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:26:31 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:26:31 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:26:31 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:26:31 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!EBEE.73D6.7411.71B1&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=q9ekummlp3t23421ta0s46r100&nonce=fc8i7kkdp7m31rp22uht2f2hp1&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:26:31 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:26:45 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:26:45 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:26:47 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"2ca0294c-e968-4f28-af54-c00a9eb7a389","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:26:47 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:26:47 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:26:47 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:26:47 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!F069.EC17.EAB5.4801&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=oc1irv9e21t5kshkerl8nt6d2r&nonce=dduv72jd0s7i20m8lbb4pb0pjo&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:26:47 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:27:39 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:27:39 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:27:40 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"7b09e53d-b6ee-4f9f-8ebf-806268d4b6a8","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:27:40 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:27:40 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:27:40 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:27:40 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!5FE3.9790.2B1D.2466&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=dms1a1l5jn7jn60r059mukg40g&nonce=6g2s4h65u0unpdca6d47cngfct&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:27:40 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:27:54 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:27:54 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:27:56 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"955e2117-c4d1-4812-afec-cb1636c540cb","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:27:56 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:27:56 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:27:56 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:27:56 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!F5A8.183A.4556.9E26&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=h067maei8t25jt8ohv3usu5f9k&nonce=qq1hnosapnul1u4ueh6mesnnn5&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:27:56 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:30:58 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:30:58 PM
+Client: oxd_socket_request644
+
+Thursday 30th of March 2017 12:31:02 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"54c93544-1ee5-4231-9ba2-68f3a9d9977e","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:31:02 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:31:02 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:31:02 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:31:02 PM
+Client: oxd_socket_response0381{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!890A.AA77.BFEC.7243&redirect_uri=https://drupal-oxd.com/gluu_sso/form/loginform.php&scope=openid+profile+email&state=24pjl9fdvm2rtje8pu6org8qcu&nonce=eath8qdj1qv6644din1se06seo&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:31:02 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:33:38 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:33:38 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:33:39 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"70432c99-0d08-4df1-ab39-aff755737a31","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:33:39 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:33:39 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:33:39 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:33:39 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!C234.7D61.A794.361D&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=a6q6l26q15g5sqt4pkshbs5hrm&nonce=27q1ncj32nsvmh13eh9gq7donu&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:33:39 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:35:51 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:35:51 PM
+Client: oxd_socket_request660
+
+Thursday 30th of March 2017 12:35:53 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"d002d52f-1cf1-44f6-af20-b4cdfe5eeacc","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:35:53 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:35:53 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:35:53 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:35:53 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!3B04.E10C.AB1E.515A&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=o3cp1n2t1l5985d9t5gvt3sn0g&nonce=gug7fr43imgd76i5cohddptjbl&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:35:53 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:36:27 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:36:27 PM
+Client: oxd_socket_request660
+
+Thursday 30th of March 2017 12:36:29 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"88013675-b577-4eee-8199-39906ef85360","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:36:29 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:36:29 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:36:29 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:36:29 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!F511.2540.4269.CFF2&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=5baps3ehmfosadjrfa0dsfhe6j&nonce=av9aoj8sr3a02timf8qonedc76&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:36:29 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:38:04 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:38:04 PM
+Client: oxd_socket_request664
+
+Thursday 30th of March 2017 12:38:06 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"8630d53f-7fa7-409e-b6bc-19b88f94cdbe","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:38:06 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:38:06 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:38:06 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:38:06 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!C802.801C.5BA8.4FFD&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=dag2lomqn1df11236cub47a0s6&nonce=689ps3gvt8jb0secf9tu58jdg5&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:38:06 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:38:19 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:38:19 PM
+Client: oxd_socket_request664
+
+Thursday 30th of March 2017 12:38:20 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"3b097bc0-6043-4d1a-bdbf-8d57291868b7","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:38:20 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:38:20 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:38:20 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:38:20 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!7474.81FC.6873.945C&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=lgrca652kiouum4c169u4k1lof&nonce=6f6mnefm1rsec8r3o7mf3glnlo&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:38:20 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:38:25 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:38:25 PM
+Client: oxd_socket_request664
+
+Thursday 30th of March 2017 12:38:27 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"7489503f-1e71-4f6c-8f83-8e29023df203","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:38:27 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:38:27 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:38:27 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:38:27 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!589A.4547.FEB9.3EED&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=6m3frnj40afg8nae579po7lrk0&nonce=mctinlc5eee169ahnjsa3jnrr8&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:38:27 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:40:08 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:40:08 PM
+Client: oxd_socket_request640
+
+Thursday 30th of March 2017 12:40:09 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"d95bdecf-f345-40d5-ba39-34d4037653e9","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:40:09 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:40:09 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:40:09 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:40:09 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!06F8.EC41.63A7.88B1&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=520mmtjugkta7vpbh7a50sir4u&nonce=6muuf27or5rq1sm2vvgmbadr38&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:40:09 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:40:24 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:40:24 PM
+Client: oxd_socket_request640
+
+Thursday 30th of March 2017 12:40:25 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"9ca5ba38-af7c-4327-8220-0a07914cfb62","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:40:25 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:40:25 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:40:25 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:40:25 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!1104.BC72.1195.0A66&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=otafbpl2f8ak1s68mr5oihsc12&nonce=ad4nk4sljt66mup8h701okodps&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:40:25 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:42:31 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:42:31 PM
+Client: oxd_socket_request636
+
+Thursday 30th of March 2017 12:42:33 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"341d7f42-0926-478e-b5dc-f1dc16a72ba6","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:42:33 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:42:33 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:42:33 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:42:33 PM
+Client: oxd_socket_response0373{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!5ACB.40BD.F7F0.3A9B&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin&scope=openid+profile+email&state=se1ugiik04tpe54dapkien9ljr&nonce=4940cs56and43k6osb5rbhba9b&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:42:33 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:45:31 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:45:31 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:45:33 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"ff4afd06-2870-46cd-b413-25a4a38bae38","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:45:33 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:45:33 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:45:33 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:45:33 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!E2DD.2BB3.7F34.A47E&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=i2fs4bqt3gkgr4aiotmdsu7p2b&nonce=rf3qc8utpkjk6d6m2ucs37fq7a&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:45:33 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:45:52 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:45:52 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:45:53 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"7eee9d2c-c637-40e1-9782-b52d50159a06","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:45:53 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:45:53 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:45:53 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:45:53 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!6E01.664D.8168.0E01&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=qhbni7rmoegqsdre458hbnt9rf&nonce=hgs2sdrue19i602snii4hfuie2&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:45:53 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:45:59 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:45:59 PM
+Client: oxd_socket_request663
+
+Thursday 30th of March 2017 12:46:00 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"35421762-db3b-4065-b8b2-ee616327bcd1","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:46:00 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:46:00 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:46:00 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:46:00 PM
+Client: oxd_socket_response0377{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!2998.7102.6FF9.8EAE&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogin.php&scope=openid+profile+email&state=ignqsvq04u0qrhd59a9675gtcn&nonce=l35n026lnpukpn5dodql6fjp74&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:46:00 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:52:11 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:52:11 PM
+Client: oxd_socket_request644
+
+Thursday 30th of March 2017 12:52:12 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"53e9c502-7584-4e87-b0e4-297edfa5525c","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:52:12 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:52:12 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:52:12 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:52:12 PM
+Client: oxd_socket_response0381{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!15E5.5F55.CF5C.D866&redirect_uri=https://drupal-oxd.com/gluu_sso/form/loginform.php&scope=openid+profile+email&state=vsji616r8dme69d5b8u2mo4ft0&nonce=sko74403a554sekj7j8vppeb2n&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:52:12 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:57:30 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:57:30 PM
+Client: oxd_socket_request664
+
+Thursday 30th of March 2017 12:57:34 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"8eb0c852-c276-4e02-ad42-3ae4b330ac8c","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:57:34 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:57:34 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:57:34 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:57:34 PM
+Client: oxd_socket_response0378{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!F036.AF71.4D16.C892&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogout.php&scope=openid+profile+email&state=ebegoifl2jbqvutk0du0gvff4p&nonce=3nrls2oqcqiv3augdnmhvgltpd&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:57:34 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:59:49 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:59:49 PM
+Client: oxd_socket_request664
+
+Thursday 30th of March 2017 12:59:51 PM
+Client: oxd_socket_response0110{"status":"ok","data":{"oxd_id":"597de152-664e-4602-8be5-d747c49d7ba1","op_host":"https://ce-dev2.gluu.org/"}}
+
+Thursday 30th of March 2017 12:59:51 PM
+Client: oxd_socket_connectiondisconnected.
+
+Thursday 30th of March 2017 12:59:51 PM
+Client: socket::socket_connectsocket connected
+
+Thursday 30th of March 2017 12:59:51 PM
+Client: oxd_socket_request182
+
+Thursday 30th of March 2017 12:59:51 PM
+Client: oxd_socket_response0378{"status":"ok","data":{"authorization_url":"https://ce-dev2.gluu.org/oxauth/seam/resource/restv1/oxauth/authorize?response_type=code&client_id=@!82A2.89A8.FE0E.90DE!0001!D5F0.4DB4!0008!134B.18C1.8F99.918B&redirect_uri=https://drupal-oxd.com/gluu_sso/gluuslogout.php&scope=openid+profile+email&state=q0ehakn9qsc549e0blba2ub4ne&nonce=30v8odgu4nlod0e2n0t2dei6dk&acr_values=basic"}}
+
+Thursday 30th of March 2017 12:59:51 PM
+Client: oxd_socket_connectiondisconnected.

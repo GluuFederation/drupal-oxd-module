@@ -1,0 +1,11 @@
+{
+  "op_host": "https://ce-dev2.gluu.org",
+  "oxd_host_port":8099,
+  "authorization_redirect_uri" : "https://client.example.com/login/index.php",
+  "post_logout_redirect_uri" : "https://client.example.com/logout/index.php",
+  "scope" : [ "openid", "profile","uma_protection","uma_authorization" ],
+  "application_type" : "web",
+  "response_types" : ["code"],
+  "grant_types":["authorization_code"],
+  "acr_values" : [ "basic", "duo","u2f","gplus", "oxpush2" ]
+}

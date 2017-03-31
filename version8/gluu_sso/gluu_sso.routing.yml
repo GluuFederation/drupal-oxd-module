@@ -1,0 +1,49 @@
+gluu_sso.content:
+  path: '/example/hello/{name}'
+  defaults:
+    _controller: '\Drupal\gluu_sso\Controller\gluuController::loginPage'
+    _title: 'Hello World'
+  requirements:
+    _permission: 'access content'
+
+gluu_sso.default_form:
+  path: '/admin/config/gluu_sso/default'
+  defaults:
+    _form: '\Drupal\gluu_sso\Form\DefaultForm'
+    _title: 'OpenID Connect'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+gluu_sso.gluusso_login:
+  path: '/gluu_sso/gluuslogin.php'
+  defaults:
+    _controller: '\Drupal\gluu_sso\Controller\gluusso::login'
+    _title: 'login'
+  requirements:
+    _permission: 'access content'
+
+gluu_sso.gluusso_logout:
+  path: '/gluu_sso/gluuslogout.php'
+  defaults:
+    _controller: '\Drupal\gluu_sso\Controller\gluusso::gluu_sso_logout'
+    _title: 'logout'
+  requirements:
+    _permission: 'access content'
+
+gluu_sso.loginform_settings:
+  path: '/gluu_sso/form/loginform.php'
+  defaults:
+    _form: '\Drupal\gluu_sso\Form\loginform'
+    _title: 'loginform'
+  requirements:
+    _access: 'TRUE'
+
+gluu_sso.testing:
+  path: '/gluu_sso/form/testing'
+  defaults:
+    _form: '\Drupal\gluu_sso\Form\testing'
+    _title: 'testing'
+  requirements:
+    _access: 'TRUE'

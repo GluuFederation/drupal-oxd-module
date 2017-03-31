@@ -1,0 +1,48 @@
+
+Friday 24th of March 2017 10:48:56 AM
+Client: socket::socket_connectsocket connected
+
+Friday 24th of March 2017 10:48:56 AM
+Client: oxd_socket_request627
+
+Friday 24th of March 2017 10:48:56 AM
+Client: oxd_socket_response0135{"status":"error","data":{"error":"internal_error","error_description":"Command parameters are not specified or otherwise malformed."}}
+
+Friday 24th of March 2017 10:48:56 AM
+Client: oxd_socket_connectiondisconnected.
+
+Friday 24th of March 2017 10:53:19 AM
+Client: socket::socket_connectsocket connected
+
+Friday 24th of March 2017 10:53:19 AM
+Client: oxd_socket_request627
+
+Friday 24th of March 2017 10:53:20 AM
+Client: oxd_socket_response0135{"status":"error","data":{"error":"internal_error","error_description":"Command parameters are not specified or otherwise malformed."}}
+
+Friday 24th of March 2017 10:53:20 AM
+Client: oxd_socket_connectiondisconnected.
+
+Friday 24th of March 2017 10:57:17 AM
+Client: socket::socket_connectsocket connected
+
+Friday 24th of March 2017 10:57:17 AM
+Client: oxd_socket_request627
+
+Friday 24th of March 2017 10:57:17 AM
+Client: oxd_socket_response0135{"status":"error","data":{"error":"internal_error","error_description":"Command parameters are not specified or otherwise malformed."}}
+
+Friday 24th of March 2017 10:57:17 AM
+Client: oxd_socket_connectiondisconnected.
+
+Friday 24th of March 2017 11:50:48 AM
+Client: socket::socket_connectsocket connected
+
+Friday 24th of March 2017 11:50:48 AM
+Client: oxd_socket_request627
+
+Friday 24th of March 2017 11:50:48 AM
+Client: oxd_socket_response0135{"status":"error","data":{"error":"internal_error","error_description":"Command parameters are not specified or otherwise malformed."}}
+
+Friday 24th of March 2017 11:50:48 AM
+Client: oxd_socket_connectiondisconnected.
