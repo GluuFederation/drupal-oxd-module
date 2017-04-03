@@ -161,7 +161,6 @@
 	        }
 
 	        $this->response_json = $this->oxd_socket_request(utf8_encode($lenght . $jsondata));
-
 					$this->response_json = str_replace(substr($this->response_json, 0, 4), "", $this->response_json);
 	        if ($this->response_json) {
 	            $object = json_decode($this->response_json);
