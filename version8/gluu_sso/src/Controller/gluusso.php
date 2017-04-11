@@ -210,7 +210,7 @@ class gluusso extends ControllerBase {
             }
 
           if ($gluu_users_can_register == 3) {
-            drupal_set_message('You are not authorized for an account on this application. If you think this is an error, please contact your OpenID Connect Provider (OP) admin.');
+              drupal_set_message('You are not authorized for an account on this application. If you think this is an error, please contact your Drupal admin.');
       				$response = new TrustedRedirectResponse($base_url);
       				return $response;
 						}
