@@ -1,9 +1,4 @@
-gluu_sso.demo:
-   title: 'Login with open id server'
-   description: 'Login with gluu server'
-   parent: main
-   menu_name: main
-   route_name: gluu_sso.gluusso_login
+
 gluu_sso.default_form:
   title: 'gluusso'
   route_name: gluu_sso.default_form

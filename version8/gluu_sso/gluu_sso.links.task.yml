@@ -21,3 +21,8 @@ gluu_sso.loginform_settings: #give it the same name as the route to make it clea
   route_name: gluu_sso.loginform_settings #route defined in .routing.yml
   base_route: gluu_sso.gluusso_login #same as the route name
   weight: 1
+
+user.OpenID_login:
+  route_name: gluu_sso.gluusso_login
+  base_route: user.page
+  title: 'Log in with OpenID provider'

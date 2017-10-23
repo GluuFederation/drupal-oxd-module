@@ -98,6 +98,48 @@
 	            $this->error_message(Oxd_RP_config::$oxd_host_port."is not a valid port for socket. Port must be integer and between from 0 to 65535.");
 	        }
 	    }
+            
+            /**
+	     * Sending request to oXD server via http
+	     *
+	     * @param  string  $url
+	     * @param  string  $data
+	     * @return object
+	     */
+	    public function oxd_http_request($url,$data){
+                $headers = ["Content-type: application/json"];
+                $data = json_decode($data);
+                if(array_key_exists('protection_access_token',$data)){
+                    $headers[] = "Authorization: Bearer ".$data->protection_access_token;
+                    unset($data->protection_access_token);
+                }
+	        $curl = curl_init($url);
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                //Remove these lines while using real https instead of self signed
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                //remove above 2 lines
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_HTTPHEADER,
+                        $headers);
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data,true));
+
+                $json_response = curl_exec($curl);
+
+                $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+                if ( $status != 201 && $status != 200) {
+                    die("Error: call to URL $url failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+                }
+
+
+                curl_close($curl);
+                $result = $json_response;
+                $this->log("Client: oxd_http_response", $result);
+                $this->log("Client: oxd_http_connection", "disconnected.");
+                return $result;
+	    }
 
 	    /**
 	     * Defining oxd-setting.json file for static object Oxd_RP_config

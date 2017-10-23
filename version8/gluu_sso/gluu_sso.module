@@ -25,7 +25,3 @@ function gluu_sso_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
-
-// function gluu_sso_form_alter(&$form, &$form_state, $form_id) {
-//   print_r($form_id);
-// }

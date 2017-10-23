@@ -1,7 +1,10 @@
 gluu_ssojs:
   version: 1.x
+  css:
+    Component:
+        css/bootstrap.min.css: {}
+        css/custom.css: {}
   js:
     js/gluu.js: {}
   dependencies:
     - core/jquery
-    - core/drupalSettings

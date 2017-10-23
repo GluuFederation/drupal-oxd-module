@@ -3,3 +3,5 @@ type: module
 description: This module will enable you to authenticate users against any standard OpenID Connect Provider.
 core: 8.x
 package: custom
+libraries:
+  - gluu_sso/gluu

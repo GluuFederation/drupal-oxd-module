@@ -25,7 +25,7 @@ gluu_sso.gluusso_login:
     _permission: 'access content'
 
 gluu_sso.gluusso_logout:
-  path: '/gluu_sso/gluuslogout.php'
+  path: '/gluu_sso/gluusloginredirect.php'
   defaults:
     _controller: '\Drupal\gluu_sso\Controller\gluusso::gluu_sso_logout'
     _title: 'logout'
@@ -37,13 +37,5 @@ gluu_sso.loginform_settings:
   defaults:
     _form: '\Drupal\gluu_sso\Form\loginform'
     _title: 'loginform'
-  requirements:
-    _access: 'TRUE'
-
-gluu_sso.testing:
-  path: '/gluu_sso/form/testing'
-  defaults:
-    _form: '\Drupal\gluu_sso\Form\testing'
-    _title: 'testing'
   requirements:
     _access: 'TRUE'
