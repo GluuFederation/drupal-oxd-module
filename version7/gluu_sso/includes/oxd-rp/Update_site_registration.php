@@ -59,8 +59,12 @@
 		 * @var array $request_client_logout_uris
 		 */
 		private $request_client_logout_uris = null;
-		
-		/**
+                /**
+                 * @var string $request_protection_access_token
+                 */
+                private $request_protection_access_token;
+
+                /**
 		 * Response parameter from oXD-server
 		 * It is basic parameter for other protocols
 		 * @var string $response_oxd_id
@@ -318,6 +322,21 @@
 			$this->request_oxd_id = $request_oxd_id;
 		}
 		
+                /**
+		 * @return string
+		 */
+		function getRequest_protection_access_token() {
+                    return $this->request_protection_access_token;
+                }
+                
+                /**
+		 * @param string $request_protection_access_token
+		 * @return void
+		 */
+                function setRequest_protection_access_token($request_protection_access_token) {
+                    $this->request_protection_access_token = $request_protection_access_token;
+                }
+                
 		/**
 		 * Protocol command to oXD server
 		 * @return void
@@ -347,7 +366,8 @@
 				"grant_types" => ["authorization_code"],
 				"response_types" => ["code"],
 				"client_secret_expires_at" => 3080736637943,
-				"client_logout_uris" => [$this->getRequestClientLogoutUris()]
+				"client_logout_uris" => [$this->getRequestClientLogoutUris()],
+                                "protection_access_token" => $this->getRequest_protection_access_token()
 			);
 		}
 		

@@ -124,13 +124,16 @@
 						variable_set('message_success', "Please enter your client_id and client_secret.");
 						$gluu_config = array(
 							"gluu_oxd_port" => $_POST['gluu_oxd_port'],
+                                                        "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                                        "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 							"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 							"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 							"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 							"config_scopes" => ["openid", "profile", "email"],
 							"gluu_client_id" => "",
 							"gluu_client_secret" => "",
-							"config_acr" => []
+							"config_acr" => [],
+                                                        "has_registration_endpoint" => false
 						);
 						if ($_POST['gluu_users_can_register'] == 2) {
 							$config = variable_get('gluu_config');
@@ -143,13 +146,16 @@
 						) {
 							$gluu_config = array(
 								"gluu_oxd_port" => $_POST['gluu_oxd_port'],
+                                                                "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                                                "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 								"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 								"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 								"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 								"config_scopes" => ["openid", "profile", "email"],
 								"gluu_client_id" => $_POST['gluu_client_id'],
 								"gluu_client_secret" => $_POST['gluu_client_secret'],
-								"config_acr" => []
+								"config_acr" => [],
+                                                                "has_registration_endpoint" => false
 							);
 							variable_set('gluu_config', $gluu_config);
 							if ($_POST['gluu_users_can_register'] == 2) {
@@ -163,7 +169,7 @@
 								
 								return;
 							}
-							$register_site = new Gluu_sso_register_site();
+							$register_site = new Setup_client();
 							$register_site->setRequestOpHost($gluu_provider);
 							$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 							$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -186,7 +192,11 @@
 							}
 							$register_site->setRequestClientId($gluu_config['gluu_client_id']);
 							$register_site->setRequestClientSecret($gluu_config['gluu_client_secret']);
-							$status = $register_site->request();
+                                                        if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+                                                            $status = $register_site->request();
+                                                        }else{
+                                                            $status = $register_site->request(rtrim($gluu_config['gluu_oxd_web_host'],'/').'/setup-client');
+                                                        }
 							if ($status['message'] == 'invalid_op_host') {
 								variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
 								header("Location: " . $base_url . "admin/config/people/gluu_sso");
@@ -209,6 +219,10 @@
 							//var_dump($register_site->getResponseObject());exit;
 							if ($gluu_oxd_id) {
 								variable_set('gluu_oxd_id', $gluu_oxd_id);
+                                                                $gluu_config = variable_get('gluu_config');
+                                                                $gluu_config['gluu_client_id'] = $register_site->getResponse_client_id();
+                                                                $gluu_config['gluu_client_secret'] = $register_site->getResponse_client_secret();
+                                                                variable_set('gluu_config',$gluu_config);
 								$gluu_provider = $register_site->getResponseOpHost();
 								variable_set('gluu_provider', $gluu_provider);
 								variable_set('message_success', 'Your settings are saved successfully.');
@@ -231,15 +245,19 @@
 						
 						$gluu_config = array(
 							"gluu_oxd_port" => $_POST['gluu_oxd_port'],
+                                                        "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                                        "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 							"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 							"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 							"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 							"config_scopes" => ["openid", "profile", "email"],
 							"gluu_client_id" => "",
 							"gluu_client_secret" => "",
-							"config_acr" => []
+							"config_acr" => [],
+                                                        "has_registration_endpoint" => true
 						);
 						variable_set('gluu_config', $gluu_config);
+//                                                var_dump(variable_get('gluu_config'));exit;
 						if ($_POST['gluu_users_can_register'] == 2) {
 							$config = variable_get('gluu_config');
 							array_push($config['config_scopes'], 'permission');
@@ -252,8 +270,7 @@
 							
 							return;
 						}
-						
-						$register_site = new Gluu_sso_register_site();
+						$register_site = new Setup_client();
 						$register_site->setRequestOpHost($gluu_provider);
 						$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 						$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -274,7 +291,12 @@
 						} else {
 							$register_site->setRequestScope($gluu_config['config_scopes']);
 						}
-						$status = $register_site->request();
+                                                
+						if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+                                                    $status = $register_site->request();
+                                                }else{
+                                                    $status = $register_site->request(rtrim($gluu_config['gluu_oxd_web_host'],'/').'/setup-client');
+                                                }
 						//var_dump($status);exit;
 						if ($status['message'] == 'invalid_op_host') {
 							variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
@@ -298,6 +320,10 @@
 						if ($gluu_oxd_id) {
 							variable_set('gluu_oxd_id', $gluu_oxd_id);
 							$register_site->getResponseOpHost();
+                                                        $gluu_config = variable_get('gluu_config');
+                                                        $gluu_config['gluu_client_id'] = $register_site->getResponse_client_id();
+                                                        $gluu_config['gluu_client_secret'] = $register_site->getResponse_client_secret();
+                                                        variable_set('gluu_config',$gluu_config);
 							variable_set('gluu_provider', $gluu_provider);
 							variable_set('message_success', 'Your settings are saved successfully.');
 							
@@ -320,13 +346,16 @@
 			} else {
 				$gluu_config = array(
 					"gluu_oxd_port" => $_POST['gluu_oxd_port'],
+                                        "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                        "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 					"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 					"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 					"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 					"config_scopes" => ["openid", "profile", "email"],
 					"gluu_client_id" => "",
 					"gluu_client_secret" => "",
-					"config_acr" => []
+					"config_acr" => [],
+                                        "has_registration_endpoint" => true
 				);
 				variable_set('gluu_config', $gluu_config);
 				if ($_POST['gluu_users_can_register'] == 2) {
@@ -341,14 +370,18 @@
 					
 					return;
 				}
-				$register_site = new Gluu_sso_register_site();
+				$register_site = new Setup_client();
 				$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 				$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
 				$register_site->setRequestContacts([$gluu_config['admin_email']]);
 				$register_site->setRequestAcrValues($gluu_config['config_acr']);
 				$register_site->setRequestScope($gluu_config['config_scopes']);
 				$register_site->setRequestClientLogoutUri($gluu_config['post_logout_redirect_uri']);
-				$status = $register_site->request();
+				if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+                                    $status = $register_site->request();
+                                }else{
+                                    $status = $register_site->request(rtrim($gluu_config['gluu_oxd_web_host'],'/').'/setup-client');
+                                }
 				
 				if ($status['message'] == 'invalid_op_host') {
 					variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
@@ -387,7 +420,7 @@
 						
 						return;
 					}
-					$register_site = new Gluu_sso_register_site();
+					$register_site = new Setup_client();
 					$register_site->setRequestOpHost($gluu_provider);
 					$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 					$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -409,7 +442,11 @@
 					} else {
 						$register_site->setRequestScope($gluu_config['config_scopes']);
 					}
-					$status = $register_site->request();
+					if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+                                            $status = $register_site->request();
+                                        }else{
+                                            $status = $register_site->request(rtrim($gluu_config['gluu_oxd_web_host'],'/').'/setup-client');
+                                        }
 					if ($status['message'] == 'invalid_op_host') {
 						variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
 						header("Location: " . $base_url . "admin/config/people/gluu_sso");
@@ -430,6 +467,10 @@
 					}
 					$gluu_oxd_id = $register_site->getResponseOxdId();
 					if ($gluu_oxd_id) {
+                                                $gluu_config = variable_get('gluu_config');
+                                                $gluu_config['gluu_client_id'] = $register_site->getResponse_client_id();
+                                                $gluu_config['gluu_client_secret'] = $register_site->getResponse_client_secret();
+                                                variable_set('gluu_config',$gluu_config);
 						variable_set('gluu_oxd_id', $gluu_oxd_id);
 						variable_set('message_success', 'Your settings are saved successfully.');
 						header("Location: " . $base_url . "admin/config/people/gluu_sso");
@@ -533,13 +574,16 @@
 					variable_set('message_success', "Please enter your client_id and client_secret.");
 					$gluu_config = array(
 						"gluu_oxd_port" => $_POST['gluu_oxd_port'],
+                                                "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                                "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 						"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 						"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 						"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 						"config_scopes" => ["openid", "profile", "email"],
 						"gluu_client_id" => "",
 						"gluu_client_secret" => "",
-						"config_acr" => []
+						"config_acr" => [],
+                                                "has_registration_endpoint" => false
 					);
 					if ($_POST['gluu_users_can_register'] == 2) {
 						$config = variable_get('gluu_config');
@@ -552,13 +596,16 @@
 					) {
 						$gluu_config = array(
 							"gluu_oxd_port" => $_POST['gluu_oxd_port'],
+                                                        "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                                        "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 							"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 							"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 							"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 							"config_scopes" => ["openid", "profile", "email"],
 							"gluu_client_id" => $_POST['gluu_client_id'],
 							"gluu_client_secret" => $_POST['gluu_client_secret'],
-							"config_acr" => []
+							"config_acr" => [],
+                                                        "has_registration_endpoint" => false
 						);
 						variable_set('gluu_config', $gluu_config);
 						if ($_POST['gluu_users_can_register'] == 2) {
@@ -572,7 +619,7 @@
 							
 							return;
 						}
-						$register_site = new Gluu_sso_register_site();
+						$register_site = new Setup_client();
 						$register_site->setRequestOpHost($gluu_provider);
 						$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 						$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -595,7 +642,11 @@
 						}
 						$register_site->setRequestClientId($gluu_config['gluu_client_id']);
 						$register_site->setRequestClientSecret($gluu_config['gluu_client_secret']);
-						$status = $register_site->request();
+						if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+                                                    $status = $register_site->request();
+                                                }else{
+                                                    $status = $register_site->request(rtrim($gluu_config['gluu_oxd_web_host'],'/').'/setup-client');
+                                                }
 						if ($status['message'] == 'invalid_op_host') {
 							variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
 							header("Location: " . $base_url . "admin/config/people/gluu_sso");
@@ -615,10 +666,13 @@
 							return;
 						}
 						$gluu_oxd_id = $register_site->getResponseOxdId();
-						//var_dump($register_site->getResponseObject());exit;
 						if ($gluu_oxd_id) {
 							variable_set('gluu_oxd_id', $gluu_oxd_id);
 							$gluu_provider = $register_site->getResponseOpHost();
+                                                        $gluu_config = variable_get('gluu_config');
+                                                        $gluu_config['gluu_client_id'] = $register_site->getResponse_client_id();
+                                                        $gluu_config['gluu_client_secret'] = $register_site->getResponse_client_secret();
+                                                        variable_set('gluu_config',$gluu_config);
 							variable_set('gluu_provider', $gluu_provider);
 							variable_set('message_success', 'Your settings are saved successfully.');
 							header("Location: " . $base_url . "admin/config/people/gluu_sso");
@@ -640,13 +694,16 @@
 					
 					$gluu_config = array(
 						"gluu_oxd_port" => $_POST['gluu_oxd_port'],
+                                                "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                                "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 						"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 						"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 						"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 						"config_scopes" => ["openid", "profile", "email"],
 						"gluu_client_id" => "",
 						"gluu_client_secret" => "",
-						"config_acr" => []
+						"config_acr" => [],
+                                                "has_registration_endpoint" => true
 					);
 					variable_set('gluu_config', $gluu_config);
 					if ($_POST['gluu_users_can_register'] == 2) {
@@ -662,7 +719,7 @@
 						return;
 					}
 					
-					$register_site = new Gluu_sso_register_site();
+					$register_site = new Setup_client();
 					$register_site->setRequestOpHost($gluu_provider);
 					$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 					$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -683,7 +740,11 @@
 					} else {
 						$register_site->setRequestScope($gluu_config['config_scopes']);
 					}
-					$status = $register_site->request();
+					if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+                                            $status = $register_site->request();
+                                        }else{
+                                            $status = $register_site->request(rtrim($gluu_config['gluu_oxd_web_host'],'/').'/setup-client');
+                                        }
 					//var_dump($status);exit;
 					if ($status['message'] == 'invalid_op_host') {
 						variable_set('message_error', "ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json");
@@ -707,6 +768,10 @@
 					if ($gluu_oxd_id) {
 						variable_set('gluu_oxd_id', $gluu_oxd_id);
 						$register_site->getResponseOpHost();
+                                                $gluu_config = variable_get('gluu_config');
+                                                $gluu_config['gluu_client_id'] = $register_site->getResponse_client_id();
+                                                $gluu_config['gluu_client_secret'] = $register_site->getResponse_client_secret();
+                                                variable_set('gluu_config',$gluu_config);
 						variable_set('gluu_provider', $gluu_provider);
 						variable_set('message_success', 'Your settings are saved successfully.');
 						
@@ -776,13 +841,16 @@
 			if (!variable_get('gluu_config')) {
 				$gluu_config = array(
 					"gluu_oxd_port" => 8099,
+                                        "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                        "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 					"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 					"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 					"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 					"config_scopes" => ["openid", "profile", "email"],
 					"gluu_client_id" => "",
 					"gluu_client_secret" => "",
-					"config_acr" => []
+					"config_acr" => [],
+                                        "has_registration_endpoint" => true
 				);
 				variable_set('gluu_config', $gluu_config);
 			}
@@ -874,13 +942,16 @@
 			if (!variable_get('gluu_config')) {
 				$gluu_config = array(
 					"gluu_oxd_port" => 8099,
+                                        "oxd_request_pattern" => $_POST['oxd_request_pattern'],
+                                        "gluu_oxd_web_host" => $_POST['gluu_oxd_web_host'],
 					"admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
 					"authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
 					"post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
 					"config_scopes" => ["openid", "profile", "email"],
 					"gluu_client_id" => "",
 					"gluu_client_secret" => "",
-					"config_acr" => []
+					"config_acr" => [],
+                                        "has_registration_endpoint" => true
 				);
 				variable_set('gluu_config', $gluu_config);
 			}
@@ -978,7 +1049,14 @@
 			$update_site_registration->setRequestContacts([$gluu_config['admin_email']]);
 			$update_site_registration->setRequestClientLogoutUri($gluu_config['post_logout_redirect_uri']);
 			$update_site_registration->setRequestScope($gluu_config['config_scopes']);
-			$status = $update_site_registration->request();
+                        if($gluu_config["has_registration_endpoint"]){
+                            $update_site_registration->setRequest_protection_access_token(get_protection_access_token());
+                        }
+                        if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+                            $status = $update_site_registration->request();
+                        }else{
+                            $status = $update_site_registration->request(rtrim($gluu_config['gluu_oxd_web_host'],'/').'/update-site');
+                        }
 			$new_oxd_id = $update_site_registration->getResponseOxdId();
 			if ($new_oxd_id) {
 				variable_set('gluu_oxd_id', $new_oxd_id);
@@ -1053,3 +1131,35 @@
 			return false;
 		}
 	}
+        
+//        function get_protection_access_token(){
+//            $config = variable_get('gluu_config');
+//            $getProtectionAccessToken = new Get_client_access_token();
+//            $getProtectionAccessToken->setRequest_client_id($config['gluu_client_id']);
+//            $getProtectionAccessToken->setRequest_client_secret($config['gluu_client_secret']);
+//            $getProtectionAccessToken->setRequestOpHost(variable_get('gluu_provider'));
+//            $getProtectionAccessToken->setRequest_oxd_id(variable_get('gluu_oxd_id'));
+//            if($config['oxd_request_pattern'] == 1 || is_null($config['oxd_request_pattern'])){
+//                $getProtectionAccessToken->request();
+//            }else{
+//                $getProtectionAccessToken->request(rtrim($config['gluu_oxd_web_host'],'/').'/setup-client');
+//            }
+//            
+//            $getProtectionAccessToken->getResponse_access_token();
+//        }
+//        
+//        function get_access_Token_from_refresh_token($refreshToken){
+//            $config = variable_get('gluu_config');
+//            $getAccessTokenFromRefreshToken = new Get_access_oken_by_refresh_token();
+//            $getAccessTokenFromRefreshToken->setRequestOxdId(variable_get('gluu_oxd_id'));
+//            $getAccessTokenFromRefreshToken->setRequestRefreshToken($refreshToken);
+//            if($config["has_registration_endpoint"]){
+//                $getAccessTokenFromRefreshToken->setRequest_protection_access_token(get_protection_access_token);
+//            }
+//            if($config['oxd_request_pattern'] == 1 || is_null($config['oxd_request_pattern'])){
+//                $getAccessTokenFromRefreshToken->request();
+//            }else{
+//                $getAccessTokenFromRefreshToken->request(rtrim($config['gluu_oxd_web_host'],'/').'/get-access-token-by-refresh-token');
+//            }
+//            return $getAccessTokenFromRefreshToken->getResponseAccessToken();
+//        }

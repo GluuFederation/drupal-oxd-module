@@ -73,9 +73,33 @@
 		$openid_error = variable_get('openid_error');
 		$html = '
 <script type="application/javascript">
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function() {';
+    $html .= 'jQuery(\'.host\').hide();';
+    if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+        $html .= ''
+                . 'jQuery(\'.host\').hide();'
+                . 'jQuery(\'.port\').show();'
+                . 'jQuery(\'input[name=oxd_request_pattern][value=1]\').prop(\'checked\',true);';
+    }
+    
+    if($gluu_config['oxd_request_pattern'] == 2){
+        $html .= ''
+                . 'jQuery(\'.port\').hide();'
+                . 'jQuery(\'.host\').show();'
+                . 'jQuery(\'input[name=oxd_request_pattern][value=2]\').prop(\'checked\',true);';
+    }
+    
+    $html .= 'jQuery("input[name=oxd_request_pattern]").change(function(){'
+            . ' if(this.value == 1){'
+            . '     jQuery(\'.host\').hide();'
+            . '     jQuery(\'.port\').show();'
+            . '}else{'
+            . '     jQuery(\'.port\').hide();'
+            . '     jQuery(\'.host\').show();'
+            . '}'
+            . '});';
 
-        jQuery(\'[data-toggle="tooltip"]\').tooltip();
+    $html .= 'jQuery(\'[data-toggle="tooltip"]\').tooltip();
         jQuery(\'#p_role\').on(\'click\', \'a.remrole\', function() {
             jQuery(this).parents(\'.role_p\').remove();
         });
@@ -203,11 +227,11 @@
 </script>
         <div id="messages">';
 		if (!empty($message_error)) {
-			$html .= '<div class="mess_red_error">' . $message_error . '</div>';
+			$html .= '<div class="alert alert-danger">' . $message_error . '</div>';
 			variable_set('message_error', '');
 		}
 		if (!empty($message_success)) {
-			$html .= '<div class="mess_green">' . $message_success . '</div>';
+			$html .= '<div class="alert alert-success">' . $message_success . '</div>';
 			variable_set('message_success', '');
 		}
 		$html .= '</div>
@@ -220,20 +244,24 @@
 		}
 		$html .= '<li id=""><a href="https://oxd.gluu.org/docs/plugin/drupal/" target="_blank">Documentation</a></li>';
 		$html .= '</ul>
-        <div class="container-page">';
+        <div class="container-page" style="background-color: #e5fff3;">';
 		if (!gluu_sso_is_oxd_registered_edit()) {
 			
-			$html .= '<div class="page" id="accountsetup">
+			$html .= '<div class="page" style="padding: 20px !important;" id="accountsetup">
                     <div class="mo2f_table_layout">
                             <input type="hidden" name="form_key" value="general_register_page"/>
+                            <fieldset style="border: 2px solid #53cc6b; padding: 20px">
+                            <legend style="border-bottom:none; width: 110px !important;">
+                                <img style=" height: 45px;" src="' . $img_path . '/files/images/icons/gl.png"/>
+                            </legend>
                             <div class="login_GluuOxd">
-                                <br/>
-                                <div  style="padding-left: 20px;">Register your site with any standard OpenID Provider (OP). If you need an OpenID Provider you can deploy the <a target="_blank" href="https://gluu.org/docs/deployment/"> free open source Gluu Server.</a></div>
-                                <hr>
-                                <br/>
-                                <div style="padding-left: 20px;">This module relies on the oxd mediator service. For oxd deployment instructions and license information, please visit the <a target="_blank" href="http://oxd.gluu.org">oxd website.</a></div>
-                                <hr>
                                 <div style="padding-left: 20px;">
+                                    <div style="padding-left: 30px;">
+                                        <p>The oxd OpenID Connect single sign-on (SSO) plugin for Drupal enables you to use a standard OpenID Connect Provider (OP), like Google or the Gluu Server, to authenticate and enroll users for your Drupal site.</p>
+                                        <p>This plugin relies on the oxd mediator service. For oxd deployment instructions and license information, please visit the <a href="https://oxd.gluu.org/">oxd website</a>.</p>
+                                        <p>In addition, if you want to host your own OP you can deploy the <a href="https://www.gluu.org/">free open source Gluu Server</a>.</p>
+                                    </div>
+                                    <hr/>
                                     <h3 style=" font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60%; ">Server Settings</h3>
                                     <table class="table">
 
@@ -256,7 +284,10 @@
 			if (!empty($openid_error)) {
 				$html .= '<tr>
                                                 <td style="width: 250px"><b><font color="#FF0000">*</font>Redirect URL:</b></td>
-                                                <td><p>' . $base_url . '/index.php?gluuOption=oxdOpenId</p>
+                                                <td><input class="" type="url"
+                                                       autofocus="true"  placeholder="Enter custom URI after logout"
+                                                       style="width:400px;"
+                                                       value="' . $base_url . 'index.php?gluuOption=oxdOpenId" disabled />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -282,13 +313,43 @@
                                             </tr>';
 			}
 			$html .= '<tr>
-                                            <td style="width: 250px"><b><font color="#FF0000">*</font>oxd port:</b></td>
-                                            <td>
-                                                <input class="" type="number" name="gluu_oxd_port" min="0" max="65535"
-                                                       value="' . $gluu_config['gluu_oxd_port'] . '"
-                                                       style="width:400px;" placeholder="Please enter free port (for example 8099). (Min. number 0, Max. number 65535)."/>
-                                            </td>
-                                        </tr>
+                                        <td>
+                                            <b>
+                                                <font color="#FF0000">*</font>Select oxd server / oxd https extension 
+                                                <a data-toggle="tooltip" class="tooltipLink" data-original-title="If you are using localhost to connect your drupal 7 site to your oxd server, choose oxd server. If you are connecting via https, choose oxd https extension.">
+                                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                                </a>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-12">    
+                                                    <div class="radio">
+                                                        <label><input type="radio" style="margin-top:1px" name="oxd_request_pattern" value="1" checked="checked">oxd server</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="radio">
+                                                        <label><input type="radio" style="margin-top:1px" name="oxd_request_pattern" value="2">oxd https extension</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="port"><b><font color="#FF0000">*</font>oxd server port:</b></td>
+                                        <td class="port">
+                                            <input class="" type="number" name="gluu_oxd_port" min="0" max="65535"
+                                                   value="' . $gluu_config['gluu_oxd_port'] . '"
+                                                   style="width:400px;" placeholder="Please enter free port (for example 8099). (Min. number 0, Max. number 65535)."/>
+                                        </td>
+                                        <td class="host"><b><font color="#FF0000">*</font>oxd https extension host:</b></td>
+                                        <td class="host">
+                                            <input class="" type="text" name="gluu_oxd_web_host"
+                                                   value="' . $gluu_config['gluu_oxd_web_host'] . '"
+                                                   style="width:400px;" placeholder="Please enter oxd https extension host"/>
+                                        </td>
+                                    </tr>
                                     </table>
                                 </div>
                                 <div style="padding-left: 20px">
@@ -376,36 +437,43 @@
                                             </div>
                                         </td>
                                     </tr>';
-			if (!empty($openid_error)) {
-				$html .= '<tr>
-                                                <td style="width: 250px">
-                                                    <div><input class="button button-primary button-large" type="submit" name="register" value="Register" style=";width: 120px; float: right;"/></div>
-                                                </td>
-                                                <td>
-                                                    <div><a class="button button-danger button-large" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style="padding:2px 5px !important;background-color:red;text-decoration: none;text-align:center; float: left; width: 120px;" href="' . $base_url . 'admin/config/people/gluu_sso/savedata?submit=delete">Delete</a></div>
-                                                </td>
-                                            </tr>';
-			} else {
-				$html .= '<tr>';
-				if (!empty($gluu_provider)) {
-					$html .= '<td style="width: 250px">
-                                                        <div><input type="submit" name="register" value="Register" style="width: 120px; float: right;" class="button button-primary button-large"/></div>
-                                                    </td>
-                                                    <td>
-                                                        <a class="button button-primary button-large" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style="padding:2px 5px !important;background-color:red;text-decoration: none;text-align:center; float: left; width: 120px;" href="' . $base_url . 'admin/config/people/gluu_sso/savedata?submit=delete">Delete</a>
-                                                    </td>';
-				} else {
-					$html .= '<td style="width: 250px">
-                                                        <div><input type="submit" name="submit" value="Register" style="width: 120px; float: left;" class="button button-primary button-large"/></div>
-                                                    </td>
-                                                    <td>
-                                                    </td>';
-				}
-				$html .= '</tr>';
-			}
-			$html .= '</table>
+			$html .= '</table>';
+                        if (!empty($openid_error)) {
+                            $html .= '<div style="border-bottom:2px solid #000;"></div>
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-3">
+                                    <input class="btn btn-primary btn-large" type="submit" name="register" value="Register" style=";width: 120px !important; float: right;"/>
                                 </div>
+                                <div class="col-md-3">
+                                    <a class="btn btn-primary btn-large" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style="padding:2px 5px !important;text-decoration: none;text-align:center; float: left; width: 120px !important;" href="' . $base_url . 'admin/config/people/gluu_sso/savedata?submit=delete">Delete</a>
+                                </div>
+                            </div>';
+                        } else {
+                            if (!empty($gluu_provider)) {
+                                $html .= '<div style="border-bottom:2px solid #000;"></div>
+                                        <br><br>
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-3">
+                                                <input type="submit" name="register" value="Register" style="width: 120px !important; float: right;" class="btn btn-primary btn-large"/>
+                                            <div/>
+                                            <div class="col-md-3">
+                                                <a class="btn btn-primary btn-large" onclick="return confirm(\'Are you sure that you want to remove this OpenID Connect provider? Users will no longer be able to authenticate against this OP.\')" style="padding:2px 5px !important;text-decoration: none;text-align:center; float: left; width: 120px !important;" href="' . $base_url . 'admin/config/people/gluu_sso/savedata?submit=delete">Delete</a>
+                                            <div/>
+                                        </div>';
+                            }else{
+                                $html .= '<div style="border-bottom:2px solid #000;"></div>
+                                        <br><br>
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-4 text-center">
+                                                <input type="submit" name="submit" value="Register" style="width: 120px !important; float: left;" class="btn btn-primary btn-large"/>
+                                            <div/>
+                                        </div>';
+                            }
+                        }
+                        
+                        $html .= '</div>
                             </div>
+                            </fieldset>
                     </div>
                 </div>';
 		} else {
@@ -417,7 +485,14 @@
                             ' . $img_path . '/files/images/icons/gl.png"/>
                         </legend>
                         <div style="padding-left: 10px;margin-top: -20px">
+                            <div style="padding-left: 30px;">
+                                <p>The oxd OpenID Connect single sign-on (SSO) plugin for Drupal enables you to use a standard OpenID Connect Provider (OP), like Google or the Gluu Server, to authenticate and enroll users for your Drupal site.</p>
+                                <p>This plugin relies on the oxd mediator service. For oxd deployment instructions and license information, please visit the <a href="https://oxd.gluu.org/">oxd website</a>.</p>
+                                <p>In addition, if you want to host your own OP you can deploy the <a href="https://www.gluu.org/">free open source Gluu Server</a>.</p>
+                            </div>
+                            <hr/>
                             <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60% ">Server Settings</h3>
+                            <p><i>The below values are required to configure your Drupal site with your oxd server and OP. Upon successful registration of your Drupal site in the OP, a unique identifier will be issued and displayed below in a new field called: oxd ID.</i></p>
                             <table class="table">
                                 <tr>
                                     <td  style="width: 250px"><b>URI of the OpenID Connect Provider:</b></td>
@@ -457,13 +532,43 @@
                                     </tr>';
 			}
 			$html .= '<tr>
-                                    <td  style="width: 250px"><b><font color="#FF0000">*</font>oxd port:</b></td>
-                                    <td>
-                                        <input class="" type="number"  name="gluu_oxd_port" min="0" max="65535"
-                                               value="' . $gluu_config['gluu_oxd_port'] . '"
-                                               style="width:400px;" placeholder="Please enter free port (for example 8099). (Min. number 0, Max. number 65535)."/>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <b>
+                                                <font color="#FF0000">*</font>Select oxd server / oxd https extension 
+                                                <a data-toggle="tooltip" class="tooltipLink" data-original-title="If you are using localhost to connect your drupal 7 site to your oxd server, choose oxd server. If you are connecting via https, choose oxd https extension.">
+                                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                                </a>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-12">    
+                                                    <div class="radio">
+                                                        <label><input type="radio" style="margin-top:1px" name="oxd_request_pattern" value="1" checked="checked">oxd server</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="radio">
+                                                        <label><input type="radio" style="margin-top:1px" name="oxd_request_pattern" value="2">oxd https extension</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="port"><b><font color="#FF0000">*</font>oxd server port:</b></td>
+                                        <td class="port">
+                                            <input class="" type="number" name="gluu_oxd_port" min="0" max="65535"
+                                                   value="' . $gluu_config['gluu_oxd_port'] . '"
+                                                   style="width:400px;" placeholder="Please enter free port (for example 8099). (Min. number 0, Max. number 65535)."/>
+                                        </td>
+                                        <td class="host"><b><font color="#FF0000">*</font>oxd https extension host:</b></td>
+                                        <td class="host">
+                                            <input class="" type="text" name="gluu_oxd_web_host"
+                                                   value="' . $gluu_config['gluu_oxd_web_host'] . '"
+                                                   style="width:400px;" placeholder="Please enter oxd https extension host"/>
+                                        </td>
+                                    </tr>
                                 <tr>
                                     <td style="width: 250px" ><b>oxd ID:</b></td>
                                     <td>
@@ -558,19 +663,17 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td style="border: none !important;width: 250px">
-                                                <div>
-                                                    <input type="submit" id="edit-gluu-sso-generaledit-setup-button" onclick="setFormSubmitting()" name="saveButton" value="Save" style="float: right; width: 100px !important;" class="form-submit"/>
-                                                </div>
-                                            </td>
-                                            <td style="border: none !important;width: 250px">
-                                                <div>
-                                                     <a class="form-submit button button-primary button-large" onclick="edit_cancel_function()" style="text-align:center;float: left; width: 100px !important;" href="' . $base_url . 'admin/config/people/gluu_sso/general">Cancel</a>
-                                                </div>
-                                            </td>
-                                        </tr>
                                     </table>
+                                    <div style="border-bottom:2px solid #000;"></div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-3 col-md-offset-3">
+                                        <input type="submit" id="edit-gluu-sso-generaledit-setup-button" onclick="setFormSubmitting()" name="saveButton" value="Save" style="float: right; width: 120px !important;" class="btn btn-primary btn-large"/>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a class="btn btn-primary btn-large" onclick="edit_cancel_function()" style="text-align:center;float: left; width: 120px !important;" href="' . $base_url . 'admin/config/people/gluu_sso/general">Cancel</a>
+                                    </div>
+                                </div>
                         </div>
                     </fieldset>
                 </div>

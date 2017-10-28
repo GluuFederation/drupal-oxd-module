@@ -11,4 +11,7 @@ files[] = includes/oxd-rp/Get_user_info.php
 files[] = includes/oxd-rp/Logout.php
 files[] = includes/oxd-rp/Register_site.php
 files[] = includes/oxd-rp/Update_site_registration.php
+files[] = includes/oxd-rp/Setup_client.php
+files[] = includes/oxd-rp/Get_access_oken_by_refresh_token.php
+files[] = includes/oxd-rp/Get_client_access_token.php
 ;

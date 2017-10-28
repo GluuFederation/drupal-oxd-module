@@ -71,9 +71,34 @@
 		$message_success = variable_get('message_success');
 		$html = "
 <script type='application/javascript'>
-    jQuery(document).ready(function() {
-
-        jQuery('[data-toggle=\"tooltip\"]').tooltip();
+    jQuery(document).ready(function() {";
+        $html .= 'jQuery(\'.host\').hide();';
+    if($gluu_config['oxd_request_pattern'] == 1 || is_null($gluu_config['oxd_request_pattern'])){
+        $html .= ''
+                . 'jQuery(\'.host\').hide();'
+                . 'jQuery(\'.port\').show();'
+                . 'jQuery(\'input[name=oxd_request_pattern][value=1]\').prop(\'checked\',true);';
+    }
+    
+    if($gluu_config['oxd_request_pattern'] == 2){
+        $html .= ''
+                . 'jQuery(\'.port\').hide();'
+                . 'jQuery(\'.host\').show();'
+                . 'jQuery(\'input[name=oxd_request_pattern][value=2]\').prop(\'checked\',true);';
+    }
+    
+    
+    $html .= 'jQuery("input[name=oxd_request_pattern]").change(function(){'
+            . ' if(this.value == 1){'
+            . '     jQuery(\'.host\').hide();'
+            . '     jQuery(\'.port\').show();'
+            . '}else{'
+            . '     jQuery(\'.port\').hide();'
+            . '     jQuery(\'.host\').show();'
+            . '}'
+            . '});';
+    
+    $html .=    "jQuery('[data-toggle=\"tooltip\"]').tooltip();
         jQuery('#p_role').on('click', 'a.remrole', function() {
             jQuery(this).parents('.role_p').remove();
         });
@@ -210,11 +235,11 @@
 			'
         <div id="messages">';
 		if (!empty($message_error)) {
-			$html .= '<div class="mess_red_error">' . $message_error . '</div>';
+			$html .= '<div class="alert alert-danger">' . $message_error . '</div>';
 			variable_set('message_error', '');
 		}
 		if (!empty($message_success)) {
-			$html .= '<div class="mess_green">' . $message_success . '</div>';
+			$html .= '<div class="alert alert-success">' . $message_success . '</div>';
 			variable_set('message_success', '');
 		}
 		$html .= '</div>
@@ -227,7 +252,7 @@
 		}
 		$html .= '<li id=""><a href="https://oxd.gluu.org/docs/plugin/drupal/" target="_blank">Documentation</a></li>';
 		$html .= '</ul>
-        <div class="container-page">';
+        <div class="container-page" style="background-color: #e5fff3;">';
 		$html .= '            
             <div id="configopenid" style="padding: 20px !important;">
                     <input type="hidden" name="form_key" value="openid_config_page"/>
@@ -400,20 +425,21 @@
 		}
 		$html .= '</td>
                                 </tr>
-                                <tr>
-                                    <th style="text-transform: none !important;
+                                
+                                </tbody>
+                            </table>
+                            <div style="border-bottom:2px solid #000;"></div>
+                            <br/>
+                                <div>
+                                    <div class="col-md-12 text-center" style="text-transform: none !important;
      background: none !important;
      font-weight: normal;
      border:none !important;">
                                         <input type="submit" class="btn btn-primary btn-large" ';
 		if (!gluu_sso_is_oxd_registered_opc()) $html .= ' disabled ';
 		$html .= ' value="Save Authentication Settings" name="set_oxd_config" />
-                                    </th>
-                                    <td>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                    <//div>
+                                </div>
                         </div>
                     </fieldset>
             </div>';

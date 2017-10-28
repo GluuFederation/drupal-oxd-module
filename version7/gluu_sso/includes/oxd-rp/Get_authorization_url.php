@@ -23,6 +23,10 @@
 		 * @var array $request_acr_values It is gluu-server login parameter type
 		 */
 		private $request_acr_values = null;
+                /**
+                * @var string $request_access_token     access token for each request
+                */
+                private $request_protection_access_token;
 		
 		/**
 		 * It is authorization url to gluu server.
@@ -115,6 +119,22 @@
 			
 			return $this->response_authorization_url;
 		}
+                
+                /**
+                 * @return string
+                 */
+                function getRequest_protection_access_token() {
+                    return $this->request_protection_access_token;
+                }
+
+                /**
+                 * @param string $request_protection_access_token
+                 * @return void
+                 */
+                function setRequest_protection_access_token($request_protection_access_token) {
+                    $this->request_protection_access_token = $request_protection_access_token;
+                }
+                
 		
 		/**
 		 * Protocol command to oXD server
@@ -135,7 +155,8 @@
 				"oxd_id" => $this->getRequestOxdId(),
 				"acr_values" => $this->getRequestAcrValues(),
 				"prompt" => $this->getRequestPrompt(),
-				"scope" => $this->getRequestScope()
+				"scope" => $this->getRequestScope(),
+                                "protection_access_token" => $this->getRequest_protection_access_token()
 			);
 		}
 		

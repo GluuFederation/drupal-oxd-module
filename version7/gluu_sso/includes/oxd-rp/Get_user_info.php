@@ -17,6 +17,10 @@
 		 * @var string $request_access_token This parameter you must get after using get_token_code class
 		 */
 		private $request_access_token = null;
+                /**
+                 * @var string $request_protection_access_token
+                 */
+                private $request_protection_access_token;
 		/**
 		 * Response parameter from oXD-server
 		 * Showing logedin user information
@@ -76,6 +80,21 @@
 		{
 			$this->request_oxd_id = $request_oxd_id;
 		}
+                
+                /**
+		 * @return string
+		 */
+		function getRequest_protection_access_token() {
+                    return $this->request_protection_access_token;
+                }
+                
+                /**
+		 * @param string $request_protection_access_token
+		 * @return void
+		 */
+                function setRequest_protection_access_token($request_protection_access_token) {
+                    $this->request_protection_access_token = $request_protection_access_token;
+                }
 		
 		/**
 		 * Protocol command to oXD server
@@ -94,7 +113,8 @@
 		{
 			$this->params = array(
 				"oxd_id" => $this->getRequestOxdId(),
-				"access_token" => $this->getRequestAccessToken()
+				"access_token" => $this->getRequestAccessToken(),
+                                "protection_access_token" => $this->getRequest_protection_access_token()
 			);
 		}
 		

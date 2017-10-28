@@ -69,7 +69,10 @@ function gluu_sso_install() {
               "config_scopes" => ["openid","profile","email"],
               "gluu_client_id" => "",
               "gluu_client_secret" => "",
-              "config_acr" => []
+              "config_acr" => [],
+              "has_registration_endpoint" => false,
+              "oxd_request_pattern" => 1,
+              "gluu_oxd_web_host" => ""
           );
           variable_set('gluu_config', $gluu_config);
       }
@@ -182,7 +185,10 @@ function gluu_sso_enable() {
             "config_scopes" => ["openid","profile","email"],
             "gluu_client_id" => "",
             "gluu_client_secret" => "",
-            "config_acr" => []
+            "config_acr" => [],
+            "has_registration_endpoint" => false,
+            "oxd_request_pattern" => 1,
+            "gluu_oxd_web_host" => ""
         );
         variable_set('gluu_config', $gluu_config);
     }
