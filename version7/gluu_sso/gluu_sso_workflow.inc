@@ -170,6 +170,7 @@
 								return;
 							}
 							$register_site = new Setup_client();
+                                                        $register_site->setRequest_client_name(variable_get('site_name'));
 							$register_site->setRequestOpHost($gluu_provider);
 							$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 							$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -271,6 +272,7 @@
 							return;
 						}
 						$register_site = new Setup_client();
+                                                $register_site->setRequest_client_name(variable_get('site_name'));
 						$register_site->setRequestOpHost($gluu_provider);
 						$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 						$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -371,6 +373,7 @@
 					return;
 				}
 				$register_site = new Setup_client();
+                                $register_site->setRequest_client_name(variable_get('site_name'));
 				$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 				$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
 				$register_site->setRequestContacts([$gluu_config['admin_email']]);
@@ -421,6 +424,7 @@
 						return;
 					}
 					$register_site = new Setup_client();
+                                        $register_site->setRequest_client_name(variable_get('site_name'));
 					$register_site->setRequestOpHost($gluu_provider);
 					$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 					$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -620,6 +624,7 @@
 							return;
 						}
 						$register_site = new Setup_client();
+                                                $register_site->setRequest_client_name(variable_get('site_name'));
 						$register_site->setRequestOpHost($gluu_provider);
 						$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 						$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -720,6 +725,7 @@
 					}
 					
 					$register_site = new Setup_client();
+                                        $register_site->setRequest_client_name(variable_get('site_name'));
 					$register_site->setRequestOpHost($gluu_provider);
 					$register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
 					$register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);

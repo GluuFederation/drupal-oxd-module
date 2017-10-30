@@ -75,6 +75,11 @@ class Setup_client extends Client_OXD_RP {
      * @var string $request_authorization_redirect_uri      Site authorization redirect uri
      */
     private $request_client_id = null;
+    
+    /**
+    * @var string $request_client_name                     OpenID provider client name
+    */
+    private $request_client_name = null;
 
     /**
      * @var string $request_authorization_redirect_uri      Site authorization redirect uri
@@ -163,7 +168,15 @@ class Setup_client extends Client_OXD_RP {
         $this->response_client_id = $this->response_object->data->client_id;
         return $this->response_client_id;
     }
+    
+    function getRequest_client_name() {
+        return $this->request_client_name;
+    }
 
+    function setRequest_client_name($request_client_name) {
+        $this->request_client_name = $request_client_name;
+    }
+ 
     function getResponse_client_secret() {
         $this->response_client_secret = $this->response_object->data->client_secret;
         return $this->response_client_secret;
@@ -445,6 +458,7 @@ class Setup_client extends Client_OXD_RP {
             "post_logout_redirect_uri" => $this->getRequestLogoutRedirectUri(),
             "application_type" => $this->getRequestApplicationType(),
             "acr_values" => $this->getRequestAcrValues(),
+            "client_name"=> $this->getRequest_client_name(),
             "scope" => $this->getRequestScope(),
             "client_jwks_uri" => $this->getRequestClientJwksUri(),
             "client_token_endpoint_auth_method" => $this->getRequestClientTokenEndpointAuthMethod(),

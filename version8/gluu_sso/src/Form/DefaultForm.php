@@ -411,6 +411,7 @@ class DefaultForm extends ConfigFormBase {
 //                                    return $response;
 //                                }
                                 $register_site = new Setup_client();
+                                $register_site->setRequest_client_name(\Drupal::config('system.site')->get('name'));
                                 $register_site->setRequestOpHost($gluu_config['op_host']);
                                 $register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
                                 $register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
@@ -502,6 +503,7 @@ class DefaultForm extends ConfigFormBase {
 //                                return $response;
 //                            }
                             $register_site = new Setup_client();
+                            $register_site->setRequest_client_name(\Drupal::config('system.site')->get('name'));
                             $register_site->setRequestOpHost($gluu_config['op_host']);
                             $register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
                             $register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);

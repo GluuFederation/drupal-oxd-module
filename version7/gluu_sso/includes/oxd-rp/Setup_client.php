@@ -74,6 +74,10 @@
      */
     private $request_client_id = null;
     /**
+    * @var string $request_client_name                     OpenID provider client name
+    */
+    private $request_client_name = null;
+    /**
      * @var string $request_authorization_redirect_uri      Site authorization redirect uri
      */
     private $request_client_secret = null;
@@ -192,6 +196,15 @@
     {
         return $this->request_client_id;
     }
+    
+    function getRequest_client_name() {
+        return $this->request_client_name;
+    }
+
+    function setRequest_client_name($request_client_name) {
+        $this->request_client_name = $request_client_name;
+    }
+    
     /**
      * @param string $request_client_id
      */
@@ -430,6 +443,7 @@
             "post_logout_redirect_uri" => $this->getRequestLogoutRedirectUri(),
             "application_type" => $this->getRequestApplicationType(),
             "acr_values" => $this->getRequestAcrValues(),
+            "client_name"=> $this->getRequest_client_name(),
             "scope" => $this->getRequestScope(),
             "client_jwks_uri" => $this->getRequestClientJwksUri(),
             "client_token_endpoint_auth_method" => $this->getRequestClientTokenEndpointAuthMethod(),
