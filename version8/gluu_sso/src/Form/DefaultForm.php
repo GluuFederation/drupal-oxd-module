@@ -41,6 +41,7 @@ class DefaultForm extends ConfigFormBase {
         $acr = $config->get('user_acr');
         $oxdid = $config->get('gluu_oxd_id');
         $client_id = $config->get('client_id', 'show');
+        $gluu_config = $config->get('gluu_config');
         if ($client_id == 'show') {
             $type = 'textfield';
             $title_id = 'Client ID:';
@@ -84,28 +85,14 @@ class DefaultForm extends ConfigFormBase {
                                     <p>The oxd OpenID Connect single sign-on (SSO) plugin for Drupal enables you to use a standard OpenID Connect Provider (OP), like Google or the Gluu Server, to authenticate and enroll users for your Drupal site.</p>
                                     <p>This plugin relies on the oxd mediator service. For oxd deployment instructions and license information, please visit the <a href="https://oxd.gluu.org/">oxd website</a>.</p>
                                     <p>In addition, if you want to host your own OP you can deploy the <a href="https://www.gluu.org/">free open source Gluu Server</a>.</p>
+                                    <p>For further details <a href="https://gluu.org/docs/oxd/3.1.1/plugin/drupal8" target="_blank">click here</a> to follow the official documentation from gluu for drupal 8.</p>
                                 </div>
                                 <hr/>
                                 <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60%; font-weight: bold ">Server Settings</h3>
                                 <p style="font-weight: 100;"><i>The below values are required to configure your Drupal site with your oxd server and OP. Upon successful registration of your Drupal site in the OP, a unique identifier will be issued and displayed below in a new field called: oxd ID.</i></p>'.
                                 $this->t('URI of the OpenID Connect Provider'),
             '#default_value' => $config->get('openidurl'),
-            '#disabled' => $config->get('disabledopenurl'),
-        );
-        $form['general']['gluu_client_id'] = array(
-            '#type' => $type,
-            '#title' => $this->t($title_id),
-            '#default_value' => $config->get('gluu_client_id'),
-        );
-        $form['general']['gluu_client_secret'] = array(
-            '#type' => $type,
-            '#title' => $this->t($title_secret),
-            '#default_value' => $config->get('gluu_client_secret'),
-        );
-        $form['general']['customurl'] = array(
-            '#type' => 'textfield',
-            '#title' => $this->t('Custom url after logout'),
-            '#default_value' => $config->get('gluu_custom_logout'),
+            '#disabled' => $config->get('gluu_oxd_id')?true:false,
         );
         $base_url = self::gluu_sso_get_base_url_workflow();
         if($config->get('gluu_oxd_id')){
@@ -116,6 +103,23 @@ class DefaultForm extends ConfigFormBase {
                 '#disabled' => TRUE,
             );
         }
+        $form['general']['customurl'] = array(
+            '#type' => 'textfield',
+            '#title' => $this->t('Custom url after logout'),
+            '#default_value' => $config->get('gluu_custom_logout'),
+        );
+        $form['general']['gluu_client_id'] = array(
+            '#type' => $type,
+            '#title' => $this->t($title_id),
+            '#default_value' => $config->get('gluu_client_id'),
+            '#disabled' => $gluu_config['has_registration_endpoint']?true:false,
+        );
+        $form['general']['gluu_client_secret'] = array(
+            '#type' => $type,
+            '#title' => $this->t($title_secret),
+            '#default_value' => $config->get('gluu_client_secret'),
+            '#disabled' => $gluu_config['has_registration_endpoint']?true:false,
+        );
         $form['general']['connection_type'] = array(
             '#type' => 'radios',
             '#title' => $this->t('Select oxd server / oxd https extension').'<a data-toggle="tooltip" class="tooltipLink" title="If you are using localhost to connect your drupal 7 site to your oxd server, choose oxd server. If you are connecting via https, choose oxd https extension.">
@@ -136,19 +140,21 @@ class DefaultForm extends ConfigFormBase {
             '#attributes' => ['class' => ['host']],
             '#default_value' => $config->get('oxd_web_host'),
         );
-        $form['general']['oxd-id'] = array(
-            '#type' => 'textfield',
-            '#title' => $this->t('oxd ID:'),
-            '#default_value' => $config->get('gluu_oxd_id'),
-            '#disabled' => TRUE,
-        );
+        if($config->get('gluu_oxd_id')){
+            $form['general']['oxd-id'] = array(
+                '#type' => 'textfield',
+                '#title' => $this->t('oxd ID:'),
+                '#default_value' => $config->get('gluu_oxd_id'),
+                '#disabled' => TRUE,
+            );
+        }
         $form['general']['enrollment'] = array(
             '#type' => 'radios',
             '#title' => $this->t('Enrollment and Access Management').'<a data-toggle="tooltip" class="tooltipLink" title="Choose whether to register new users when they login at an external identity provider. If you disable automatic registration, new users will need to be manually created">
                                         <span class="glyphicon glyphicon-info-sign"></span>
                                     </a>',
-            '#default_value' => $config->get('gluu_users_can_register'),
-            '#options' => array(1 => $this->t('Automatic Regsiter any user with an account in the openid provider'), 2=>$this->t('Only register and allow ongoing access to users with one or more of the following roles in the OpenID Provider'), 3 => $this->t('Disable Automatic Registration')),
+            '#default_value' => $config->get('gluu_users_can_register')?$config->get('gluu_users_can_register'):1,
+            '#options' => array(1 => $this->t('Automatically Register any User with an Account in the OpenID Provider'), 2=>$this->t('Only register and allow ongoing access to users with one or more of the following roles in the OpenID Provider'), 3 => $this->t('Disable Automatic Registration')),
             '#attributes' => array('data-gluu-roles' => $config->get('gluu_new_roles'))
         );
         $form['general']['user_type'] = array(
@@ -167,18 +173,13 @@ class DefaultForm extends ConfigFormBase {
             '#type' => 'checkboxes',
             '#options' => array('openid' => $this->t('openid'), 'email' => $this->t('email'), 'profile' => $this->t('profile'), 'permission' => $this->t('permission'), 'IMapdata' => $this->t('IMapdata'), 'clientinfo' => $this->t('clientinfo'), 'address' => $this->t('address')),
             '#title' => $this->t('Requested Scopes'),
-            '#default_value' => $config->get('gluu_scopes'),
+            '#default_value' => $config->get('gluu_scopes')?$config->get('gluu_scopes'):['openid','email','profile'],
         );
         $form['openid']['user_acr'] = array(
             '#type' => 'select',
             '#title' => $this->t('Select ACR:'),
-            '#default_value' => $config->get('user_acr'),
+            '#default_value' => $config->get('user_acr')?$config->get('user_acr'):['auth_ldap_server'],
             '#options' => array('default' => $this->t('none'), 'passport' => $this->t('passport'), 'auth_ldap_server' => $this->t('auth_ldap_server'), 'u2f' => $this->t('u2f'), 'super_gluu' => $this->t('super_gluu'), 'asimba' => $this->t('asimba'), 'otp' => $this->t('otp'), 'basic' => $this->t('basic'), 'duo' => $this->t('duo')),
-        );
-        $form['Documentation'] = array(
-            '#type' => 'details',
-            '#title' => $this->t('Documentation'),
-            '#group' => 'information',
         );
         $form['actions']['submit_apply'] = [
             '#type' => 'submit',
@@ -364,19 +365,18 @@ class DefaultForm extends ConfigFormBase {
                     $config->set('connection_type', $values['connection_type']);
                     $config->set('oxd_web_host', $values['oxd_web_host']);
                     $config->save();
+                    $config->set('client_id', 'show');
+                    $config->set('client_secret', 'show');
+                    $config->save();
                     $gluu_provider = $config->get('openidurl');
                     if (!empty($obj->userinfo_endpoint)) {
                         if (empty($obj->registration_endpoint)) {
-                            drupal_set_message(t('Please enter your client_id and client_secret.'), 'status');
-                            $config->set('client_id', 'show');
-                            $config->set('client_secret', 'show');
-                            $config->save();
                             //code saving client id and secret key
                             $gluu_config = array(
                                 "gluu_oxd_port" => $_POST['gluu_oxd_port'],
 //                                "admin_email" => variable_get('site_mail', ini_get('sendmail_from')),
                                 "authorization_redirect_uri" => $base_url . 'index.php?gluuOption=oxdOpenId',
-                                "post_logout_redirect_uri" => $base_url . 'index.php?option=allLogout',
+                                "post_logout_redirect_uri" => $_POST['customurl'],
                                 "config_scopes" => ["openid", "profile", "email"],
                                 "gluu_client_id" => "",
                                 "gluu_client_secret" => "",
@@ -393,7 +393,7 @@ class DefaultForm extends ConfigFormBase {
                                     "op_host" => $gluu_provider, 
                                     "oxd_host_port" => $values['gluu_oxd_port'], 
                                     "authorization_redirect_uri" => $base_url . "gluu_sso/gluusloginredirect.php", 
-                                    "post_logout_redirect_uri" => $base_url . "admin/config/gluu_sso/default", 
+                                    "post_logout_redirect_uri" => $_POST['customurl'], 
                                     "scope" => [ "openid", "profile", "email"], 
                                     "application_type" => "web", "response_types" => ["code"], 
                                     "grant_types" => ["authorization_code"], "config_acr" => [], 
@@ -413,7 +413,8 @@ class DefaultForm extends ConfigFormBase {
                                 $register_site = new Setup_client();
                                 $register_site->setRequest_client_name(\Drupal::config('system.site')->get('name'));
                                 $register_site->setRequestOpHost($gluu_config['op_host']);
-                                $register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
+                                $register_site->setRequest_client_name(\Drupal::config('system.site')->get('name'));
+                                $register_site->setRequestAuthorizationRedirectUri($base_url . "gluu_sso/gluusloginredirect.php");
                                 $register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
                                 $register_site->setRequestContacts(array(\Drupal::config('system.site')->get('mail')));
                                 $register_site->setRequestGrantTypes($gluu_config['grant_types']);
@@ -466,6 +467,7 @@ class DefaultForm extends ConfigFormBase {
                                     $config->save();
                                     $config->set('gluu_provider', $gluu_provider);
                                     $config->save();
+                                    drupal_flush_all_caches();
                                     drupal_set_message(t('Your settings are saved successfully.'), 'status');
                                     $response = new TrustedRedirectResponse($base_url . "admin/config/gluu_sso/default");
                                     return $response;
@@ -476,6 +478,7 @@ class DefaultForm extends ConfigFormBase {
                                 }
                             } else {
 //                                drupal_set_message(t('openid_error'), 'error');
+                                drupal_set_message(t('Please enter your client_id and client_secret.'), 'status');
                                 $response = new TrustedRedirectResponse($base_url . "admin/config/gluu_sso/default");
                                 return $response;
                             }
@@ -485,7 +488,7 @@ class DefaultForm extends ConfigFormBase {
                                     "op_host" => $gluu_provider, 
                                     "oxd_host_port" => $values['gluu_oxd_port'], 
                                     "authorization_redirect_uri" => $base_url . "gluu_sso/gluusloginredirect.php", 
-                                    "post_logout_redirect_uri" => $base_url . "admin/config/gluu_sso/default",
+                                    "post_logout_redirect_uri" => $_POST['customurl'],
                                     "scope" => [ "openid", "profile", "email"], 
                                     "application_type" => "web", 
                                     "response_types" => ["code"], 
@@ -505,7 +508,8 @@ class DefaultForm extends ConfigFormBase {
                             $register_site = new Setup_client();
                             $register_site->setRequest_client_name(\Drupal::config('system.site')->get('name'));
                             $register_site->setRequestOpHost($gluu_config['op_host']);
-                            $register_site->setRequestAuthorizationRedirectUri($gluu_config['authorization_redirect_uri']);
+                            $register_site->setRequest_client_name(\Drupal::config('system.site')->get('name'));
+                            $register_site->setRequestAuthorizationRedirectUri($base_url . "gluu_sso/gluusloginredirect.php");
                             $register_site->setRequestLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
                             $register_site->setRequestContacts(array(\Drupal::config('system.site')->get('mail')));
                             $register_site->setRequestGrantTypes($gluu_config['grant_types']);
@@ -541,10 +545,12 @@ class DefaultForm extends ConfigFormBase {
                                 $register_site->getResponseOpHost();
                                 $config->set('gluu_provider', $gluu_provider);
                                 $config->save();
+                                drupal_flush_all_caches();
                                 drupal_set_message(t('Your settings are saved successfully.'), 'status');
                                 $response = new TrustedRedirectResponse($base_url . "admin/config/gluu_sso/default");
                                 return $response;
                             } else {
+                                drupal_flush_all_caches();
                                 drupal_set_message(t("ERROR: OpenID Provider host is required if you don\'t provide it in oxd-default-site-config.json"), 'error');
                                 $response = new TrustedRedirectResponse($base_url . "admin/config/gluu_sso/default");
                                 return $response;

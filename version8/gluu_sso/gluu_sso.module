@@ -9,6 +9,9 @@ use Drupal\Core\Routing\RouteMatchInterface;
 // use Drupal\gluu_sso\Plugin\oxd\Gluu_sso_client_OXD_RP;
 // use Drupal\gluu_sso\Plugin\oxd\Gluu_sso_get_authorization_url;
 // use Drupal\gluu_sso\Plugin\oxd\Gluu_sso_get_tokens_by_code;
+use Drupal\gluu_sso\Plugin\oxds\Gluu_sso_logout;
+use Drupal\Core\Config;
+use Drupal\gluu_sso\Utils\Utilities;
 
 /**
  * Implements hook_help().
@@ -25,3 +28,176 @@ function gluu_sso_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * Implements hook_user_logout().
+ */
+//function gluu_sso_user_logout($account) {
+//    $config = \Drupal::config('gluu_sso.default');
+//    $gluu_oxd_id = $config->get('gluu_oxd_id');
+//    $gluu_config = $config->get('gluu_config');
+//    $logout = new \Drupal\gluu_sso\Plugin\oxds\Gluu_sso_logout();
+//    $logout->setRequestOxdId($gluu_oxd_id);
+//    $logout->setRequestPostLogoutRedirectUri($gluu_config['logout_redirect_uri']);
+//    $utilities = new Utilities();
+//    if($gluu_config["has_registration_endpoint"] == 1){
+//        $logout->setRequest_protection_access_token($utilities->get_protection_access_token($config));
+//    }
+//    if($gluu_config['connection_type'] == 2){
+//        $logout->request(rtrim($gluu_config['oxd_web_host'],'/')."/get-logout-uri");
+//    }else{
+//        $logout->request();
+//    }
+//    var_dump($logout->getResponseObject()->data->uri);
+//    exit;
+//    header("Location: " . $logout->getResponseObject()->data->uri);
+//    exit;
+//}
+
+/**
+* Getting base url;
+*/
+function gluu_sso_getbaseurl()
+{
+       // output: /myproject/index.php
+       $currentPath = $_SERVER['PHP_SELF'];
+
+       // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+       $pathInfo = pathinfo($currentPath);
+
+       // output: localhost
+       $hostName = $_SERVER['HTTP_HOST'];
+
+       // output: http://
+       $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+       // return: http://localhost/myproject/
+       if (strpos($pathInfo['dirname'], '\\') !== false) {
+               return $protocol . $hostName . "/";
+       } else {
+               return $protocol . $hostName . $pathInfo['dirname'] . "/";
+       }
+}
+
+function gluu_sso_goto($path) { 
+  $response = new Symfony\Component\HttpFoundation\RedirectResponse($path);
+  $response->send();
+  return;
+}
+
+/**
+* Implements hook_user_user_logout().
+*/
+function gluu_sso_user_logout($account)
+{
+       $config = \Drupal::config('gluu_sso.default');
+       @session_start();
+       $base_url = gluu_sso_getbaseurl();
+       $gluu_config = $config->get('gluu_config');
+//       var_dump($gluu_config);
+//       var_dump($_SESSION);
+//       exit;
+       if (isset($_SESSION['session_in_op'])) {
+               if (time() < (int)$_SESSION['session_in_op']) {
+                        
+                       $gluu_provider = $gluu_config['op_host'];
+                       $arrContextOptions = array(
+                               "ssl" => array(
+                                       "verify_peer" => false,
+                                       "verify_peer_name" => false,
+                               ),
+                       );
+                       $json = file_get_contents($gluu_provider . '/.well-known/openid-configuration', false, stream_context_create($arrContextOptions));
+                       $obj = json_decode($json);
+
+                       $oxd_id = $config->get('gluu_oxd_id');
+                       if (!empty($obj->end_session_endpoint) or $gluu_provider == 'https://accounts.google.com') {
+                               if (!empty($_SESSION['user_oxd_id_token'])) {
+                                       if ($oxd_id && $_SESSION['user_oxd_id_token'] && $_SESSION['session_in_op']) {
+                                               $logout = new Gluu_sso_logout();
+                                               $logout->setRequestOxdId($oxd_id);
+                                               $logout->setRequestIdToken($_SESSION['user_oxd_id_token']);
+                                               $logout->setRequestPostLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
+                                               $logout->setRequestSessionState($_SESSION['session_states']);
+                                               $logout->setRequestState($_SESSION['state']);
+                                               $utilities = new Utilities();
+                                               if($gluu_config["has_registration_endpoint"]){
+                                                   $logout->setRequest_protection_access_token($utilities->get_protection_access_token($config));
+                                               }
+                                               if($gluu_config['connection_type'] == 1 || is_null($gluu_config['connection_type'])){
+                                                   $logout->request();
+                                               }else{
+                                                   $logout->request(rtrim($gluu_config['oxd_web_host'],'/').'/get-logout-uri');
+                                               }
+                                               unset($_SESSION['user_oxd_access_token']);
+                                               unset($_SESSION['user_oxd_id_token']);
+                                               unset($_SESSION['session_states']);
+                                               unset($_SESSION['state']);
+                                               unset($_SESSION['session_in_op']);
+                                                
+                                                $user = \Drupal::currentUser();
+//                                                $logger = \Drupal::logger('user');
+//                                                $logger->notice('Session closed for %name.', array(
+//                                                                                     '%name' => $user->getAccountName(),
+//                                                                                 ));
+//                                                 $moduleHandler = \Drupal::moduleHandler();
+//                                                 $moduleHandler->invokeAll('user_logout', array($user,));
+                                                 $drupalServiceManager = \Drupal::service('session_manager');
+                                                 $drupalServiceManager->destroy();
+//                                                 $user->setAccount(new AnonymousUserSession());
+                                               @session_destroy();
+                                               drupal_flush_all_caches();
+                                               header('Location: ' . $logout->getResponseObject()->data->uri);
+                                               exit;
+                                       }
+                               }
+                       } else {
+                               unset($_SESSION['user_oxd_access_token']);
+                               unset($_SESSION['user_oxd_id_token']);
+                               unset($_SESSION['session_states']);
+                               unset($_SESSION['state']);
+                               unset($_SESSION['session_in_op']);
+//                               $user = \Drupal::currentUser();
+//                               $logger = \Drupal::logger('user');
+//                               $logger->notice('Session closed for %name.', array(
+//                                                                    '%name' => $user->getAccountName(),
+//                                                                ));
+//                                $moduleHandler = \Drupal::moduleHandler();
+//                                $moduleHandler->invokeAll('user_logout', array($user,));
+//                                $drupalServiceManager = \Drupal::service('session_manager');
+//                                $drupalServiceManager->destroy();
+//                                $user->setAccount(new AnonymousUserSession());
+//                               @session_destroy();
+//                               drupal_flush_all_caches();
+
+                       }
+               }
+       }
+       unset($_SESSION['user_oxd_access_token']);
+       unset($_SESSION['user_oxd_id_token']);
+       unset($_SESSION['session_states']);
+       unset($_SESSION['state']);
+       unset($_SESSION['session_in_op']);
+        
+//        $user = \Drupal::currentUser();
+//        $logger = \Drupal::logger('user');
+//        $logger->notice('Session closed for %name.', array(
+//                                             '%name' => $user->getAccountName(),
+//                                         ));
+//         $moduleHandler = \Drupal::moduleHandler();
+//         $moduleHandler->invokeAll('user_logout', array($user,));
+         $drupalServiceManager = \Drupal::service('session_manager');
+         $drupalServiceManager->destroy();
+//         $user->setAccount(new AnonymousUserSession());
+       @session_destroy();
+//       drupal_flush_all_caches();
+       $gluu_custom_logout = $gluu_config['post_logout_redirect_uri'];
+       if (!empty($gluu_custom_logout)) {
+               gluu_sso_goto($gluu_custom_logout);
+               exit;
+       } else {
+               gluu_sso_goto($base_url);
+               exit;
+       }
+}
+

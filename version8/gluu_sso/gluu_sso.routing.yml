@@ -24,10 +24,10 @@ gluu_sso.gluusso_login:
   requirements:
     _permission: 'access content'
 
-gluu_sso.gluusso_logout:
+gluu_sso.gluusso_login_redirect:
   path: '/gluu_sso/gluusloginredirect.php'
   defaults:
-    _controller: '\Drupal\gluu_sso\Controller\gluusso::gluu_sso_logout'
+    _controller: '\Drupal\gluu_sso\Controller\gluusso::gluu_sso_login_redirect'
     _title: 'logout'
   requirements:
     _permission: 'access content'

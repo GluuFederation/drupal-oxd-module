@@ -10,6 +10,7 @@ use Drupal\gluu_sso\Plugin\oxds\Register_site;
 use Drupal\gluu_sso\Plugin\oxds\Get_authorization_url;
 use Drupal\gluu_sso\Plugin\oxds\Get_tokens_by_code;
 use Drupal\gluu_sso\Plugin\oxds\Get_user_info;
+use Drupal\gluu_sso\Plugin\oxds\Gluu_sso_logout;
 use Drupal\user\Entity\User;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -68,6 +69,36 @@ class gluusso extends ControllerBase {
             return $protocol . $hostName . $pathInfo['dirname'] . "/";
         }
     }
+    
+    /**
+     * Getting logout url;
+     */
+    public function gluu_sso_getlogouturl() {
+        $config = \Drupal::config('gluu_sso.default');
+        $oxd_id = $config->get('gluu_oxd_id');
+        $gluu_config = $config->get('gluu_config');
+        $logout = new Gluu_sso_logout();
+        $logout->setRequestOxdId($oxd_id);
+        $logout->setRequestIdToken($_SESSION['user_oxd_id_token']);
+        $logout->setRequestPostLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
+        $logout->setRequestSessionState($_SESSION['session_states']);
+        $logout->setRequestState($_SESSION['state']);
+        $utilities = new Utilities();
+        if($gluu_config["has_registration_endpoint"]){
+            $logout->setRequest_protection_access_token($utilities->get_protection_access_token($config));
+        }
+        if($gluu_config['connection_type'] == 1 || is_null($gluu_config['connection_type'])){
+            $logout->request();
+        }else{
+            $logout->request(rtrim($gluu_config['oxd_web_host'],'/').'/get-logout-uri');
+        }
+        unset($_SESSION['user_oxd_access_token']);
+        unset($_SESSION['user_oxd_id_token']);
+        unset($_SESSION['session_states']);
+        unset($_SESSION['state']);
+        unset($_SESSION['session_in_op']);
+        return $logout->getResponseObject()->data->uri;
+    }
 
     /**
      * Getting authorization url for gluu_sso module;
@@ -125,11 +156,10 @@ class gluusso extends ControllerBase {
             return new \Symfony\Component\HttpFoundation\RedirectResponse(\Drupal::url('user.page'));
         }
     }
-
-    /**
-     * Implements hook_logout().
-     */
-    public function gluu_sso_logout() {
+    
+    
+    
+    public function gluu_sso_login_redirect() {
         $config = $this->config('gluu_sso.default');
         $code = \Drupal::request()->query->get('code');
         $state = \Drupal::request()->query->get('state');
@@ -150,6 +180,13 @@ class gluusso extends ControllerBase {
         }else{
             $get_tokens_by_code->request();
         }
+        
+        $_SESSION['session_in_op'] = $get_tokens_by_code->getResponseIdTokenClaims()->exp[0];
+        $_SESSION['user_oxd_id_token'] = $get_tokens_by_code->getResponseIdToken();
+        $_SESSION['user_oxd_access_token'] = $get_tokens_by_code->getResponseAccessToken();
+        $_SESSION['session_states'] = $_REQUEST['session_state'];
+        $_SESSION['state'] = $_REQUEST['state'];
+        
         $get_tokens_by_code->getResponseAccessToken();
         $get_tokens_by_code_array = array();
         $base_url = self::gluu_sso_getbaseurl();
@@ -159,7 +196,7 @@ class gluusso extends ControllerBase {
         } else {
 
             drupal_set_message('Missing claims : Please talk to your organizational system administrator or try again.');
-            $response = new TrustedRedirectResponse($base_url);
+            $response = new TrustedRedirectResponse(self::gluu_sso_getlogouturl());
             return $response;
         }
         $get_user_info = new Get_user_info();
@@ -187,7 +224,7 @@ class gluusso extends ControllerBase {
         } else {
 
             drupal_set_message('Missing claim : (email). Please talk to your organizational system administrator.');
-            $response = new TrustedRedirectResponse($base_url);
+            $response = new TrustedRedirectResponse(self::gluu_sso_getlogouturl());
             return $response;
         }
 
@@ -215,14 +252,13 @@ class gluusso extends ControllerBase {
             }
             if(!$bool){
                 drupal_set_message('You are not authorized for an account on this application. If you think this is an error, please contact your OpenID Connect Provider (OP) admin.');
-                $response = new TrustedRedirectResponse($base_url);
+                $response = new TrustedRedirectResponse(self::gluu_sso_getlogouturl());
                 return $response;
             }
         }
-        
         if ($reg_email) {
             $user = user_load_by_mail($reg_email);
-            $logouturl = $config->get('gluu_custom_logout');
+            $logouturl = $base_url;
             $gluu_users_can_register = $config->get('gluu_users_can_register');
 
             $gluu_user_role = $config->get('gluu_user_role');
@@ -237,7 +273,7 @@ class gluusso extends ControllerBase {
 
                 if ($gluu_users_can_register == 3) {
                     drupal_set_message('You are not authorized for an account on this application. If you think this is an error, please contact your Drupal admin.');
-                    $response = new TrustedRedirectResponse($base_url);
+                    $response = new TrustedRedirectResponse(self::gluu_sso_getlogouturl());
                     return $response;
                 }
                 $user = User::create();
@@ -275,7 +311,7 @@ class gluusso extends ControllerBase {
             }
         } else {
             drupal_set_message('Missing claim : (email). Please talk to your organizational system administrator.');
-            $response = new TrustedRedirectResponse($base_url);
+            $response = new TrustedRedirectResponse(self::gluu_sso_getlogouturl());
             return $response;
         }
     }
