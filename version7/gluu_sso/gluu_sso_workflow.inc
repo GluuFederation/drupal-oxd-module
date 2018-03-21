@@ -1128,6 +1128,9 @@
 	function gluu_sso_is_port_working_workflow()
 	{
 		$config_option = variable_get('gluu_config');
+                if($config_option['oxd_request_pattern'] == "2"){
+                    return true;
+                }
 		$connection = @fsockopen('127.0.0.1', $config_option['gluu_oxd_port']);
 		if (is_resource($connection)) {
 			fclose($connection);
